@@ -1,4 +1,4 @@
-package edu.andover.cwong.gscq.model;
+package edu.andover.cwong.gscq.model.nav;
 public class Floor {
 	private final Tile[][] floorTiles;
 	public Floor(int x, int y){

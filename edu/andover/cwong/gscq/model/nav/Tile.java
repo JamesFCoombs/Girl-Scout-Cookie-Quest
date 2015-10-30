@@ -1,4 +1,5 @@
-package edu.andover.cwong.gscq.model;
+package edu.andover.cwong.gscq.model.nav;
+
 public class Tile {
 	private final int id;
 	public Tile(int x){
