@@ -6,11 +6,11 @@ public class Floor {
 	private final Tile[][] floorTiles;
 	private final GameEntity[][] units;
 	public Floor(int x, int y) {
-		floorTiles = new Tile[x][y];
-		units = new GameEntity[x][y];
+		floorTiles = new Tile[y][x];
+		units = new GameEntity[y][x];
 	}
 	public Tile getTile(int x,int y) {
-		return floorTiles[x][y];
+		return floorTiles[y][x];
 	}
 	public int getWidth() {
 		return floorTiles[0].length;
