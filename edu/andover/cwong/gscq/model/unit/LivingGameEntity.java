@@ -42,7 +42,6 @@ public class LivingGameEntity extends GameEntity {
         } else {
             throw new IllegalArgumentException("Invalid direction for LGE movement");
         }
-
     }
 
     public void takeDamage(int dmg) {
