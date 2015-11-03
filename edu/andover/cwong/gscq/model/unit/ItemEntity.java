@@ -19,5 +19,8 @@ public class ItemEntity extends GameEntity {
     public boolean addItem(String itemName) {
         return false;
     }
+    
+    public void revertMovement() {}
 
+    public void update() {}
 }

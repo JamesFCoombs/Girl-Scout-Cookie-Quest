@@ -25,6 +25,10 @@ public abstract class GameEntity {
     public abstract void dealWithCollision(GameEntity other);
 
     public abstract boolean addItem(String itemName);
+    
+    public abstract void update();
+    
+    public abstract void revertMovement();
 
     // ------- GET AND SET METHODS -------
 

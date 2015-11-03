@@ -10,6 +10,9 @@ public class LivingGameEntity extends GameEntity {
     private int attack;
     private int attackRange;
     private ArrayList<Item> inventory;
+    
+    private int lastXLocation;
+    private int lastYLocation;
 
     public LivingGameEntity(int xLoc, int yLoc) {
         xLocation = xLoc;
@@ -25,6 +28,9 @@ public class LivingGameEntity extends GameEntity {
     // 3 is down
     // 4 is left
     public void move(int direction) {
+    	lastXLocation = getXLoc();
+    	lastYLocation = getYLoc();
+    	
         if (direction == 1) {
             setXLoc(getYLoc() - 1);
         } else if (direction == 2) {
@@ -65,7 +71,7 @@ public class LivingGameEntity extends GameEntity {
     }
 
     public void dealWithCollision(GameEntity other) {
-        // Stuff
+        other.revertMovement();
     }
 
     public void remove() {
@@ -76,7 +82,14 @@ public class LivingGameEntity extends GameEntity {
 
         super.remove();
     }
+    
+    public void revertMovement() {
+    	setXLoc(lastXLocation);
+    	setYLoc(lastYLocation);
+    }
 
+    public void update() {}
+    
     // ------- STATIC METHODS -------
 
     public static int calculateDamage(int baseDmg, LivingGameEntity attacker, LivingGameEntity defender) {
