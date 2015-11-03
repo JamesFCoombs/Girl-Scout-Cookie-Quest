@@ -25,4 +25,8 @@ public class Floor {
 		// Stuff
 	}
 	
+	public void addGameEntity(GameEntity GE) {
+		//Stuff
+	}
+	
 }
