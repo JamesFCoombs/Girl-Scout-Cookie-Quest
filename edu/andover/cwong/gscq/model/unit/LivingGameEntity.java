@@ -9,12 +9,12 @@ public class LivingGameEntity extends GameEntity{
 	private int defense;
 	private int attack;
 	private int attackRange;
-	private ArrayList<Items> inventory;
+	private ArrayList<Item> inventory;
 	
 	public LivingGameEntity(int xLoc, int yLoc) {
 		xLocation = xLoc;
 		yLocation = yLoc;
-		inventory = new ArrayList<Items>();
+		inventory = new ArrayList<Item>();
 	}
 	
 	// ------- METHODS -------
@@ -68,6 +68,16 @@ public class LivingGameEntity extends GameEntity{
 	
 	public void dealWithCollision(GameEntity other) {
 		// Stuff
+	}
+	
+	public void remove() {
+		for (int i = 0; i < inventory.size(); i++) {
+			getCurFloor().addGameEntity
+			(new ItemEntity(xLocation, yLocation, inventory.get(i).getItemName()));
+			inventory.remove(i);
+		}
+		
+		super.remove();
 	}
 	
 	// ------- STATIC METHODS -------

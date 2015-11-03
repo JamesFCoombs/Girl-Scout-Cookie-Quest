@@ -48,4 +48,8 @@ public abstract class GameEntity {
 	public int getYLoc() {
 		return yLocation;
 	}
+	
+	public Floor getCurFloor() {
+		return curFloor;
+	}
 }
