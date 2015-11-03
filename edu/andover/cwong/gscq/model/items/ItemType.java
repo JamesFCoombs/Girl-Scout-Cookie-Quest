@@ -14,4 +14,11 @@ public abstract class ItemType {
 	public abstract int defenseIncrease();
 	public abstract int healthIncrease();
 
+	public void setItemID(String id) {
+		ItemID = id;
+	}
+	
+	public void toggleEquip() {
+		isEquipped = !isEquipped;
+	}
 }
