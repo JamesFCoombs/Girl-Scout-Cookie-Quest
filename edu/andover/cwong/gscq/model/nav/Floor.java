@@ -19,4 +19,10 @@ public class Floor {
 		return floorTiles.length;
 	}
 	
+	// SOME METHODS ADDED BY JAMES FOR GE'S SAKE
+	
+	public void removeGameEntity(GameEntity GE) {
+		//Stuff
+	}
+	
 }

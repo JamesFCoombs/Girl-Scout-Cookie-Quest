@@ -10,17 +10,22 @@ public abstract class GameEntity {
 	private Floor curFloor;
 	
 	public void remove() {
-		//Stuff
+		curFloor.removeGameEntity(this);
 	}
 	
 	public boolean isInMap() {
-		//Stuff
+		if (curFloor.getWidth() < xLocation || curFloor.getHeight() < yLocation) {
+			return false;
+		}
 		return true;
 	}
 	
-	public void setFloor(Floor newFloor) {
-		curFloor = newFloor;
-	}
+	// ------- ABSTRACT -------
+	
+	// GameEntity other is the thing that moved into this GameEntity.
+	public abstract void dealWithCollision(GameEntity other);
+	
+	public abstract boolean addItem(String itemName);
 	
 	// ------- GET AND SET METHODS -------
 	
@@ -30,6 +35,10 @@ public abstract class GameEntity {
 	
 	public void setYLoc(int yLoc) {
 		yLocation = yLoc;
+	}
+	
+	public void setFloor(Floor newFloor) {
+		curFloor = newFloor;
 	}
 	
 	public int getXLoc() {

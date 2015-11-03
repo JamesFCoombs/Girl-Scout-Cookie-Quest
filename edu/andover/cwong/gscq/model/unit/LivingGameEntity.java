@@ -1,15 +1,20 @@
 package edu.andover.cwong.gscq.model.unit;
 
+import java.util.ArrayList;
+
 public class LivingGameEntity extends GameEntity{
 	
 	private int curHealth;
 	private int maxHealth;
 	private int defense;
 	private int attack;
+	private int attackRange;
+	private ArrayList<Items> inventory;
 	
 	public LivingGameEntity(int xLoc, int yLoc) {
 		xLocation = xLoc;
 		yLocation = yLoc;
+		inventory = new ArrayList<Items>();
 	}
 	
 	// ------- METHODS -------
@@ -43,7 +48,34 @@ public class LivingGameEntity extends GameEntity{
 		}
 	}
 	
+	public boolean canAttack(LivingGameEntity other) {
+		
+		int xDistance = xLocation - other.getXLoc();
+		int yDistance = yLocation - other.getYLoc();
+		double distance = Math.sqrt(xDistance * xDistance + yDistance * yDistance);
+		
+		if (1.0 * attackRange > distance) {
+			return true;
+		}
+		
+		return false;
+	}
 	
+	public boolean addItem(String itemName) {
+		inventory.add(new Item(itemName));
+		return true;
+	}
+	
+	public void dealWithCollision(GameEntity other) {
+		// Stuff
+	}
+	
+	// ------- STATIC METHODS -------
+	
+	public static int calculateDamage(
+			int baseDmg, LivingGameEntity attacker, LivingGameEntity defender) {
+		return baseDmg + attacker.getAttack() - defender.getDefense();
+	}
 	
 	// ------- SET AND GET METHODS -------
 	
@@ -69,6 +101,10 @@ public class LivingGameEntity extends GameEntity{
 		attack = att;
 	}
 	
+	public void setAttackRange(int attRange) {
+		attackRange = attRange;
+	}
+	
 	public int getMaxHealth() {
 		return maxHealth;
 	}
@@ -83,6 +119,10 @@ public class LivingGameEntity extends GameEntity{
 	
 	public int getAttack() {
 		return attack;
+	}
+	
+	public int getAttackRange() {
+		return attackRange;
 	}
 
 }
