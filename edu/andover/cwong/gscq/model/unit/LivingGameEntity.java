@@ -8,6 +8,7 @@ public class LivingGameEntity extends GameEntity {
     private int maxHealth;
     private int defense;
     private int attack;
+    private int baseAttack;
     private int attackRange;
     private ArrayList<Item> inventory;
     
@@ -91,8 +92,8 @@ public class LivingGameEntity extends GameEntity {
     
     // ------- STATIC METHODS -------
 
-    public static int calculateDamage(int baseDmg, LivingGameEntity attacker, LivingGameEntity defender) {
-        return baseDmg + attacker.getAttack() - defender.getDefense();
+    public static int calculateDamage(LivingGameEntity attacker, LivingGameEntity defender) {
+        return attacker.getBaseAttack() + attacker.getAttack() - defender.getDefense();
     }
 
     // ------- SET AND GET METHODS -------
@@ -118,6 +119,10 @@ public class LivingGameEntity extends GameEntity {
     public void setAttack(int att) {
         attack = att;
     }
+    
+    public void setBaseAttack(int att) {
+    	baseAttack = att;
+    }
 
     public void setAttackRange(int attRange) {
         attackRange = attRange;
@@ -137,6 +142,10 @@ public class LivingGameEntity extends GameEntity {
 
     public int getAttack() {
         return attack;
+    }
+    
+    public int getBaseAttack() {
+    	return baseAttack;
     }
 
     public int getAttackRange() {
