@@ -22,15 +22,29 @@ public class Floor {
     public int getHeight() {
         return floorTiles.length;
     }
+    
+    public void step() {
+        for (GameEntity[] row : units) {
+            for (GameEntity unit : row) {
+                unit.update();
+            }
+        }
+    }
 
     // SOME METHODS ADDED BY JAMES FOR GE'S SAKE
 
-    public void removeGameEntity(GameEntity GE) {
-        // Stuff
+    public void removeGameEntity(GameEntity ge) {
+        if (units[ge.getYLoc()][ge.getXLoc()] != ge) {
+            throw new IllegalArgumentException("This unit doesn't exist!");
+        }
+        units[ge.getYLoc()][ge.getXLoc()] = null;
     }
 
-    public void addGameEntity(GameEntity GE) {
-        // Stuff
+    public void addGameEntity(GameEntity ge) {
+        if (units[ge.getYLoc()][ge.getXLoc()] != null) {
+            throw new IllegalArgumentException(
+                    "Can't spawn units on occupied square!");
+        }
+        units[ge.getYLoc()][ge.getXLoc()] = ge;
     }
-
 }

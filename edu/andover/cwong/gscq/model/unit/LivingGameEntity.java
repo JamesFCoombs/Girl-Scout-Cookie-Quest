@@ -21,7 +21,7 @@ public class LivingGameEntity extends GameEntity {
     }
 
     // ------- METHODS -------
-
+    
     // Moves the Entity one unit in the specified direction
     // 1 is up
     // 2 is right
@@ -42,7 +42,6 @@ public class LivingGameEntity extends GameEntity {
         } else {
             throw new IllegalArgumentException("Invalid direction for LGE movement");
         }
-
     }
 
     public void takeDamage(int dmg) {
