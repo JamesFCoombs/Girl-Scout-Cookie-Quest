@@ -78,7 +78,6 @@ public class LivingGameEntity extends GameEntity {
             getCurFloor().addGameEntity(new ItemEntity(xLocation, yLocation, inventory.get(i).getItemName()));
             inventory.remove(i);
         }
-
         super.remove();
     }
     

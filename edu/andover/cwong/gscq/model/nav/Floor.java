@@ -31,8 +31,6 @@ public class Floor {
         }
     }
 
-    // SOME METHODS ADDED BY JAMES FOR GE'S SAKE
-
     public void removeGameEntity(GameEntity ge) {
         if (units[ge.getYLoc()][ge.getXLoc()] != ge) {
             throw new IllegalArgumentException("This unit doesn't exist!");
