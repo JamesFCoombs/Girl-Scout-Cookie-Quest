@@ -22,7 +22,7 @@ public class Floor {
 	// SOME METHODS ADDED BY JAMES FOR GE'S SAKE
 	
 	public void removeGameEntity(GameEntity GE) {
-		//Stuff
+		// Stuff
 	}
 	
 	public void addGameEntity(GameEntity GE) {
