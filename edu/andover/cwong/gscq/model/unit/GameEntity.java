@@ -25,6 +25,8 @@ public abstract class GameEntity {
     public abstract void dealWithCollision(GameEntity other);
 
     public abstract boolean addItem(String itemName);
+    
+    public abstract void update();
 
     // ------- GET AND SET METHODS -------
 

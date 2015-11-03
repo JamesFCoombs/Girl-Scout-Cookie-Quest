@@ -15,9 +15,10 @@ public class ItemEntity extends GameEntity {
             remove();
         }
     }
+    
+    public void update() { return; }
 
     public boolean addItem(String itemName) {
         return false;
     }
-
 }

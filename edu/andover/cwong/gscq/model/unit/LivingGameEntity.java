@@ -18,7 +18,13 @@ public class LivingGameEntity extends GameEntity {
     }
 
     // ------- METHODS -------
-
+    
+    
+    // TODO
+    public void update() {
+        System.out.println("we gotta update dis!");
+    }
+    
     // Moves the Entity one unit in the specified direction
     // 1 is up
     // 2 is right
