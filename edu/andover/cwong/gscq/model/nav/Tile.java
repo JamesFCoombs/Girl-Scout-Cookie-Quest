@@ -8,7 +8,7 @@ public class Tile {
 	}
 	
 	public Tile() {
-		id=1;
+		id=0;
 	}
 	
 	public int getID() {

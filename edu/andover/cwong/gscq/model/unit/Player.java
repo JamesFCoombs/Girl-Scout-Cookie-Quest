@@ -8,7 +8,4 @@ public class Player extends LivingGameEntity {
 		setDefense(0);
 		setAttack(0);
 	}
-	
-	
-
 }
