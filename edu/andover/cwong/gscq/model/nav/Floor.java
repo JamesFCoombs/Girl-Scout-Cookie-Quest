@@ -47,5 +47,4 @@ public class Floor {
         }
         units[ge.getYLoc()][ge.getXLoc()] = ge;
     }
-
 }
