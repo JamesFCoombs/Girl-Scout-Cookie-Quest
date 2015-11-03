@@ -13,5 +13,8 @@ public class CookiePan extends ItemType{
 	public int defenseIncrease() {
 		return 0;
 	}
-
+	
+	public int healthIncrease () {
+		return 0;
+	}
 }

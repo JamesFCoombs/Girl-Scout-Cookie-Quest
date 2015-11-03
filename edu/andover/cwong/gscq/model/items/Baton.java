@@ -1,13 +1,13 @@
 package edu.andover.cwong.gscq.model.items;
 
-public class Heel extends ItemType{
-	
+public class Baton extends ItemType {
+
 	public String getDescription() {
-		return "Gains 8 extra attack\nwhen equipped.";
+		return "Whack them across\nthe head!\n+9 attack.";
 	}
 
 	public int attackIncrease() {
-		return 8;
+		return 9;
 	}
 
 	public int defenseIncrease() {

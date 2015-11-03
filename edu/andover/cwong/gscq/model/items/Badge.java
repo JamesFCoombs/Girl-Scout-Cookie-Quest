@@ -1,17 +1,16 @@
 package edu.andover.cwong.gscq.model.items;
 
-public class Heel extends ItemType{
-	
+public class Badge extends ItemType {
 	public String getDescription() {
-		return "Gains 8 extra attack\nwhen equipped.";
+		return "Badge of honor.\n+2 defense.";
 	}
 
 	public int attackIncrease() {
-		return 8;
+		return 0;
 	}
 
 	public int defenseIncrease() {
-		return 0;
+		return 2;
 	}
 	
 	public int healthIncrease () {

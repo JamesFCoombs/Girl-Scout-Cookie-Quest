@@ -1,17 +1,16 @@
 package edu.andover.cwong.gscq.model.items;
 
-public class Heel extends ItemType{
-	
+public class Lipstick extends ItemType {
 	public String getDescription() {
-		return "Gains 8 extra attack\nwhen equipped.";
+		return "Boys go crazy\n at your red lips.\n+6 defense";
 	}
 
 	public int attackIncrease() {
-		return 8;
+		return 0;
 	}
 
 	public int defenseIncrease() {
-		return 0;
+		return 6;
 	}
 	
 	public int healthIncrease () {
