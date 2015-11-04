@@ -33,11 +33,11 @@ public class LivingGameEntity extends GameEntity {
     	lastYLocation = getYLoc();
     	
         if (direction == 1) {
-            setXLoc(getYLoc() - 1);
+            setYLoc(getYLoc() - 1);
         } else if (direction == 2) {
             setXLoc(getXLoc() + 1);
         } else if (direction == 3) {
-            setXLoc(getYLoc() + 1);
+            setYLoc(getYLoc() + 1);
         } else if (direction == 4) {
             setXLoc(getXLoc() - 1);
         } else {
@@ -58,10 +58,10 @@ public class LivingGameEntity extends GameEntity {
         int yDistance = yLocation - other.getYLoc();
         double distance = Math.sqrt(xDistance * xDistance + yDistance * yDistance);
 
-        if (1.0 * attackRange > distance) {
+        if (1.0 * attackRange >= distance) {
             return true;
         }
-
+        
         return false;
     }
 
@@ -87,7 +87,18 @@ public class LivingGameEntity extends GameEntity {
     	setYLoc(lastYLocation);
     }
 
-    public void update() {}
+    public void update() {
+    	int bonusAttack = 0;
+    	int bonusDefense = 0;
+    	for (int i = 0; i < inventory.size(); i++) {
+    		if (inventory.get(i).getItem().isEquipped()) {
+    			bonusAttack += inventory.get(i).getItem().attackIncrease();
+    			bonusDefense += inventory.get(i).getItem().defenseIncrease();
+    		}
+    	}
+    	setAttack(bonusAttack);
+    	setDefense(bonusDefense);
+    }
     
     // ------- STATIC METHODS -------
 
@@ -149,6 +160,10 @@ public class LivingGameEntity extends GameEntity {
 
     public int getAttackRange() {
         return attackRange;
+    }
+    
+    public ArrayList<Item> getInventory() {
+    	return inventory;
     }
 
 }

@@ -25,6 +25,8 @@ public class Enemy extends LivingGameEntity{
 	
 	public void update() {
 		
+		super.update();
+		
 		if (canAttack(player)) {
 			attackPlayer();
 			return;

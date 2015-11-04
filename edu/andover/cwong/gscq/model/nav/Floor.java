@@ -26,7 +26,9 @@ public class Floor {
     public void step() {
         for (GameEntity[] row : units) {
             for (GameEntity unit : row) {
-                unit.update();
+            	if (unit != null) {
+            		unit.update();
+            	}
             }
         }
     }

@@ -21,4 +21,8 @@ public abstract class ItemType {
 	public void toggleEquip() {
 		isEquipped = !isEquipped;
 	}
+	
+	public boolean isEquipped() {
+		return isEquipped;
+	}
 }
