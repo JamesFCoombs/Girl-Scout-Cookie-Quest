@@ -1,6 +1,10 @@
 package edu.andover.cwong.gscq.model.items;
 
-public class CootieShot extends ItemType {
+public class CootieShot extends Item {
+	
+	public CootieShot() {
+		ItemID = "CootieShot";
+	}
 	
 	public String getDescription() {
 		return "Protects against cooties!\n+2 health.";

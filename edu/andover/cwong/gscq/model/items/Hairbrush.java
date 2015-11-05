@@ -1,6 +1,10 @@
 package edu.andover.cwong.gscq.model.items;
 
-public class Hairbrush extends ItemType{
+public class Hairbrush extends Item{
+	
+	public Hairbrush() {
+		ItemID = "Hairbrush";
+	}
 
 	public String getDescription() {
 		return "Gain 2 attack\nwhen equipped.";

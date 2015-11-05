@@ -10,7 +10,7 @@ public class EntityTester {
 		Player player = new Player(8, 8);
 		Enemy enemy1 = new Enemy(3, 3);
 		Enemy enemy2 = new Enemy(8, 7);
-		ItemEntity badge = new ItemEntity(8, 9, "Badge");
+		ItemEntity badge = new ItemEntity(8, 9, "Sash");
 		
 		enemy1.setPlayer(player);
 		enemy2.setPlayer(player);
@@ -35,7 +35,7 @@ public class EntityTester {
 		floor.step();
 		
 		System.out.println(player.getXLoc() + ", " + player.getYLoc());
-		System.out.println(player.getInventory().get(0).getItemName());
+		System.out.println(player.getInventory().get(0).getItemID());
 	}
 	
 }
