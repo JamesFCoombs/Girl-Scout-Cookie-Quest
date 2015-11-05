@@ -40,7 +40,7 @@ public class Floor {
     	if (units[yLoc][xLoc] != null) {
     		units[yLoc][xLoc].dealWithCollision(lge);
     	} else {
-    		units[lge.getLastXLocation()][lge.getLastYLocation()] = null;
+    		units[lge.getLastYLocation()][lge.getLastXLocation()] = null;
     		units[yLoc][xLoc] = lge;
     	}
     }
