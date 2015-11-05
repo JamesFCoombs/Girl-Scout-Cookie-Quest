@@ -25,6 +25,10 @@ public abstract class CookieRecipe extends ItemType {
 		return 0;
 	}
 	
+	public int healthIncrease() {
+		return 0;
+	}
+
 	public void setCounter(int stCnt) {
 		counter = stCnt;
 	}
