@@ -2,6 +2,8 @@ package edu.andover.cwong.gscq.model.unit;
 
 import java.util.ArrayList;
 
+import edu.andover.cwong.gscq.model.items.Item;
+
 public class LivingGameEntity extends GameEntity {
 
     private int curHealth;
@@ -28,21 +30,36 @@ public class LivingGameEntity extends GameEntity {
     // 2 is right
     // 3 is down
     // 4 is left
-    public void move(int direction) {
+    public boolean move(int direction) {
     	lastXLocation = getXLoc();
     	lastYLocation = getYLoc();
     	
+    	// down
         if (direction == 1) {
             setYLoc(getYLoc() - 1);
+        // right
         } else if (direction == 2) {
             setXLoc(getXLoc() + 1);
+        // up
         } else if (direction == 3) {
             setYLoc(getYLoc() + 1);
+        // left
         } else if (direction == 4) {
             setXLoc(getXLoc() - 1);
         } else {
-            throw new IllegalArgumentException("Invalid direction for LGE movement");
+            throw new IllegalArgumentException(
+                    "Invalid direction for LGE movement");
         }
+
+        if (!isInMap()) {
+        	revertMovement();
+        	System.out.println("False");
+        	return false;
+        }
+        System.out.println("True");
+        curFloor.unitHasMoved(this, xLocation, yLocation);
+        
+        return true;
     }
 
     public void takeDamage(int dmg) {
@@ -65,8 +82,8 @@ public class LivingGameEntity extends GameEntity {
         return false;
     }
 
-    public boolean addItem(String itemName) {
-        inventory.add(new Item(itemName));
+    public boolean addItem(Item item) {
+        inventory.add(item);
         return true;
     }
 
@@ -75,11 +92,11 @@ public class LivingGameEntity extends GameEntity {
     }
 
     public void remove() {
+        super.remove();
         for (int i = 0; i < inventory.size(); i++) {
-            getCurFloor().addGameEntity(new ItemEntity(xLocation, yLocation, inventory.get(i).getItemName()));
+            getCurFloor().addGameEntity(new ItemEntity(xLocation, yLocation, inventory.get(i).getItemID()));
             inventory.remove(i);
         }
-        super.remove();
     }
     
     public void revertMovement() {
@@ -91,9 +108,9 @@ public class LivingGameEntity extends GameEntity {
     	int bonusAttack = 0;
     	int bonusDefense = 0;
     	for (int i = 0; i < inventory.size(); i++) {
-    		if (inventory.get(i).getItem().isEquipped()) {
-    			bonusAttack += inventory.get(i).getItem().attackIncrease();
-    			bonusDefense += inventory.get(i).getItem().defenseIncrease();
+    		if (inventory.get(i).isEquipped()) {
+    			bonusAttack += inventory.get(i).attackIncrease();
+    			bonusDefense += inventory.get(i).defenseIncrease();
     		}
     	}
     	setAttack(bonusAttack);
@@ -164,6 +181,14 @@ public class LivingGameEntity extends GameEntity {
     
     public ArrayList<Item> getInventory() {
     	return inventory;
+    }
+    
+    public int getLastXLocation() {
+    	return lastXLocation;
+    }
+    
+    public int getLastYLocation() {
+    	return lastYLocation;
     }
 
 }

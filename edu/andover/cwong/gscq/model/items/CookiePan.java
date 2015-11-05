@@ -1,6 +1,10 @@
 package edu.andover.cwong.gscq.model.items;
 
-public class CookiePan extends ItemType{
+public class CookiePan extends Item{
+	
+	public CookiePan() {
+		ItemID = "CookiePan";
+	}
 	
 	public String getDescription() {
 		return "WHAM!!\n+6 attack.";

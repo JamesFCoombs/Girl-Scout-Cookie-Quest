@@ -1,6 +1,11 @@
 package edu.andover.cwong.gscq.model.items;
 
-public class Badge extends ItemType {
+public class Badge extends Item {
+	
+	public Badge() {
+		ItemID = "Badge";
+	}
+	
 	public String getDescription() {
 		return "Badge of honor.\n+2 defense.";
 	}

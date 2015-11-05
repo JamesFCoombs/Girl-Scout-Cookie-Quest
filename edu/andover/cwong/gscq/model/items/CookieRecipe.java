@@ -1,6 +1,6 @@
 package edu.andover.cwong.gscq.model.items;
 
-public abstract class CookieRecipe extends ItemType {
+public abstract class CookieRecipe extends Item {
 	
 	public abstract String getDescription();
 	

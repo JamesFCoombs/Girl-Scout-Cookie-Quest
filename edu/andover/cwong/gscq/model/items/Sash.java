@@ -1,6 +1,11 @@
 package edu.andover.cwong.gscq.model.items;
 
-public class Sash extends ItemType{
+public class Sash extends Item{
+	
+	public Sash() {
+		ItemID = "Sash";
+	}
+	
 	public String getDescription() {
 		return "Gain 1 defense\nwhen equipped.";
 	}
