@@ -1,6 +1,10 @@
 package edu.andover.cwong.gscq.model.items;
 
-public class Doll extends ItemType{
+public class Doll extends Item{
+	
+	public Doll() {
+		ItemID = "Doll";
+	}
 
 	public String getDescription() {
 		return "The aura of the doll\n protects you./n+10 defense";

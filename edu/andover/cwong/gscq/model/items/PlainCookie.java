@@ -13,4 +13,9 @@ public class PlainCookie extends CookieRecipe{
 		return "The default recipe,\nprovides one cookie per step.";
 	}
 
+    @Override
+    public int healthIncrease() {
+        return 0;
+    }
+
 }

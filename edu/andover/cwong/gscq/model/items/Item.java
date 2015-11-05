@@ -1,8 +1,8 @@
 package edu.andover.cwong.gscq.model.items;
 
-public abstract class ItemType {
+public abstract class Item {
 	
-	private String ItemID;
+	protected String ItemID;
 	private boolean isEquipped;
 	
 	public boolean checkIfIsItem(String str) {
@@ -18,7 +18,15 @@ public abstract class ItemType {
 		ItemID = id;
 	}
 	
+	public String getItemID() {
+		return ItemID;
+	}
+	
 	public void toggleEquip() {
 		isEquipped = !isEquipped;
+	}
+	
+	public boolean isEquipped() {
+		return isEquipped;
 	}
 }
