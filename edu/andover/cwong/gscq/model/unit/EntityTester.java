@@ -1,6 +1,7 @@
 package edu.andover.cwong.gscq.model.unit;
 
 import edu.andover.cwong.gscq.model.nav.Floor;
+import java.util.Scanner;
 
 public class EntityTester {
 	
@@ -36,6 +37,17 @@ public class EntityTester {
 		
 		System.out.println(player.getXLoc() + ", " + player.getYLoc());
 		System.out.println(player.getInventory().get(0).getItemID());
+		
+		Scanner kbrd = new Scanner(System.in);
+		for (int i = 0; i < 20; i++) {
+			int x = kbrd.nextInt();
+			player.move(x);
+			
+			floor.step();
+			
+			System.out.println(player.getCurHealth());
+			System.out.println(player.getXLoc() + ", " + player.getYLoc());
+		}
 	}
 	
 }

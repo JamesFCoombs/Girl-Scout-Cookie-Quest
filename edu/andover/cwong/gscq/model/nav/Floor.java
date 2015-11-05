@@ -1,6 +1,7 @@
 package edu.andover.cwong.gscq.model.nav;
 
 import edu.andover.cwong.gscq.model.unit.GameEntity;
+import edu.andover.cwong.gscq.model.unit.LivingGameEntity;
 
 // Represents a "grid" of terrain types and units on the floor.
 public class Floor {
@@ -35,6 +36,15 @@ public class Floor {
         }
     }
 
+    public void unitHasMoved(LivingGameEntity lge, int xLoc, int yLoc) {
+    	if (units[xLoc][yLoc] != null) {
+    		units[xLoc][yLoc].dealWithCollision(lge);
+    	} else {
+    		units[lge.getLastXLocation()][lge.getLastYLocation()] = null;
+    		units[xLoc][yLoc] = lge;
+    	}
+    }
+    
     public void removeGameEntity(GameEntity ge) {
         if (units[ge.getYLoc()][ge.getXLoc()] != ge) {
             throw new IllegalArgumentException("This unit doesn't exist!");

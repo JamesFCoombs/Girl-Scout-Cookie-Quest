@@ -7,7 +7,7 @@ public abstract class GameEntity {
     int xLocation;
     int yLocation;
 
-    private Floor curFloor;
+    protected Floor curFloor;
 
     public void remove() {
         curFloor.removeGameEntity(this);

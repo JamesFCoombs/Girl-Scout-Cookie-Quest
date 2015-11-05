@@ -37,39 +37,28 @@ public class LivingGameEntity extends GameEntity {
     	// down
         if (direction == 1) {
             setYLoc(getYLoc() - 1);
-            if (!isInMap()) {
-            	revertMovement();
-            	return false;
-            }
-            return true;
         // right
         } else if (direction == 2) {
             setXLoc(getXLoc() + 1);
-            if (!isInMap()) {
-            	revertMovement();
-            	return false;
-            }
-            return true;
         // up
         } else if (direction == 3) {
             setYLoc(getYLoc() + 1);
-            if (!isInMap()) {
-            	revertMovement();
-            	return false;
-            }
-            return true;
         // left
         } else if (direction == 4) {
             setXLoc(getXLoc() - 1);
-            if (!isInMap()) {
-            	revertMovement();
-            	return false;
-            }
-            return true;
         } else {
             throw new IllegalArgumentException(
                     "Invalid direction for LGE movement");
         }
+
+        if (!isInMap()) {
+        	revertMovement();
+        	return false;
+        }
+        
+        curFloor.unitHasMoved(this, xLocation, yLocation);
+        
+        return true;
     }
 
     public void takeDamage(int dmg) {
@@ -103,7 +92,7 @@ public class LivingGameEntity extends GameEntity {
 
     public void remove() {
         for (int i = 0; i < inventory.size(); i++) {
-            getCurFloor().addGameEntity(new ItemEntity(xLocation, yLocation, inventory.get(i).getItemID()));
+            getCurFloor().removeGameEntity(new ItemEntity(xLocation, yLocation, inventory.get(i).getItemID()));
             inventory.remove(i);
         }
         super.remove();
@@ -191,6 +180,14 @@ public class LivingGameEntity extends GameEntity {
     
     public ArrayList<Item> getInventory() {
     	return inventory;
+    }
+    
+    public int getLastXLocation() {
+    	return lastXLocation;
+    }
+    
+    public int getLastYLocation() {
+    	return lastYLocation;
     }
 
 }
