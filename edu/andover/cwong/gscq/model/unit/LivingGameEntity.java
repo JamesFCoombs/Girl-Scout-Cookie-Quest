@@ -30,7 +30,6 @@ public class LivingGameEntity extends GameEntity {
     // 2 is right
     // 3 is down
     // 4 is left
-    // TODO: change it to return a boolean of whether movement is possible
     public boolean move(int direction) {
     	lastXLocation = getXLoc();
     	lastYLocation = getYLoc();
