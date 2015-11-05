@@ -5,8 +5,8 @@ import edu.andover.cwong.gscq.model.unit.LivingGameEntity;
 
 // Represents a "grid" of terrain types and units on the floor.
 public class Floor {
-    private Tile[][] floorTiles;
-    private GameEntity[][] units;
+    public Tile[][] floorTiles;
+    public GameEntity[][] units;
 
     // can we get rid of this ASAP
     public Floor(int x, int y) {

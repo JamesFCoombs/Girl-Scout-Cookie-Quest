@@ -1,12 +1,16 @@
 package edu.andover.cwong.gscq.model.unit;
 
 import edu.andover.cwong.gscq.model.nav.Floor;
+import edu.andover.cwong.gscq.model.nav.Tile;
+
 import java.util.Scanner;
 
 public class EntityTester {
 	
+	private static Floor floor;
+	
 	public static void main(String[] args) {
-		Floor floor = new Floor(10, 10);
+		floor = new Floor(10, 10);
 		
 		Player player = new Player(8, 8);
 		Enemy enemy1 = new Enemy(3, 3);
@@ -27,25 +31,29 @@ public class EntityTester {
 		enemy2.setFloor(floor);
 		badge.setFloor(floor);
 		
-		floor.step();
-		
-		System.out.println(player.getCurHealth());
-		player.move(3);
-		
-		floor.step();
-		
-		System.out.println(player.getXLoc() + ", " + player.getYLoc());
-		System.out.println(player.getInventory().get(0).getItemID());
-		
 		Scanner kbrd = new Scanner(System.in);
-		for (int i = 0; i < 20; i++) {
+		for (int i = 0; i < 50; i++) {
+			displayMap();
 			int x = kbrd.nextInt();
 			player.move(x);
 			
 			floor.step();
 			
-			System.out.println(player.getCurHealth());
-			System.out.println(player.getXLoc() + ", " + player.getYLoc());
+			System.out.println("HP: " + player.getCurHealth());
+			
+		}
+	}
+	
+	public static void displayMap() {
+		for (int i = 0; i < floor.getHeight(); i++) {
+			for (int j = 0; j < floor.getWidth(); j++) {
+				if (floor.units[i][j] != null) {
+					System.out.print("X\t");
+				} else {
+					System.out.print("+\t");
+				}
+			}
+			System.out.println();			
 		}
 	}
 	
