@@ -37,11 +37,11 @@ public class Floor {
     }
 
     public void unitHasMoved(LivingGameEntity lge, int xLoc, int yLoc) {
-    	if (units[xLoc][yLoc] != null) {
-    		units[xLoc][yLoc].dealWithCollision(lge);
+    	if (units[yLoc][xLoc] != null) {
+    		units[yLoc][xLoc].dealWithCollision(lge);
     	} else {
     		units[lge.getLastXLocation()][lge.getLastYLocation()] = null;
-    		units[xLoc][yLoc] = lge;
+    		units[yLoc][xLoc] = lge;
     	}
     }
     

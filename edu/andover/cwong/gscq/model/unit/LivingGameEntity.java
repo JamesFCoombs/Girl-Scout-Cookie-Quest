@@ -53,9 +53,10 @@ public class LivingGameEntity extends GameEntity {
 
         if (!isInMap()) {
         	revertMovement();
+        	System.out.println("False");
         	return false;
         }
-        
+        System.out.println("True");
         curFloor.unitHasMoved(this, xLocation, yLocation);
         
         return true;
@@ -91,11 +92,11 @@ public class LivingGameEntity extends GameEntity {
     }
 
     public void remove() {
+        super.remove();
         for (int i = 0; i < inventory.size(); i++) {
-            getCurFloor().removeGameEntity(new ItemEntity(xLocation, yLocation, inventory.get(i).getItemID()));
+            getCurFloor().addGameEntity(new ItemEntity(xLocation, yLocation, inventory.get(i).getItemID()));
             inventory.remove(i);
         }
-        super.remove();
     }
     
     public void revertMovement() {

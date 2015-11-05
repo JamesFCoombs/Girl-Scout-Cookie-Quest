@@ -31,7 +31,6 @@ public class EntityTester {
 		
 		System.out.println(player.getCurHealth());
 		player.move(3);
-		badge.dealWithCollision(player);
 		
 		floor.step();
 		
