@@ -1,7 +1,6 @@
 package edu.andover.cwong.gscq.model.unit;
 
 public class Player extends LivingGameEntity {
-
     public Player(int xLoc, int yLoc) {
         super(xLoc, yLoc);
         initializeMaxHealth(10);
@@ -13,5 +12,11 @@ public class Player extends LivingGameEntity {
     public void remove() {
     	System.out.println("End the game.");
     	super.remove();
+    }
+    
+    // Spawns the player unit. TODO
+    public static Player init() {
+        // TODO: fix this
+        return new Player(5, 5);
     }
 }

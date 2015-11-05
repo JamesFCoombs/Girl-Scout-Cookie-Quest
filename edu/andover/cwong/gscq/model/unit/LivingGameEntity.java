@@ -2,6 +2,8 @@ package edu.andover.cwong.gscq.model.unit;
 
 import java.util.ArrayList;
 
+import edu.andover.cwong.gscq.model.items.Item;
+
 public class LivingGameEntity extends GameEntity {
 
     private int curHealth;
@@ -28,20 +30,26 @@ public class LivingGameEntity extends GameEntity {
     // 2 is right
     // 3 is down
     // 4 is left
+    // TODO: change it to return a boolean of whether movement is possible
     public void move(int direction) {
     	lastXLocation = getXLoc();
     	lastYLocation = getYLoc();
     	
+    	// down
         if (direction == 1) {
             setYLoc(getYLoc() - 1);
+        // right
         } else if (direction == 2) {
             setXLoc(getXLoc() + 1);
+        // up
         } else if (direction == 3) {
             setYLoc(getYLoc() + 1);
+        // left
         } else if (direction == 4) {
             setXLoc(getXLoc() - 1);
         } else {
-            throw new IllegalArgumentException("Invalid direction for LGE movement");
+            throw new IllegalArgumentException(
+                    "Invalid direction for LGE movement");
         }
     }
 
