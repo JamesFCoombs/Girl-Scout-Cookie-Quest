@@ -11,12 +11,17 @@ import javafx.scene.layout.BorderPane;
 import javafx.util.Duration;
 import java.io.IOException;
 
+<<<<<<< HEAD
 import edu.andover.cwong.gscq.view.GameViewer;
 import edu.andover.cwong.gscq.control.KeyController;
 import edu.andover.cwong.gscq.model.Game;
 
 // The "master" class - exists outside of MVC. Coordinates the three and handles
 // file IO for the various FXML (view) files.
+=======
+import edu.andover.cwong.gscq.control.GameController;
+
+>>>>>>> 5c4ed2413e1cd66e0d5c8206408c3e214b214551
 public class GSCQRunner extends Application {
     // JFX-related stage/scene things
     private Stage primaryStage;
@@ -33,9 +38,28 @@ public class GSCQRunner extends Application {
     public void start(Stage s) throws Exception {
         this.primaryStage = s;
         this.primaryStage.setTitle("Girl Scout Cookie Quest!");
+<<<<<<< HEAD
         startGame();
         initRoot();
         initContainer();
+=======
+        initRoot();
+        initContainer();
+    }
+    
+    public void initRoot() {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    GSCQRunner.class.getResource("view/RootFrame.fxml"));
+            layoutRoot = loader.load();
+            this.primaryStage.setScene(new Scene(layoutRoot));
+            this.primaryStage.setResizable(false);
+            this.primaryStage.sizeToScene();
+        } catch (IOException e) {
+            System.err.println("Unable to load root layout. Aborting");
+            System.exit(-1);
+        }
+>>>>>>> 5c4ed2413e1cd66e0d5c8206408c3e214b214551
     }
     
     // Initializes the game state to a "base" condition, with a single floor
@@ -69,6 +93,7 @@ public class GSCQRunner extends Application {
             FXMLLoader loader = new FXMLLoader(
                     GSCQRunner.class.getResource("view/GameContainer.fxml"));
             AnchorPane gameContainer = loader.load();
+<<<<<<< HEAD
             // Let's get this party started
             viewer = loader.getController();
             viewer.setOwner(state);
@@ -88,6 +113,11 @@ public class GSCQRunner extends Application {
             tl.setCycleCount(Timeline.INDEFINITE);
             tl.play();
             // Now that we're all set up, we can show our window.
+=======
+            GameController ctrlr = loader.getController();
+            ctrlr.setOwner(this);
+            layoutRoot.setCenter(gameContainer);
+>>>>>>> 5c4ed2413e1cd66e0d5c8206408c3e214b214551
             this.primaryStage.show();
         } catch (IOException e) {
             System.err.println("Unable to load game layout. Aborting");

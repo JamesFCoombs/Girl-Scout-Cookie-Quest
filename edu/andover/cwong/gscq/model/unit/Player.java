@@ -10,6 +10,10 @@ public class Player extends LivingGameEntity {
         setBaseAttack(6);
     }
     
+<<<<<<< HEAD
+    
+=======
+>>>>>>> 2cf1759a9ea0a422420ba3e30569afdf87937fff
     public void remove() {
     	System.out.println("End the game.");
     	super.remove();
