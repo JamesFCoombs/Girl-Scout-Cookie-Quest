@@ -1,7 +1,9 @@
 package edu.andover.cwong.gscq.view;
 
 import javafx.fxml.FXML;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.control.Label;
 
 import edu.andover.cwong.gscq.model.Game;
@@ -12,13 +14,18 @@ public class GameViewer {
     private Game owner;
     
     @FXML
-    AnchorPane gamePanel;
+    Canvas gameCanvas;
     @FXML
     Label hpLabel;
     @FXML
     Label atkLabel;
     @FXML
     Label defLabel;
+    
+    
+    public void refreshCanvas() {
+        
+    }
     
     public void refreshHUD() {
         hpLabel.setText(owner.formatPlayerHP());
