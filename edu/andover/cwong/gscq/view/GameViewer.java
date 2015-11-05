@@ -4,6 +4,9 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.control.Label;
 
 import edu.andover.cwong.gscq.model.Game;
@@ -21,10 +24,37 @@ public class GameViewer {
     Label atkLabel;
     @FXML
     Label defLabel;
-    
+
+
+	@FXML
+	private GridPane gameGrid ;
+
+
+	private ImageView[] visibleTiles ;
+
+    private final int numTiles = 36 ;
+    private final int numTilesPerRow = 6 ;
+	
+	
+    public void initialize(){
+	    visibleTiles = new ImageView[numTiles];
+	    for (int i=0; i<numTiles; i++) {
+	        ImageView tileImage = new ImageView(new Image("file:res/3.png"));
+	        visibleTiles[i] = tileImage ;
+	        gameGrid.add(visibleTiles[i], i % numTilesPerRow, i / numTilesPerRow);
+	    }
+    }
     
     public void refreshCanvas() {
-        
+	    visibleTiles = new ImageView[numTiles];
+	    for (int i=0; i<numTiles; i++) {
+	        ImageView tileImage = new ImageView(new Image(
+	        		"file:res/3.png"
+	        		//change this to be the correct thing once we know it works
+	        		));
+	        visibleTiles[i] = tileImage ;
+	        gameGrid.add(visibleTiles[i], i % numTilesPerRow, i / numTilesPerRow);
+	    }
     }
     
     public void refreshHUD() {
