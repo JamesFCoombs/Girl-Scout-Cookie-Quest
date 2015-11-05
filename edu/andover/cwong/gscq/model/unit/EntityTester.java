@@ -1,7 +1,6 @@
 package edu.andover.cwong.gscq.model.unit;
 
 import edu.andover.cwong.gscq.model.nav.Floor;
-import edu.andover.cwong.gscq.model.nav.Tile;
 
 import java.util.Scanner;
 
@@ -19,7 +18,6 @@ public class EntityTester {
 		
 		enemy1.setPlayer(player);
 		enemy2.setPlayer(player);
-		//GameEntity badge = new ItemEntity(8, 8, "Badge");
 		
 		floor.addGameEntity(player);
 		floor.addGameEntity(enemy1);
@@ -56,5 +54,4 @@ public class EntityTester {
 			System.out.println();			
 		}
 	}
-	
 }
