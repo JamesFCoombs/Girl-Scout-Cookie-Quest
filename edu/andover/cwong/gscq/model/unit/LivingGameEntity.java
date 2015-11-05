@@ -30,8 +30,7 @@ public class LivingGameEntity extends GameEntity {
     // 2 is right
     // 3 is down
     // 4 is left
-    // TODO: change it to return a boolean of whether movement is possible
-    public void move(int direction) {
+    public boolean move(int direction) {
     	lastXLocation = getXLoc();
     	lastYLocation = getYLoc();
     	
@@ -51,6 +50,16 @@ public class LivingGameEntity extends GameEntity {
             throw new IllegalArgumentException(
                     "Invalid direction for LGE movement");
         }
+
+        if (!isInMap()) {
+        	revertMovement();
+        	System.out.println("False");
+        	return false;
+        }
+        System.out.println("True");
+        curFloor.unitHasMoved(this, xLocation, yLocation);
+        
+        return true;
     }
 
     public void takeDamage(int dmg) {
@@ -73,8 +82,8 @@ public class LivingGameEntity extends GameEntity {
         return false;
     }
 
-    public boolean addItem(String itemName) {
-        inventory.add(new Item(itemName));
+    public boolean addItem(Item item) {
+        inventory.add(item);
         return true;
     }
 
@@ -83,11 +92,11 @@ public class LivingGameEntity extends GameEntity {
     }
 
     public void remove() {
+        super.remove();
         for (int i = 0; i < inventory.size(); i++) {
-            getCurFloor().addGameEntity(new ItemEntity(xLocation, yLocation, inventory.get(i).getItemName()));
+            getCurFloor().addGameEntity(new ItemEntity(xLocation, yLocation, inventory.get(i).getItemID()));
             inventory.remove(i);
         }
-        super.remove();
     }
     
     public void revertMovement() {
@@ -99,9 +108,9 @@ public class LivingGameEntity extends GameEntity {
     	int bonusAttack = 0;
     	int bonusDefense = 0;
     	for (int i = 0; i < inventory.size(); i++) {
-    		if (inventory.get(i).getItem().isEquipped()) {
-    			bonusAttack += inventory.get(i).getItem().attackIncrease();
-    			bonusDefense += inventory.get(i).getItem().defenseIncrease();
+    		if (inventory.get(i).isEquipped()) {
+    			bonusAttack += inventory.get(i).attackIncrease();
+    			bonusDefense += inventory.get(i).defenseIncrease();
     		}
     	}
     	setAttack(bonusAttack);
@@ -172,6 +181,14 @@ public class LivingGameEntity extends GameEntity {
     
     public ArrayList<Item> getInventory() {
     	return inventory;
+    }
+    
+    public int getLastXLocation() {
+    	return lastXLocation;
+    }
+    
+    public int getLastYLocation() {
+    	return lastYLocation;
     }
 
 }

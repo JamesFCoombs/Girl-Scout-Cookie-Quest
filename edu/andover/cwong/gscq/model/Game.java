@@ -1,3 +1,4 @@
+
 package edu.andover.cwong.gscq.model;
 
 import java.util.ArrayList;

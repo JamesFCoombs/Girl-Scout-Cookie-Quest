@@ -3,7 +3,7 @@ package edu.andover.cwong.gscq.model.unit;
 public class Player extends LivingGameEntity {
     public Player(int xLoc, int yLoc) {
         super(xLoc, yLoc);
-        initializeMaxHealth(10);
+        initializeMaxHealth(5); //SHOULD BE TEN
         setDefense(0);
         setAttack(0);
         setBaseAttack(6);

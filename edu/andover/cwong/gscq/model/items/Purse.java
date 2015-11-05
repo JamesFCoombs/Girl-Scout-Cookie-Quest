@@ -1,6 +1,11 @@
 package edu.andover.cwong.gscq.model.items;
 
-public class Purse extends ItemType {
+public class Purse extends Item {
+	
+	public Purse() {
+		ItemID = "Purse";
+	}
+	
 	public String getDescription() {
 		return "Gain 1 attack\nwhen equipped.";
 	}
