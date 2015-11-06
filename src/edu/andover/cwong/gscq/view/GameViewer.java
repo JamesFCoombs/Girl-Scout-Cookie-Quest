@@ -1,59 +1,46 @@
 package edu.andover.cwong.gscq.view;
 
 import javafx.fxml.FXML;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
+import javafx.scene.image.Image;
 import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
+
 import edu.andover.cwong.gscq.model.Game;
 
 // What JFX calls a "controller" for the game panel. Handles refreshing of
 // view elements (etc)
 public class GameViewer {
     private Game owner;
-    
     @FXML
-    Canvas gameCanvas;
+    private Label hpLabel;
     @FXML
-    Label hpLabel;
+    private Label atkLabel;
     @FXML
-    Label atkLabel;
-    @FXML
-    Label defLabel;
-
+    private Label defLabel;
 
 	@FXML
-	private GridPane gameGrid ;
+	private GridPane gameGrid;
 
+	private ImageView[] visibleTiles;
 
-	private ImageView[] visibleTiles ;
-
-    private final int numTiles = 36 ;
-    private final int numTilesPerRow = 6 ;
+    private final int tiles = 36;
+    private final int tilesPerRow = 6;
 	
 	
-    public void init(){
-	    visibleTiles = new ImageView[numTiles];
-	    for (int i=0; i<numTiles; i++) {
-	        ImageView tileImage = new ImageView(new Image("file:res/"+
-	    owner.getTile(i%numTilesPerRow-3+owner.getPlayerXLoc(),i/numTilesPerRow-3+owner.getPlayerYLoc()).getID()
-	    +".png"));
-	        visibleTiles[i] = tileImage ;
-	        gameGrid.add(visibleTiles[i], i % numTilesPerRow, i / numTilesPerRow);
-	    }
-    }
-    
-    public void refreshCanvas() {
-    	visibleTiles = new ImageView[numTiles];
-	    for (int i=0; i<numTiles; i++) {
-	        ImageView tileImage = new ImageView(new Image("file:res/"+
-	    owner.getTile(i%numTilesPerRow-3+owner.getPlayerXLoc(),i/numTilesPerRow-3+owner.getPlayerYLoc()).getID()
-	    +".png"));
-	        visibleTiles[i] = tileImage ;
-	        gameGrid.add(visibleTiles[i], i % numTilesPerRow, i / numTilesPerRow);
+    public void init() {
+	    visibleTiles = new ImageView[tiles];
+	    for (int i=0; i<tiles; i++) {
+	        ImageView tileImage = new ImageView(
+	                new Image(String.format("file:res/%d.png",
+	                        owner.getTile(
+	                                i%tilesPerRow-3+owner.getPlayerXLoc(),
+	                                i/tilesPerRow-3+owner.getPlayerYLoc()
+	                        ).getID()
+	                ))
+	        );
+	        visibleTiles[i] = tileImage;
+	        gameGrid.add(visibleTiles[i], i%tilesPerRow, i/tilesPerRow);
 	    }
     }
     
