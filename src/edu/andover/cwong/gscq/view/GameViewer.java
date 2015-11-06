@@ -28,7 +28,7 @@ public class GameViewer {
     private final int tilesPerRow = 6;
 	
 	
-    public void init() {
+    public void refreshCanvas() {
 	    visibleTiles = new ImageView[tiles];
 	    for (int i=0; i<tiles; i++) {
 	        ImageView tileImage = new ImageView(

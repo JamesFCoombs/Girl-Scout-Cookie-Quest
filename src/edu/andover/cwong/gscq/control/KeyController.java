@@ -12,10 +12,10 @@ public class KeyController {
     public void handleKeyInput(KeyEvent e) {
         // Cam: these numbers don't make sense to me either
         switch (e.getCode()) {
-        case UP:
+        case DOWN:
             owner.update(3);
             break;
-        case DOWN:
+        case UP:
             owner.update(1);
             break;
         case LEFT:

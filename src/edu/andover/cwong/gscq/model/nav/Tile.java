@@ -13,7 +13,12 @@ public class Tile {
     }
 
     public int getID() {
+    	try{
         return id;
+    	}catch (Exception e){
+    		System.out.println(e.getStackTrace());
+    		return 0;
+    	}
     }
     
     // TODO: terrain

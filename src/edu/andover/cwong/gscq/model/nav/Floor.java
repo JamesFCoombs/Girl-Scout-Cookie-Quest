@@ -15,7 +15,12 @@ public class Floor {
     }
 
     public Tile getTile(int x, int y) {
-        return floorTiles[y][x];
+    	try{
+    		return floorTiles[y][x];
+    	}catch(Exception e){
+    		System.out.println(e.getStackTrace());
+    		return new Tile(0);
+    	}
     }
 
     public int getWidth() {
