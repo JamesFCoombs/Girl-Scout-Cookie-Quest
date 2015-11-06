@@ -39,7 +39,7 @@ public class GameViewer {
 	    visibleTiles = new ImageView[numTiles];
 	    for (int i=0; i<numTiles; i++) {
 	        ImageView tileImage = new ImageView(new Image("file:res/"+
-	    owner.getTile(i%numTilesPerRow,i/numTilesPerRow).getID()
+	    owner.getTile(i%numTilesPerRow-3+owner.getPlayerXLoc(),i/numTilesPerRow-3+owner.getPlayerYLoc()).getID()
 	    +".png"));
 	        visibleTiles[i] = tileImage ;
 	        gameGrid.add(visibleTiles[i], i % numTilesPerRow, i / numTilesPerRow);
@@ -47,9 +47,11 @@ public class GameViewer {
     }
     
     public void refreshCanvas() {
-	    visibleTiles = new ImageView[numTiles];
+    	visibleTiles = new ImageView[numTiles];
 	    for (int i=0; i<numTiles; i++) {
-	        ImageView tileImage = new ImageView(new Image("file:res/"+owner.getTile(i%numTilesPerRow,i/numTilesPerRow).getID()+".png"));
+	        ImageView tileImage = new ImageView(new Image("file:res/"+
+	    owner.getTile(i%numTilesPerRow-3+owner.getPlayerXLoc(),i/numTilesPerRow-3+owner.getPlayerYLoc()).getID()
+	    +".png"));
 	        visibleTiles[i] = tileImage ;
 	        gameGrid.add(visibleTiles[i], i % numTilesPerRow, i / numTilesPerRow);
 	    }

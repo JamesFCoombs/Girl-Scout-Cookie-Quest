@@ -3,8 +3,6 @@ package edu.andover.cwong.gscq.model;
 
 import java.util.ArrayList;
 
-import edu.andover.cwong.gscq.model.unit.Enemy;
-import edu.andover.cwong.gscq.model.unit.ItemEntity;
 import edu.andover.cwong.gscq.model.unit.Player;
 import edu.andover.cwong.gscq.model.nav.Floor;
 import edu.andover.cwong.gscq.model.nav.Tile;
@@ -30,6 +28,12 @@ public class Game {
     public Tile getTile(int x, int y){
     	return currFloor.getTile(x, y);
     }
+    public int getPlayerXLoc(){
+    	return pc.getXLoc();
+    }
+    public int getPlayerYLoc(){
+    	return pc.getYLoc();
+    }
     
     public String formatPlayerHP() {
         int c_hp = pc.getCurHealth();
@@ -53,35 +57,6 @@ public class Game {
             throw new UnsupportedOperationException(
                     "Floor generation is hard");
         }
-//		Floor floor = new Floor(10, 10);
-//		
-//		
-//		for (int i=0; i<10; i++){
-//			for (int k=0; k<10; k++){
-//				floor.setTile(i, k, new Tile(3));
-//			}
-//		}
-//		
-//		Player player = new Player(8, 8);
-//		Enemy enemy1 = new Enemy(3, 3);
-//		Enemy enemy2 = new Enemy(8, 7);
-//		Tile newTile= new Tile(1);
-//		ItemEntity badge = new ItemEntity(8, 9, "Sash");
-//		
-//		enemy1.setPlayer(player);
-//		enemy2.setPlayer(player);
-//		
-//		floor.addGameEntity(player);
-//		floor.addGameEntity(enemy1);
-//		floor.addGameEntity(enemy2);
-//		floor.addGameEntity(badge);
-//		floor.setTile(2, 2, newTile);
-//		
-//		player.setFloor(floor);
-//		enemy1.setFloor(floor);
-//		enemy2.setFloor(floor);
-//		badge.setFloor(floor);
-//		return new Game(floor);
         return new Game(FloorLoader.loadFloor("res/floor.txt"));
     }
     
