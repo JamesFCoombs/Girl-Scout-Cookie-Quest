@@ -3,6 +3,7 @@ package edu.andover.cwong.gscq.model;
 
 import java.util.ArrayList;
 
+import edu.andover.cwong.gscq.model.unit.GameEntity;
 import edu.andover.cwong.gscq.model.unit.Player;
 import edu.andover.cwong.gscq.model.nav.Floor;
 import edu.andover.cwong.gscq.model.nav.Tile;
@@ -34,6 +35,10 @@ public class Game {
     }
     public int getPlayerYLoc(){
     	return pc.getYLoc();
+    }
+    
+    public GameEntity[][] getEntities(){
+    	return currFloor.units;
     }
     
     public String formatPlayerHP() {
