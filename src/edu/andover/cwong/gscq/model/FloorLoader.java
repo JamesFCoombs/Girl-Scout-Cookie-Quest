@@ -22,6 +22,7 @@ public class FloorLoader {
                 }
                 Floor.constructFloor(row);
             }
+            sc.close();
             return Floor.getConstructed();
         }
         catch (IOException e) {
