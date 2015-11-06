@@ -16,7 +16,7 @@ public class Floor {
     }
 
     public Tile getTile(int x, int y) {
-        if (x > floorTiles[0].length) { return WALL; }
+        if (x >= floorTiles[0].length) { return WALL; }
         Tile result = floorTiles[y][x];
         // TODO: This is necessary because of a bug in FloorLoader
         return result == null ? WALL:result;
