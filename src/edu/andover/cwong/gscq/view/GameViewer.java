@@ -62,12 +62,18 @@ public class GameViewer {
 	    		for (GameEntity entity:e){
 		        	if (entity!=null){
                         ImageView entityImage = new ImageView(
-                                new Image("file:res/enemy.png"
+                                new Image("file:res/0.png"
                                 )
                         );
                         if(entity instanceof Player){
                             entityImage = new ImageView(
                                     new Image("file:res/char.png"
+                                    )
+                            );
+                        }
+                        else if(entity instanceof Enemy){
+                            entityImage = new ImageView(
+                                    new Image("file:res/enemy.png"
                                     )
                             );
                         }
