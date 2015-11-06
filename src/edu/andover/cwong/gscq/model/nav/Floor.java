@@ -5,6 +5,7 @@ import edu.andover.cwong.gscq.model.unit.LivingGameEntity;
 
 // Represents a "grid" of terrain types and units on the floor.
 public class Floor {
+    public static final Tile WALL = new Tile(0);
     public Tile[][] floorTiles;
     public GameEntity[][] units;
 
@@ -15,12 +16,10 @@ public class Floor {
     }
 
     public Tile getTile(int x, int y) {
-    	try{
-    		return floorTiles[y][x];
-    	}catch(Exception e){
-    		System.out.println(e.getStackTrace());
-    		return new Tile(0);
-    	}
+        if (x > floorTiles[0].length) { return WALL; }
+        Tile result = floorTiles[y][x];
+        // TODO: This is necessary because of a bug in FloorLoader
+        return result == null ? WALL:result;
     }
 
     public int getWidth() {

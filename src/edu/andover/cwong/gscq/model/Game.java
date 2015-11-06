@@ -26,6 +26,7 @@ public class Game {
     }
     
     public Tile getTile(int x, int y){
+        if (x < 0 || y < 0) { return Floor.WALL; }
     	return currFloor.getTile(x, y);
     }
     public int getPlayerXLoc(){
