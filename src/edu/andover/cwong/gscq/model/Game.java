@@ -62,6 +62,7 @@ public class Game {
     
     private Game(Floor f) {
         this.pc = Player.init();
+        pc.setFloor(f);
         this.currFloor = f;
         this.inventory = new ArrayList<>();
     }

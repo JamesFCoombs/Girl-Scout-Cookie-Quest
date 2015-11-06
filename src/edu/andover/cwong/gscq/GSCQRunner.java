@@ -106,6 +106,7 @@ public class GSCQRunner extends Application {
     // Updates all sprites onscreen to their current frames and positions.
     private void update() {
         viewer.refreshHUD();
+        viewer.refreshCanvas();
         // TODO
     }
 
