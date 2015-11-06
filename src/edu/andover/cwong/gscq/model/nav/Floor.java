@@ -16,10 +16,12 @@ public class Floor {
     }
 
     public Tile getTile(int x, int y) {
-        if (x >= floorTiles[0].length) { return WALL; }
+        if (x < 0 || y < 0 ||
+            x >= floorTiles[0].length || y >= floorTiles.length) {
+            return WALL;
+        }
         Tile result = floorTiles[y][x];
-        // TODO: This is necessary because of a bug in FloorLoader
-        return result == null ? WALL:result;
+        return result;
     }
 
     public int getWidth() {
@@ -88,12 +90,12 @@ public class Floor {
             System.err.println("Invalid floor formatting: Must be rectangle");
             System.exit(-2);
         }
-        // double the size of the array
+        // make the array larger
         if (rowsConstructed >= floorTiles.length) {
-            Tile[][] n_tiles = new Tile[floorTiles.length * 2][row.length];
+            Tile[][] n_tiles = new Tile[floorTiles.length+1][row.length];
             System.arraycopy(floorTiles, 0, n_tiles, 0, floorTiles.length);
             GameEntity[][] n_ge =
-                    new GameEntity[floorTiles.length * 2][row.length];
+                    new GameEntity[floorTiles.length+1][row.length];
             System.arraycopy(units, 0, n_ge, 0, floorTiles.length);
             this.floorTiles = n_tiles;
             this.units = n_ge;
