@@ -35,16 +35,24 @@ public class GameViewer {
     private final int numTilesPerRow = 6 ;
 	
 	
-    public void initialize(){
+    public void init(){
 	    visibleTiles = new ImageView[numTiles];
 	    for (int i=0; i<numTiles; i++) {
-	        ImageView tileImage = new ImageView(new Image("file:res/"+owner.getFloor().getTile(i%numTilesPerRow,i/numTilesPerRow).getID()+".png"));
+	        ImageView tileImage = new ImageView(new Image("file:res/"+
+	    owner.getTile(i%numTilesPerRow,i/numTilesPerRow).getID()
+	    +".png"));
 	        visibleTiles[i] = tileImage ;
 	        gameGrid.add(visibleTiles[i], i % numTilesPerRow, i / numTilesPerRow);
 	    }
     }
     
     public void refreshCanvas() {
+	    visibleTiles = new ImageView[numTiles];
+	    for (int i=0; i<numTiles; i++) {
+	        ImageView tileImage = new ImageView(new Image("file:res/"+owner.getTile(i%numTilesPerRow,i/numTilesPerRow).getID()+".png"));
+	        visibleTiles[i] = tileImage ;
+	        gameGrid.add(visibleTiles[i], i % numTilesPerRow, i / numTilesPerRow);
+	    }
     }
     
     public void refreshHUD() {
