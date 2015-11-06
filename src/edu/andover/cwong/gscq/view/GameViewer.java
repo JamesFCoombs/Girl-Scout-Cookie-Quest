@@ -7,6 +7,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
 import edu.andover.cwong.gscq.model.Game;
+import edu.andover.cwong.gscq.model.unit.Enemy;
+import edu.andover.cwong.gscq.model.unit.GameEntity;
+import edu.andover.cwong.gscq.model.unit.Player;
 
 // What JFX calls a "controller" for the game panel. Handles refreshing of
 // view elements (etc)
@@ -21,6 +24,9 @@ public class GameViewer {
 
 	@FXML
 	private GridPane gameGrid;
+	
+	@FXML
+	private GridPane entityGrid;
 
 	private ImageView[] visibleTiles;
 
@@ -29,21 +35,50 @@ public class GameViewer {
 	
 	
     public void refreshCanvas() {
-	    visibleTiles = new ImageView[tiles];
+	    refreshTiles();
+	    refreshEntities();
+    }
+    
+    public void refreshTiles(){
+    	visibleTiles = new ImageView[tiles];
 	    for (int i=0; i<tiles; i++) {
-	        ImageView tileImage = new ImageView(
-	                new Image(String.format("file:res/%d.png",
-	                        owner.getTile(
-	                                i%tilesPerRow-3+owner.getPlayerXLoc(),
-	                                i/tilesPerRow-3+owner.getPlayerYLoc()
-	                        ).getID()
-	                ))
-	        );
+	    	if (visibleTiles[i]==null){
+		        ImageView tileImage = new ImageView(
+		                new Image(String.format("file:res/%d.png",
+		                        owner.getTile(
+		                                i%tilesPerRow-(tilesPerRow/2)+owner.getPlayerXLoc(),
+		                                i/tilesPerRow-(tilesPerRow/2)+owner.getPlayerYLoc()
+		                        ).getID()
+		                ))
+		        );
 	        visibleTiles[i] = tileImage;
+	    	}
 	        gameGrid.add(visibleTiles[i], i%tilesPerRow, i/tilesPerRow);
 	    }
     }
-    
+    public void refreshEntities(){
+    	for (GameEntity[] e:owner.getEntities()){
+    		if (e!=null){
+	    		for (GameEntity entity:e){
+		        	if (entity!=null){
+                        ImageView entityImage = new ImageView(
+                                new Image("file:res/enemy.png"
+                                )
+                        );
+                        if(entity instanceof Player){
+                            entityImage = new ImageView(
+                                    new Image("file:res/char.png"
+                                    )
+                            );
+                        }
+		    	        entityGrid.add(entityImage, 
+		    	                3+entity.getXLoc()-owner.getPlayerXLoc(), 
+		    	                3+entity.getYLoc()-owner.getPlayerYLoc());
+	        		}
+	    		}
+    		}
+    	}
+    }
     public void refreshHUD() {
         hpLabel.setText(owner.formatPlayerHP());
         atkLabel.setText(owner.formatPlayerAtk());

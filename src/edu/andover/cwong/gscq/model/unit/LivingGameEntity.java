@@ -67,10 +67,8 @@ public class LivingGameEntity extends GameEntity {
 
         if (!isInMap()) {
         	revertMovement();
-        	System.out.println("False");
         	return false;
         }
-        System.out.println("True");
         curFloor.unitHasMoved(this, xLocation, yLocation);
         
         return true;
