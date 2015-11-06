@@ -19,7 +19,7 @@ public class Floor {
     		return floorTiles[y][x];
     	}catch(Exception e){
     		System.out.println(e.getStackTrace());
-    		return new Tile(0);
+    		return (new Tile(0));
     	}
     }
 
