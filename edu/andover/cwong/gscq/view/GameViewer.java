@@ -8,7 +8,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.control.Label;
-
 import edu.andover.cwong.gscq.model.Game;
 
 // What JFX calls a "controller" for the game panel. Handles refreshing of
@@ -39,22 +38,22 @@ public class GameViewer {
     public void initialize(){
 	    visibleTiles = new ImageView[numTiles];
 	    for (int i=0; i<numTiles; i++) {
-	        ImageView tileImage = new ImageView(new Image("file:res/3.png"));
+	        ImageView tileImage = new ImageView(new Image("file:res/"+owner.getFloor().getTile(i%numTilesPerRow,i/numTilesPerRow).getID()+".png"));
 	        visibleTiles[i] = tileImage ;
 	        gameGrid.add(visibleTiles[i], i % numTilesPerRow, i / numTilesPerRow);
 	    }
     }
     
     public void refreshCanvas() {
-	    visibleTiles = new ImageView[numTiles];
-	    for (int i=0; i<numTiles; i++) {
-	        ImageView tileImage = new ImageView(new Image(
-	        		"file:res/3.png"
-	        		//change this to be the correct thing once we know it works
-	        		));
-	        visibleTiles[i] = tileImage ;
-	        gameGrid.add(visibleTiles[i], i % numTilesPerRow, i / numTilesPerRow);
-	    }
+//	    visibleTiles = new ImageView[numTiles];
+//	    for (int i=0; i<numTiles; i++) {
+//	        ImageView tileImage = new ImageView(new Image(
+//	        		"file:res/3.png"
+//	        		//change this to be the correct thing once we know it works
+//	        		));
+//	        visibleTiles[i] = tileImage ;
+//	        gameGrid.add(visibleTiles[i], i % numTilesPerRow, i / numTilesPerRow);
+//	    }
     }
     
     public void refreshHUD() {

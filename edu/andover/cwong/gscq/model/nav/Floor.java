@@ -35,6 +35,9 @@ public class Floor {
             }
         }
     }
+    public void setTile(int x, int y, Tile tile){
+    	floorTiles[y][x]=tile;
+    }
 
     public void unitHasMoved(LivingGameEntity lge, int xLoc, int yLoc) {
     	if (units[yLoc][xLoc] != null) {

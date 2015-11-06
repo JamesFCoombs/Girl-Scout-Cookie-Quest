@@ -17,6 +17,11 @@ public class LivingGameEntity extends GameEntity {
     private int lastXLocation;
     private int lastYLocation;
 
+    /**
+     * GameEntity that can move initializer
+     * @param xLoc
+     * @param yLoc
+     */
     public LivingGameEntity(int xLoc, int yLoc) {
         xLocation = xLoc;
         yLocation = yLoc;
@@ -30,6 +35,15 @@ public class LivingGameEntity extends GameEntity {
     // 2 is right
     // 3 is down
     // 4 is left
+    /**
+     * Moves the Entity one unit in the specified direction
+     * 1 is up
+     * 2 is right
+     * 3 is down
+     * 4 is left
+     * @param direction
+     * @return
+     */
     public boolean move(int direction) {
     	lastXLocation = getXLoc();
     	lastYLocation = getYLoc();

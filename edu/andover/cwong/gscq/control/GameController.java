@@ -14,7 +14,6 @@ public class GameController {
 	}
 	
 	
-	
     
     public void setOwner(GSCQRunner mainApp) {
         this.mainApp = mainApp;
