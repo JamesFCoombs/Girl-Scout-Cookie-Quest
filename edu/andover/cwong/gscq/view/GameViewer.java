@@ -24,7 +24,7 @@ public class GameViewer {
     
     
     public void refreshCanvas() {
-        
+        GraphicsContext gc = gameCanvas.getGraphicsContext2D();
     }
     
     public void refreshHUD() {
