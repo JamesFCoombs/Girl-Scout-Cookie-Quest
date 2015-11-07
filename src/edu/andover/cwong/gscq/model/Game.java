@@ -65,25 +65,7 @@ public class Game {
             throw new UnsupportedOperationException(
                     "Floor generation is hard");
         }
-        Floor floor=FloorLoader.loadFloor("res/floor.txt");
-        Player player = new Player(8, 8);
-        Enemy enemy1 = new Enemy(3, 3);
-//        Enemy enemy2 = new Enemy(8, 7);
-//        ItemEntity badge = new ItemEntity(8, 9, "Sash");
-        
-        enemy1.setPlayer(player);
-//        enemy2.setPlayer(player);
-        
-        floor.addGameEntity(player);
-        floor.addGameEntity(enemy1);
-//        floor.addGameEntity(enemy2);
-//        floor.addGameEntity(badge);
-        
-        player.setFloor(floor);
-        enemy1.setFloor(floor);
-//        enemy2.setFloor(floor);
-//        badge.setFloor(floor);
-        return new Game(floor);
+        return new Game(FloorLoader.loadFloor("res/floor.txt"));
     }
     
     private Game(Floor f) {
@@ -91,5 +73,10 @@ public class Game {
         pc.setFloor(f);
         this.currFloor = f;
         this.inventory = new ArrayList<>();
+        Enemy enemy1=new Enemy(3,3);
+        enemy1.setPlayer(pc);
+        this.currFloor.addGameEntity(enemy1);
+        enemy1.setFloor(this.currFloor);
+        
     }
 }
