@@ -34,19 +34,6 @@ public class GameViewer {
     private final int tilesPerRow = 6;
     
     public void refreshCanvas() {
-        visibleTiles = new ImageView[tiles];
-        for (int i=0; i<tiles; i++) {
-            ImageView tileImage = new ImageView(
-                    new Image(String.format("file:res/%d.png",
-                            owner.getTile(
-                                    i%tilesPerRow-3+owner.getPlayerXLoc(),
-                                    i/tilesPerRow-3+owner.getPlayerYLoc()
-                            ).getID()
-                    ))
-            );
-            visibleTiles[i] = tileImage;
-            gameGrid.add(visibleTiles[i], i%tilesPerRow, i/tilesPerRow);
-        }
 	    refreshTiles();
 	    refreshEntities();
     }
