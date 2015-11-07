@@ -73,10 +73,6 @@ public class Game {
         pc.setFloor(f);
         this.currFloor = f;
         this.inventory = new ArrayList<>();
-        Enemy enemy1=new Enemy(3,3);
-        enemy1.setPlayer(pc);
-        this.currFloor.addGameEntity(enemy1);
-        enemy1.setFloor(this.currFloor);
         
     }
 }
