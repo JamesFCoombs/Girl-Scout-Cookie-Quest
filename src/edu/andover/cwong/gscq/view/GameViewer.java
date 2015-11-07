@@ -33,14 +33,34 @@ public class GameViewer {
     private final int tiles = 36;
     private final int tilesPerRow = 6;
     
-    public void refreshCanvas() {
-	    refreshTiles();
-	    refreshEntities();
-    }
-    
-    public void refreshTiles(){
+    public void refreshCanvas(){
+        entityGrid.getChildren().clear();
     	visibleTiles = new ImageView[tiles];
 	    for (int i=0; i<tiles; i++) {
+	        GameEntity e = owner.getEntity(
+                    i%tilesPerRow-(tilesPerRow/2)+owner.getPlayerXLoc(),
+                    i/tilesPerRow-(tilesPerRow/2)+owner.getPlayerYLoc());
+            if (e!=null){
+                ImageView entityImage = new ImageView(
+                        new Image("file:res/0.png"
+                        )
+                );
+                if(e instanceof Player){
+                    entityImage = new ImageView(
+                            new Image("file:res/char.png"
+                            )
+                    );
+                }
+                else if(e instanceof Enemy){
+                    entityImage = new ImageView(
+                            new Image("file:res/enemy.png"
+                            )
+                    );
+                }
+                entityGrid.add(entityImage, 
+                        3+e.getXLoc()-owner.getPlayerXLoc(), 
+                        3+e.getYLoc()-owner.getPlayerYLoc());
+            }
 	    	if (visibleTiles[i]==null){
 		        ImageView tileImage = new ImageView(
 		                new Image(String.format("file:res/%d.png",
@@ -56,35 +76,6 @@ public class GameViewer {
 	    }
     }
     
-    public void refreshEntities(){
-    	for (GameEntity[] e:owner.getEntities()){
-    		if (e!=null){
-	    		for (GameEntity entity:e){
-		        	if (entity!=null){
-                        ImageView entityImage = new ImageView(
-                                new Image("file:res/0.png"
-                                )
-                        );
-                        if(entity instanceof Player){
-                            entityImage = new ImageView(
-                                    new Image("file:res/char.png"
-                                    )
-                            );
-                        }
-                        else if(entity instanceof Enemy){
-                            entityImage = new ImageView(
-                                    new Image("file:res/enemy.png"
-                                    )
-                            );
-                        }
-		    	        entityGrid.add(entityImage, 
-		    	                3+entity.getXLoc()-owner.getPlayerXLoc(), 
-		    	                3+entity.getYLoc()-owner.getPlayerYLoc());
-	        		}
-	    		}
-    		}
-    	}
-    }
     public void refreshHUD() {
         hpLabel.setText(owner.formatPlayerHP());
         atkLabel.setText(owner.formatPlayerAtk());

@@ -23,6 +23,15 @@ public class Floor {
         Tile result = floorTiles[y][x];
         return result;
     }
+    
+    public GameEntity getEntity(int x, int y){
+        if (x < 0 || y < 0 ||
+                x >= floorTiles[0].length || y >= floorTiles.length) {
+                return null;
+            }
+            GameEntity result = units[y][x];
+            return result;
+    }
 
     public int getWidth() {
         return floorTiles[0].length;

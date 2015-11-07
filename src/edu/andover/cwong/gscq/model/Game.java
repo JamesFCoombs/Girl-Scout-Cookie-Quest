@@ -32,6 +32,10 @@ public class Game {
         if (x < 0 || y < 0) { return Floor.WALL; }
     	return currFloor.getTile(x, y);
     }
+    public GameEntity getEntity(int x, int y){
+        if (x < 0 || y < 0) { return null; }
+        return currFloor.getEntity(x, y);
+    }
     public int getPlayerXLoc(){
     	return pc.getXLoc();
     }
@@ -73,6 +77,10 @@ public class Game {
         pc.setFloor(f);
         this.currFloor = f;
         this.inventory = new ArrayList<>();
+        Enemy enemy1=new Enemy(3,3);
+        enemy1.setPlayer(pc);
+        this.currFloor.addGameEntity(enemy1);
+        enemy1.setFloor(this.currFloor);
         
     }
 }
