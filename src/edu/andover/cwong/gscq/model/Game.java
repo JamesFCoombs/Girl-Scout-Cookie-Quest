@@ -26,6 +26,7 @@ public class Game {
         // impossible. TODO
         pc.move(input);
         currFloor.step();
+        pc.gainCookie(input);
     }
     
     public Tile getTile(int x, int y){
@@ -55,6 +56,10 @@ public class Game {
     
     public String formatPlayerDef() {
         return String.format("%s", pc.getDefense());
+    }
+    
+    public String formatCookieCount() {
+    	return String.format("%s", pc.getCookieCount());
     }
     
     public ArrayList<Item> getInventory() { return inventory; }

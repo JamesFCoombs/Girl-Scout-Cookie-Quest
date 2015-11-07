@@ -28,7 +28,7 @@ public abstract class CookieRecipe extends Item {
 	public int healthIncrease() {
 		return 0;
 	}
-
+	
 	public void setCounter(int stCnt) {
 		counter = stCnt;
 	}
@@ -41,4 +41,7 @@ public abstract class CookieRecipe extends Item {
 		numCookiesToAdd = NCTA;
 	}
 	
+	public int cookieIncrease () {
+		return 1;
+	}
 }

@@ -21,7 +21,8 @@ public class GameViewer {
     private Label atkLabel;
     @FXML
     private Label defLabel;
-
+    @FXML
+    private Label cookieLabel;
 	@FXML
 	private GridPane gameGrid;
 	
@@ -102,6 +103,7 @@ public class GameViewer {
         hpLabel.setText(owner.formatPlayerHP());
         atkLabel.setText(owner.formatPlayerAtk());
         defLabel.setText(owner.formatPlayerDef());
+        cookieLabel.setText(owner.formatCookieCount());
     }
     
     public void setOwner(Game g) {
