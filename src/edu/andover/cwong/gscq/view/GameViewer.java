@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
 import edu.andover.cwong.gscq.model.Game;
+import edu.andover.cwong.gscq.model.items.Item;
 import edu.andover.cwong.gscq.model.unit.Enemy;
 import edu.andover.cwong.gscq.model.unit.GameEntity;
 import edu.andover.cwong.gscq.model.unit.Player;
@@ -21,6 +22,8 @@ public class GameViewer {
     private Label atkLabel;
     @FXML
     private Label defLabel;
+    @FXML
+    private Label ivtLabel;
 
 	@FXML
 	private GridPane gameGrid;
@@ -75,11 +78,16 @@ public class GameViewer {
 	        gameGrid.add(visibleTiles[i], i%tilesPerRow, i/tilesPerRow);
 	    }
     }
-    
+
+    private String inventory="Inventory: \n";
     public void refreshHUD() {
         hpLabel.setText(owner.formatPlayerHP());
         atkLabel.setText(owner.formatPlayerAtk());
         defLabel.setText(owner.formatPlayerDef());
+        for (Item a: owner.getInventory()){
+            inventory+=a.getItemID()+"\n";
+        }
+        ivtLabel.setText(inventory);
     }
     
     public void setOwner(Game g) {

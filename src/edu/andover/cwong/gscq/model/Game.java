@@ -10,6 +10,7 @@ import edu.andover.cwong.gscq.model.unit.Player;
 import edu.andover.cwong.gscq.model.nav.Floor;
 import edu.andover.cwong.gscq.model.nav.Tile;
 import edu.andover.cwong.gscq.model.items.Item;
+import edu.andover.cwong.gscq.model.items.Sash;
 
 // A "container" class containing convenience "hooks" for a relevant view
 // as well as encapsulating the entire game state at once.
@@ -81,6 +82,8 @@ public class Game {
         enemy1.setPlayer(pc);
         this.currFloor.addGameEntity(enemy1);
         enemy1.setFloor(this.currFloor);
-        
+        ItemEntity badge = new ItemEntity(8, 9, "Sash");
+        this.currFloor.addGameEntity(badge);
+        badge.setFloor(this.currFloor);
     }
 }
