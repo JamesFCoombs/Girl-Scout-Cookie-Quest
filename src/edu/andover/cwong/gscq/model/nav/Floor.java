@@ -410,6 +410,7 @@ public class Floor {
     		createFloor(floorTilesCreator[0].length, floorTilesCreator.length);
 			return;
     	}
+    	System.out.println("Here");
     	
     }
     
