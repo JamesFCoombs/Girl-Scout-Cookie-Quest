@@ -74,7 +74,6 @@ public class GameViewer {
     		if (e!=null){
 	    		for (GameEntity entity:e){
 		        	if (entity!=null){
-		        	    System.out.println("X: "+entity.getXLoc()+" Y: "+entity.getYLoc());
                         ImageView entityImage = new ImageView(
                                 new Image("file:res/0.png"
                                 )
