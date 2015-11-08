@@ -10,6 +10,7 @@ import edu.andover.cwong.gscq.model.unit.Player;
 import edu.andover.cwong.gscq.model.nav.Floor;
 import edu.andover.cwong.gscq.model.nav.Tile;
 import edu.andover.cwong.gscq.model.items.Item;
+import edu.andover.cwong.gscq.model.items.Sash;
 
 // A "container" class containing convenience "hooks" for a relevant view
 // as well as encapsulating the entire game state at once.
@@ -32,6 +33,10 @@ public class Game {
     public Tile getTile(int x, int y){
         if (x < 0 || y < 0) { return Floor.WALL; }
     	return currFloor.getTile(x, y);
+    }
+    public GameEntity getEntity(int x, int y){
+        if (x < 0 || y < 0) { return null; }
+        return currFloor.getEntity(x, y);
     }
     public int getPlayerXLoc(){
     	return pc.getXLoc();
@@ -70,25 +75,7 @@ public class Game {
             throw new UnsupportedOperationException(
                     "Floor generation is hard");
         }
-        Floor floor=FloorLoader.loadFloor("res/floor.txt");
-        Player player = new Player(8, 8);
-        Enemy enemy1 = new Enemy(3, 3);
-//        Enemy enemy2 = new Enemy(8, 7);
-//        ItemEntity badge = new ItemEntity(8, 9, "Sash");
-        
-        enemy1.setPlayer(player);
-//        enemy2.setPlayer(player);
-        
-        floor.addGameEntity(player);
-        floor.addGameEntity(enemy1);
-//        floor.addGameEntity(enemy2);
-//        floor.addGameEntity(badge);
-        
-        player.setFloor(floor);
-        enemy1.setFloor(floor);
-//        enemy2.setFloor(floor);
-//        badge.setFloor(floor);
-        return new Game(floor);
+        return new Game(FloorLoader.loadFloor("res/floor.txt"));
     }
     
     private Game(Floor f) {
@@ -96,5 +83,12 @@ public class Game {
         pc.setFloor(f);
         this.currFloor = f;
         this.inventory = new ArrayList<>();
+        Enemy enemy1=new Enemy(3,3);
+        enemy1.setPlayer(pc);
+        this.currFloor.addGameEntity(enemy1);
+        enemy1.setFloor(this.currFloor);
+        ItemEntity badge = new ItemEntity(8, 9, "Sash");
+        this.currFloor.addGameEntity(badge);
+        badge.setFloor(this.currFloor);
     }
 }
