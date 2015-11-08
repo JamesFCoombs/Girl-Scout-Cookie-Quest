@@ -9,7 +9,8 @@ public class EntityTester {
 	private static Floor floor;
 	
 	public static void main(String[] args) {
-		floor = new Floor(10, 10);
+		floor = new Floor(40, 40);
+		floor.createFloor(40, 40);
 		
 		Player player = new Player(8, 8);
 		Enemy enemy1 = new Enemy(3, 3);
@@ -45,11 +46,9 @@ public class EntityTester {
 	public static void displayMap() {
 		for (int i = 0; i < floor.getHeight(); i++) {
 			for (int j = 0; j < floor.getWidth(); j++) {
-				if (floor.units[i][j] != null) {
-					System.out.print("X\t");
-				} else {
-					System.out.print("+\t");
-				}
+				
+					System.out.print(Floor.floorTilesCreator[i][j] + "\t");
+				
 			}
 			System.out.println();			
 		}
