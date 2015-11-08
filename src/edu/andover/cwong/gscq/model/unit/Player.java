@@ -22,12 +22,12 @@ public class Player extends LivingGameEntity {
     public boolean gainCookie(int direction) {
     	Boolean moved = super.move(direction);
     	if (moved = true) {
-        	int bonusCookies = 0;
-            for (int i = 0; i < cookieList.size(); i++) {
-            	bonusCookies += cookieList.get(i).cookieIncrease();
-            };
-            setCookiesCount(getCookieCount() + bonusCookies);
-            setCookiesCount(getCookieCount() + 1);
+//			int bonusCookies = 0;
+//          for (int i = 0; i < cookieList.size(); i++) {
+//            	bonusCookies += cookieList.get(i).cookieIncrease();
+//          };
+            //setCookiesCount(getCookieCount() + bonusCookies);
+            setCookiesCount(1);
     	};
     	System.out.println(getCookieCount());
     	return true;
@@ -38,7 +38,7 @@ public class Player extends LivingGameEntity {
         return new Player(5, 5);
     }
     public void setCookiesCount(int cookies) {
-    	cookieCount = cookieCount + cookies;
+    	cookieCount += cookies;
     }
     public int getCookieCount() {
     	return cookieCount;
