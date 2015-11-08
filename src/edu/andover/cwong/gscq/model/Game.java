@@ -25,7 +25,6 @@ public class Game {
     public void update(int input) {
         // BUG: currently updates the entire floor even if movement is
         // impossible. TODO
-        pc.move(input);
         currFloor.step();
         pc.gainCookie(input);
     }
