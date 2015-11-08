@@ -3,6 +3,7 @@ package edu.andover.cwong.gscq.model.unit;
 import java.util.ArrayList;
 
 import edu.andover.cwong.gscq.model.items.CookieRecipe;
+import edu.andover.cwong.gscq.model.items.PlainCookie;
 
 public class Player extends LivingGameEntity {
 	public int cookieCount = 0;
@@ -14,6 +15,12 @@ public class Player extends LivingGameEntity {
         setAttack(0);
         setBaseAttack(6);
         cookieList = new ArrayList<CookieRecipe>();
+        CookieRecipe cookie1 = new PlainCookie();
+        addCookie(cookie1);
+    }
+    public boolean addCookie(CookieRecipe cookie) {
+    	cookieList.add(cookie);
+    	return true;
     }
     public void remove() {
     	System.out.println("End the game.");
@@ -22,14 +29,12 @@ public class Player extends LivingGameEntity {
     public boolean gainCookie(int direction) {
     	Boolean moved = super.move(direction);
     	if (moved = true) {
-//			int bonusCookies = 0;
-//          for (int i = 0; i < cookieList.size(); i++) {
-//            	bonusCookies += cookieList.get(i).cookieIncrease();
-//          };
-            //setCookiesCount(getCookieCount() + bonusCookies);
-            setCookiesCount(1);
+			int bonusCookies = 0;
+    		for (int i = 0; i < cookieList.size(); i++) {
+            	bonusCookies += cookieList.get(i).cookieIncrease();
+    		};
+            setCookiesCount(bonusCookies);
     	};
-    	System.out.println(getCookieCount());
     	return true;
     }
     // Spawns the player unit. TODO

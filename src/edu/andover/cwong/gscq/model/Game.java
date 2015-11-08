@@ -89,6 +89,8 @@ public class Game {
         enemy1.setFloor(this.currFloor);
         ItemEntity badge = new ItemEntity(8, 9, "Sash");
         this.currFloor.addGameEntity(badge);
+        ItemEntity plainCookie = new ItemEntity(5, 10, "Plain Cookie");
+        this.currFloor.addGameEntity(plainCookie);
         badge.setFloor(this.currFloor);
     }
 }
