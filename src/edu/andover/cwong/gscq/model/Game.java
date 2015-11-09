@@ -17,7 +17,6 @@ import edu.andover.cwong.gscq.model.items.Sash;
 public class Game {
     // Holds all of the relevant data for navigation
     private Floor currFloor;
-    private ArrayList<Item> inventory;
     private Player pc;
     
     // Updates the game state based on input from the player
@@ -66,7 +65,7 @@ public class Game {
     	return String.format("%s", pc.getCookieCount());
     }
     
-    public ArrayList<Item> getInventory() { return inventory; }
+    public ArrayList<Item> getInventory() { return pc.getInventory(); }
     
     // Initialize the first floor
     public static Game init(boolean genFloor) {
@@ -81,15 +80,15 @@ public class Game {
         this.pc = Player.init();
         pc.setFloor(f);
         this.currFloor = f;
-        this.inventory = new ArrayList<>();
         Enemy enemy1=new Enemy(3,3);
         enemy1.setPlayer(pc);
         this.currFloor.addGameEntity(enemy1);
         enemy1.setFloor(this.currFloor);
         ItemEntity badge = new ItemEntity(8, 9, "Sash");
         this.currFloor.addGameEntity(badge);
-        ItemEntity plainCookie = new ItemEntity(5, 10, "Plain Cookie");
-        this.currFloor.addGameEntity(plainCookie);
+        ItemEntity hi = new ItemEntity(3, 9, "Mascara");
+        this.currFloor.addGameEntity(hi);
+        hi.setFloor(this.currFloor);
         badge.setFloor(this.currFloor);
     }
 }
