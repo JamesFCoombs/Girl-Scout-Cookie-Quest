@@ -26,49 +26,70 @@ public class Game {
         if (pc.move(input)) {
             currFloor.step();
             if (pc.getCurHealth() <= 0) { gameOver = true; }
-            //pc.move(input);
         }
     }
     
-    // getters and setters
+    // This returns which tile a game entity (an item is on.
+    //getters and setters
     public Tile getTile(int x, int y){
+    	// This detects if the game entity is within walls.
         if (x < 0 || y < 0) { return Floor.WALL; }
     	return currFloor.getTile(x, y);
     }
+    
+    // This returns which entity is on a specific tile.
     public GameEntity getEntity(int x, int y){
         if (x < 0 || y < 0) { return null; }
         return currFloor.getEntity(x, y);
     }
+    
     public int getPlayerXLoc(){
     	return pc.getXLoc();
     }
+    
     public int getPlayerYLoc(){
     	return pc.getYLoc();
     }
+    
+    // This gets all the game entities on the floor.
     public GameEntity[][] getEntities(){
     	return currFloor.units;
     }
+    
+    // This displays both the current health of the player
+    // and the maximum health that the player can have.
     public String formatPlayerHP() {
         int c_hp = pc.getCurHealth();
         int m_hp = pc.getMaxHealth();
         return String.format("%d/%d", c_hp, m_hp);
     }
+    
+    // This displays the player attack on the screen.
     public String formatPlayerAtk() {
         return String.format("%s", pc.getAttack());
     }
+    
+    // This displays the player defense on the screen.
     public String formatPlayerDef() {
         return String.format("%s", pc.getDefense());
     }
+    
+    // This displays the number of cookies that the player has
+    // on the screen.
     public String formatCookieCount() {
     	return String.format("Cookies: %s", pc.getCookieCount());
     }
-    public ArrayList<Item> getInventory() { 
-        return pc.getInventory(); 
-    }
-    public ArrayList<CookieRecipe> getCookieList() {
-        return pc.getCookieList();
-    } 
     
+    // This gets the player's inventory.
+    public ArrayList<Item> getInventory() { 
+    	return pc.getInventory(); 
+    }
+
+    // This gets the player's list of cookies.
+    public ArrayList<CookieRecipe> getCookieList() { 
+    	return pc.getCookieList(); 
+   	} 
+
     // Initialize the first floor
     public static Game init(boolean genFloor) {
         if (genFloor) {
@@ -79,6 +100,7 @@ public class Game {
     }
     
     // creates entities for us to test
+    // This sets up the floor.
     private Game(Floor f) {
         this.pc = Player.init();
         pc.setFloor(f);
@@ -91,7 +113,7 @@ public class Game {
         this.currFloor.addGameEntity(sash);
         ItemEntity mascara = new ItemEntity(3, 9, "Mascara");
         this.currFloor.addGameEntity(mascara);
-        ItemEntity plainCookie = new ItemEntity(5, 10, "Plain Cookie");
+        ItemEntity plainCookie = new ItemEntity(5, 10, "PlainCookie");
         this.currFloor.addGameEntity(plainCookie);
         mascara.setFloor(this.currFloor);
         sash.setFloor(this.currFloor);

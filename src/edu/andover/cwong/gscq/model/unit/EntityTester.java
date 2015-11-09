@@ -10,7 +10,7 @@ public class EntityTester {
 	
 	public static void main(String[] args) {
 		floor = new Floor(40, 40);
-		floor.createFloor(40, 40);
+		//floor.createFloor(40, 40);
 		
 		Player player = new Player(8, 8);
 		Enemy enemy1 = new Enemy(3, 3);
@@ -41,6 +41,7 @@ public class EntityTester {
 			System.out.println("HP: " + player.getCurHealth());
 			
 		}
+		kbrd.close();
 	}
 	
 	public static void displayMap() {
