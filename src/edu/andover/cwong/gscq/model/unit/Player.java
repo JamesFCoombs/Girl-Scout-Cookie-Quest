@@ -51,6 +51,8 @@ public class Player extends LivingGameEntity {
         return new Player(5, 5);
     }
     
+    // This resets the number of cookies the player has every
+    // time the player should gain a cookie by movement. 
     public void setCookiesCount(int cookies) {
     	cookieCount += cookies;
     }
@@ -59,6 +61,7 @@ public class Player extends LivingGameEntity {
     	return cookieCount;
     }
     
+    //The cookieList has all the cookies that the player currently has.
     public ArrayList<CookieRecipe> getCookieList() {
     	return cookieList;
     }
