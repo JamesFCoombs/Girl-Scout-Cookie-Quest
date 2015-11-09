@@ -87,8 +87,6 @@ public class Game {
         enemy1.setPlayer(pc);
         this.currFloor.addGameEntity(enemy1);
         enemy1.setFloor(this.currFloor);
-        ItemEntity badge = new ItemEntity(8, 9, "Baton");
-        this.currFloor.addGameEntity(badge);
         ItemEntity sash = new ItemEntity(8, 9, "Sash");
         this.currFloor.addGameEntity(sash);
         ItemEntity mascara = new ItemEntity(3, 9, "Mascara");
