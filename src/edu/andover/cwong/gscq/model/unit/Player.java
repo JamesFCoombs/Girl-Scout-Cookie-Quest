@@ -19,34 +19,50 @@ public class Player extends LivingGameEntity {
         CookieRecipe cookie1 = new PlainCookie();
         addCookie(cookie1);
     }
-    public boolean addCookie(CookieRecipe cookie) {
-    	cookieList.add(cookie);
+    public boolean addCookie(CookieRecipe cookieRecipe) {
+    	cookieList.add(cookieRecipe);
     	return true;
     }
+    
     public void remove() {
     	System.out.println("End the game.");
     	super.remove();
     }
-    public boolean gainCookie(int direction) {
-    	Boolean moved = super.move(direction);
-    	if (moved = true) {
+    public boolean move(int direction) {
+    	boolean moved = super.move(direction);
+    	if (moved) {
 			int bonusCookies = 0;
     		for (int i = 0; i < cookieList.size(); i++) {
             	bonusCookies += cookieList.get(i).cookieIncrease();
     		};
             setCookiesCount(bonusCookies);
+            return true;
     	};
-    	return true;
+    	return false;
     }
     // Spawns the player unit. TODO
     public static Player init() {
         // TODO: fix this
         return new Player(5, 5);
     }
+    
     public void setCookiesCount(int cookies) {
     	cookieCount += cookies;
     }
+    
     public int getCookieCount() {
     	return cookieCount;
+    }
+    
+    public ArrayList<CookieRecipe> getCookieList() {
+    	return cookieList;
+    }
+    
+    public void removeCookie() {
+        super.remove();
+        for (int i = 0; i < cookieList.size(); i++) {
+            getCurFloor().addGameEntity(new ItemEntity(xLocation, yLocation, cookieList.get(i).getItemID()));
+            cookieList.remove(i);
+        }
     }
 }

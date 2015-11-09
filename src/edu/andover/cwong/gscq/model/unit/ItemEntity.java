@@ -24,6 +24,10 @@ public class ItemEntity extends GameEntity {
         return false;
     }
     
+    public boolean addCookie(CookieRecipe cookieRecipe) {
+    	return false;
+    }
+    
     public void revertMovement() {}
 
     public void update() {}

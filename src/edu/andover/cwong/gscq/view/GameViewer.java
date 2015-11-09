@@ -6,6 +6,7 @@ import javafx.scene.image.Image;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
+import edu.andover.cwong.gscq.GSCQRunner;
 import edu.andover.cwong.gscq.model.Game;
 import edu.andover.cwong.gscq.model.items.Item;
 import edu.andover.cwong.gscq.model.unit.Enemy;
@@ -15,6 +16,7 @@ import edu.andover.cwong.gscq.model.unit.Player;
 // What JFX calls a "controller" for the game panel. Handles refreshing of
 // view elements (etc)
 public class GameViewer {
+    private GSCQRunner runner;
     private Game owner;
     @FXML
     private Label hpLabel;
@@ -34,7 +36,12 @@ public class GameViewer {
 	private GridPane entityGrid;
 
     private ImageView[] visibleTiles;
-
+    
+    @FXML
+    public void displayMinimap() { runner.displayMinimap(); }
+    @FXML
+    public void displayControls() { runner.displayControls(); }
+    
     private final int tiles = 36;
     private final int tilesPerRow = 6;
     
@@ -127,6 +134,10 @@ public class GameViewer {
             inventory+=a.getItemID()+"\n";
         }
         ivtLabel.setText(inventory);
+    }
+    
+    public void setRunner(GSCQRunner r) {
+        this.runner = r;
     }
     
     public void setOwner(Game g) {
