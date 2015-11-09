@@ -23,11 +23,11 @@ public class Game {
     // Updates the game state based on input from the player
     // This method should only be called when the player takes some action
     public void update(int input) {
-        // BUG: currently updates the entire floor even if movement is
-        // impossible. TODO
-        currFloor.step();
-        if (pc.getCurHealth() <= 0) { gameOver = true; }
-        pc.gainCookie(input);
+        if (pc.move(input)) {
+            currFloor.step();
+            if (pc.getCurHealth() <= 0) { gameOver = true; }
+            pc.gainCookie(input);
+        }
     }
     
     public Tile getTile(int x, int y){
