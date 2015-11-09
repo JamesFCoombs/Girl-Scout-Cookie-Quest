@@ -18,8 +18,10 @@ public abstract class GameEntity {
     }
 
     public boolean isInMap() {
-        if (curFloor.getWidth() <= xLocation || curFloor.getHeight() <= yLocation ||
-        		0 > xLocation || 0 > yLocation) {
+        if (curFloor.getWidth() <= xLocation ||
+            curFloor.getHeight() <= yLocation ||
+            0 > xLocation || 0 > yLocation
+        ) {
             return false;
         }
         return true;

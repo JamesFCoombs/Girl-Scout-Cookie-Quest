@@ -118,6 +118,7 @@ public class GameViewer {
     	}
     }
     
+    // XXX - why is this here?
     public void toggleEquip(){
         for (Item a: owner.getInventory()){
             a.toggleEquip();
