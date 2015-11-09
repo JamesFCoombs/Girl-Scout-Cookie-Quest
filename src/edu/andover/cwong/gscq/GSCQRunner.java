@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -50,8 +51,9 @@ public class GSCQRunner extends Application {
     // Initialize the root container (Scene) to a "base" window.
     public void initRoot() {
         try {
-            FXMLLoader loader = new FXMLLoader(
-                    GSCQRunner.class.getResource("view/RootFrame.fxml"));
+            FXMLLoader loader = new FXMLLoader(GSCQRunner.class.getResource(
+                    "view/RootFrame.fxml"
+            ));
             layoutRoot = loader.load();
             this.primaryStage.setScene(new Scene(layoutRoot));
             this.primaryStage.setResizable(false);
@@ -62,17 +64,57 @@ public class GSCQRunner extends Application {
         }
     }
     
+    public void displayControls() {
+        try {
+            FXMLLoader loader = new FXMLLoader(GSCQRunner.class.getResource(
+                    "view/ControlsDialog.fxml"
+            ));
+            AnchorPane dialog = loader.load();
+            Stage s = new Stage();
+            s.setTitle("Controls");
+            s.initModality(Modality.WINDOW_MODAL);
+            s.initOwner(primaryStage);
+            s.setScene(new Scene(dialog));
+            s.showAndWait();
+        }
+        catch(IOException e) {
+            System.err.println("Unable to load controls display. Skipping.");
+            return;
+        }
+    }
+    
+    public void displayMinimap() {
+        try {
+            FXMLLoader loader = new FXMLLoader(GSCQRunner.class.getResource(
+                    "view/MinimapDialog.fxml"
+            ));
+            AnchorPane dialog = loader.load();
+            Stage s = new Stage();
+            s.setTitle("map");
+            s.initModality(Modality.WINDOW_MODAL);
+            s.initOwner(primaryStage);
+            s.setScene(new Scene(dialog));
+            s.showAndWait();
+        }
+        catch(IOException e) {
+            System.err.println("Unable to load controls display. Skipping.");
+            return;
+        }
+    }
+    
     // Loads and initializes the "container" - the "meat" of the scene. Places
     // the container in the middle of the BorderPane and attaches relevant
     // key and mouse listeners.
     public void initContainer() {
         try {
-            FXMLLoader loader = new FXMLLoader(
-                    GSCQRunner.class.getResource("view/GameContainer.fxml"));
+            FXMLLoader loader = new FXMLLoader(GSCQRunner.class.getResource(
+                    "view/GameContainer.fxml"
+            ));
             AnchorPane gameContainer = loader.load();
             // Let's get this party started
             viewer = loader.getController();
             viewer.setOwner(state);
+            viewer.setRunner(this);
             
             // "ctrlr::handleKeyInput" is a "method object"; this line is
             // essentially equivalent to (e) -> { ctrlr.handleKeyInput(); }.
@@ -105,9 +147,9 @@ public class GSCQRunner extends Application {
     private void update() {
         if (state.gameOver) {
             try {
-                FXMLLoader loader = new FXMLLoader(
-                        GSCQRunner.class.getResource("view/EndContainer.fxml")
-                );
+                FXMLLoader loader = new FXMLLoader(GSCQRunner.class.getResource(
+                        "view/EndContainer.fxml"
+                ));
                 AnchorPane endContainer = loader.load();
                 this.primaryStage.setScene(new Scene(endContainer));
                 this.primaryStage.setResizable(false);

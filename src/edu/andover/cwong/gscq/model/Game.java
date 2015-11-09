@@ -64,7 +64,7 @@ public class Game {
     }
     
     public String formatCookieCount() {
-    	return String.format("%s", pc.getCookieCount());
+    	return String.format("Cookies: %s", pc.getCookieCount());
     }
     
     public ArrayList<Item> getInventory() { return pc.getInventory(); }
