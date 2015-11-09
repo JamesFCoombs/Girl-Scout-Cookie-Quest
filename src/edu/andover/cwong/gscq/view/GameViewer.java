@@ -118,7 +118,7 @@ public class GameViewer {
         cookieLabel.setText(owner.formatCookieCount());
         String inventory="Inventory: \n";
         for (Item a: owner.getInventory()){
-            inventory+=a.getItemID();
+            inventory+=a.getItemID()+"\n";
         }
         ivtLabel.setText(inventory);
     }
