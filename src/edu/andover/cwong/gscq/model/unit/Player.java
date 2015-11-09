@@ -11,7 +11,7 @@ public class Player extends LivingGameEntity {
 	private ArrayList<CookieRecipe> cookieList;
     public Player(int xLoc, int yLoc) {
         super(xLoc, yLoc);
-        initializeMaxHealth(10);
+        initializeMaxHealth(5); //SHOULD BE TEN
         setDefense(0);
         setAttack(0);
         setBaseAttack(6);
@@ -19,16 +19,21 @@ public class Player extends LivingGameEntity {
         CookieRecipe cookie1 = new PlainCookie();
         addCookie(cookie1);
     }
-    
     public boolean addCookie(CookieRecipe cookieRecipe) {
     	cookieList.add(cookieRecipe);
     	return true;
     }
     
+    // This removes the player from the game.
+    public void remove() {
+    	System.out.println("End the game.");
+    	super.remove();
+    }
+    
+    // This makes the number of cookies a player has
+    // increase every time the player moves.
     public boolean move(int direction) {
     	boolean moved = super.move(direction);
-    	// XXX - move this into game
-    	// add cookies to the player
     	if (moved) {
 			int bonusCookies = 0;
     		for (int i = 0; i < cookieList.size(); i++) {
@@ -39,6 +44,7 @@ public class Player extends LivingGameEntity {
     	};
     	return false;
     }
+    
     // Spawns the player unit. TODO
     public static Player init() {
         // TODO: fix this
@@ -49,15 +55,18 @@ public class Player extends LivingGameEntity {
     	cookieCount += cookies;
     }
     
-    public int getCookieCount() { return cookieCount; }
-    public ArrayList<CookieRecipe> getCookieList() { return cookieList; }
+    public int getCookieCount() {
+    	return cookieCount;
+    }
+    
+    public ArrayList<CookieRecipe> getCookieList() {
+    	return cookieList;
+    }
     
     public void removeCookie() {
         super.remove();
         for (int i = 0; i < cookieList.size(); i++) {
-            getCurFloor().addGameEntity(new ItemEntity(
-                    xLocation, yLocation, cookieList.get(i).getItemID()
-            ));
+            getCurFloor().addGameEntity(new ItemEntity(xLocation, yLocation, cookieList.get(i).getItemID()));
             cookieList.remove(i);
         }
     }
