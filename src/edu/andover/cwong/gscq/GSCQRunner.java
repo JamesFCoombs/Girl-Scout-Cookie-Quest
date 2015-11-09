@@ -15,7 +15,6 @@ import java.io.IOException;
 import edu.andover.cwong.gscq.view.GameViewer;
 import edu.andover.cwong.gscq.control.KeyController;
 import edu.andover.cwong.gscq.model.Game;
-import edu.andover.cwong.gscq.model.unit.GameEntity;
 
 // The "master" class - exists outside of MVC. Coordinates the three and handles
 // file IO for the various FXML (view) files.
@@ -63,6 +62,7 @@ public class GSCQRunner extends Application {
             System.exit(-1);
         }
     }
+    
     
     public void displayControls() {
         try {

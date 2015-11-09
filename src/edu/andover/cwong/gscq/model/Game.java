@@ -30,6 +30,7 @@ public class Game {
     }
     
     // This returns which tile a game entity (an item is on.
+    //getters and setters
     public Tile getTile(int x, int y){
     	// This detects if the game entity is within walls.
         if (x < 0 || y < 0) { return Floor.WALL; }
@@ -83,7 +84,7 @@ public class Game {
     public ArrayList<Item> getInventory() { 
     	return pc.getInventory(); 
     }
-    
+
     // This gets the player's list of cookies.
     public ArrayList<CookieRecipe> getCookieList() { 
     	return pc.getCookieList(); 

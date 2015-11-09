@@ -83,8 +83,6 @@ public class Floor {
         units[ge.getYLoc()][ge.getXLoc()] = ge;
     }
     
-    // this entire thing is so ugly i hate java
-    
     private int rowsConstructed = 0;
     
     // Factory-private constructor
@@ -144,10 +142,11 @@ public class Floor {
     
     // ----------- FLOOR GENERATION -----------
     
-    
+    @Deprecated
     public static int[][] floorTilesCreator;
+    @Deprecated
     private static ArrayList<Room> roomsOnFloor;
-    
+    @Deprecated
     public static int[][] createFloor(int width, int height) {
     	
     	floorTilesCreator = new int[width][height];
@@ -188,7 +187,7 @@ public class Floor {
     	return floorTilesCreator;
     }
     
-    
+    @Deprecated
     public static boolean generateRoom(Room room) {
     	
     	for (int i = room.getTLTY() - 1; i < room.getBLTY() + 1; i++) {
@@ -217,7 +216,7 @@ public class Floor {
     	
     	return true;
     }
-    
+    @Deprecated
     private static void generateBeacon(Room room) {
     	// Select wall
     	boolean validWall;
@@ -273,7 +272,7 @@ public class Floor {
     		}
     	}
     }
-    
+    @Deprecated
     private static void generatePaths() {
     	
     	try {
@@ -416,6 +415,7 @@ public class Floor {
     
     // RETURNS 0 IF NO BEACON, POSITIVE NUMBER IF DIFFERENT X COORD, NEGATIVE NUMBER
     //                                       IF DIFFERENT Y COORD
+    @Deprecated    
     private static int validBeaconInVicinity(int beaconX, int beaconY, int origX, int origY) {
     	
     	for (int i = beaconX; i < floorTilesCreator.length; i++) {
