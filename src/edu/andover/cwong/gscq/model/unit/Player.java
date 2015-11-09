@@ -24,10 +24,14 @@ public class Player extends LivingGameEntity {
     	return true;
     }
     
+    // This removes the player from the game.
     public void remove() {
     	System.out.println("End the game.");
     	super.remove();
     }
+    
+    // This makes the number of cookies a player has
+    // increase every time the player moves.
     public boolean move(int direction) {
     	boolean moved = super.move(direction);
     	if (moved) {
@@ -40,6 +44,7 @@ public class Player extends LivingGameEntity {
     	};
     	return false;
     }
+    
     // Spawns the player unit. TODO
     public static Player init() {
         // TODO: fix this
