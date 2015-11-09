@@ -13,8 +13,5 @@ public class PlainCookie extends CookieRecipe{
 		return "The default recipe,\nprovides one cookie per step.";
 	}
 	
-//	public int cookieIncrease () {
-//		return 1;
-//	}
 
 }

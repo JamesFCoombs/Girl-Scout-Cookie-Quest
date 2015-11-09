@@ -2,6 +2,7 @@ package edu.andover.cwong.gscq.model.unit;
 
 import java.util.ArrayList;
 
+import edu.andover.cwong.gscq.model.items.CookieRecipe;
 import edu.andover.cwong.gscq.model.items.Item;
 
 public class LivingGameEntity extends GameEntity {
@@ -97,6 +98,10 @@ public class LivingGameEntity extends GameEntity {
     public boolean addItem(Item item) {
         inventory.add(item);
         return true;
+    }
+    
+    public boolean addCookie(CookieRecipe cookieRecipe) {
+    	return false;
     }
 
     public void dealWithCollision(GameEntity other) {

@@ -9,8 +9,8 @@ import edu.andover.cwong.gscq.model.unit.ItemEntity;
 import edu.andover.cwong.gscq.model.unit.Player;
 import edu.andover.cwong.gscq.model.nav.Floor;
 import edu.andover.cwong.gscq.model.nav.Tile;
+import edu.andover.cwong.gscq.model.items.CookieRecipe;
 import edu.andover.cwong.gscq.model.items.Item;
-import edu.andover.cwong.gscq.model.items.Sash;
 
 // A "container" class containing convenience "hooks" for a relevant view
 // as well as encapsulating the entire game state at once.
@@ -67,6 +67,8 @@ public class Game {
     
     public ArrayList<Item> getInventory() { return pc.getInventory(); }
     
+    public ArrayList<CookieRecipe> getCookieList() { return pc.getCookieList(); } 
+    
     // Initialize the first floor
     public static Game init(boolean genFloor) {
         if (genFloor) {
@@ -84,11 +86,14 @@ public class Game {
         enemy1.setPlayer(pc);
         this.currFloor.addGameEntity(enemy1);
         enemy1.setFloor(this.currFloor);
-        ItemEntity badge = new ItemEntity(8, 9, "Sash");
-        this.currFloor.addGameEntity(badge);
-        ItemEntity hi = new ItemEntity(3, 9, "Mascara");
-        this.currFloor.addGameEntity(hi);
-        hi.setFloor(this.currFloor);
-        badge.setFloor(this.currFloor);
+        ItemEntity sash = new ItemEntity(8, 9, "Sash");
+        this.currFloor.addGameEntity(sash);
+        ItemEntity mascara = new ItemEntity(3, 9, "Mascara");
+        this.currFloor.addGameEntity(mascara);
+        ItemEntity plainCookie = new ItemEntity(5, 10, "Plain Cookie");
+        this.currFloor.addGameEntity(plainCookie);
+        mascara.setFloor(this.currFloor);
+        sash.setFloor(this.currFloor);
+        plainCookie.setFloor(this.currFloor);
     }
 }

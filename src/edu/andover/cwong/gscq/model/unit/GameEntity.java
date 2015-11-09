@@ -1,5 +1,6 @@
 package edu.andover.cwong.gscq.model.unit;
 
+import edu.andover.cwong.gscq.model.items.CookieRecipe;
 import edu.andover.cwong.gscq.model.items.Item;
 import edu.andover.cwong.gscq.model.nav.Floor;
 import javafx.scene.paint.Color;
@@ -33,6 +34,8 @@ public abstract class GameEntity {
     public abstract void update();
     
     public abstract void revertMovement();
+    
+    public abstract boolean addCookie(CookieRecipe cookieRecipe);
 
     // ------- GET AND SET METHODS -------
 
