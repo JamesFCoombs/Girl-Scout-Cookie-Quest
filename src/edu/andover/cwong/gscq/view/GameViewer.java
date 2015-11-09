@@ -16,8 +16,13 @@ import edu.andover.cwong.gscq.model.unit.Player;
 // What JFX calls a "controller" for the game panel. Handles refreshing of
 // view elements (etc)
 public class GameViewer {
+    
+    //holds reference to the runner and the Game
     private GSCQRunner runner;
     private Game owner;
+    
+    
+    //all of the FXML things
     @FXML
     private Label hpLabel;
     @FXML

@@ -64,6 +64,7 @@ public class GSCQRunner extends Application {
         }
     }
     
+    
     public void displayControls() {
         try {
             FXMLLoader loader = new FXMLLoader(GSCQRunner.class.getResource(
