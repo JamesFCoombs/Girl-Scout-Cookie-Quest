@@ -111,12 +111,12 @@ public class GameViewer {
     	}
     }
 
-    private String inventory="Inventory: \n";
     public void refreshHUD() {
         hpLabel.setText(owner.formatPlayerHP());
         atkLabel.setText(owner.formatPlayerAtk());
         defLabel.setText(owner.formatPlayerDef());
         cookieLabel.setText(owner.formatCookieCount());
+        String inventory="Inventory: \n";
         for (Item a: owner.getInventory()){
             inventory+=a.getItemID()+"\n";
         }

@@ -3,6 +3,7 @@ package edu.andover.cwong.gscq.model.unit;
 import java.util.ArrayList;
 
 import edu.andover.cwong.gscq.model.items.CookieRecipe;
+import edu.andover.cwong.gscq.model.items.Item;
 import edu.andover.cwong.gscq.model.items.PlainCookie;
 
 public class Player extends LivingGameEntity {
@@ -18,10 +19,11 @@ public class Player extends LivingGameEntity {
         CookieRecipe cookie1 = new PlainCookie();
         addCookie(cookie1);
     }
-    public boolean addCookie(CookieRecipe cookie) {
-    	cookieList.add(cookie);
+    public boolean addCookie(CookieRecipe cookieRecipe) {
+    	cookieList.add(cookieRecipe);
     	return true;
     }
+    
     public void remove() {
     	System.out.println("End the game.");
     	super.remove();
@@ -42,10 +44,24 @@ public class Player extends LivingGameEntity {
         // TODO: fix this
         return new Player(5, 5);
     }
+    
     public void setCookiesCount(int cookies) {
     	cookieCount += cookies;
     }
+    
     public int getCookieCount() {
     	return cookieCount;
+    }
+    
+    public ArrayList<CookieRecipe> getCookieList() {
+    	return cookieList;
+    }
+    
+    public void removeCookie() {
+        super.remove();
+        for (int i = 0; i < cookieList.size(); i++) {
+            getCurFloor().addGameEntity(new ItemEntity(xLocation, yLocation, cookieList.get(i).getItemID()));
+            cookieList.remove(i);
+        }
     }
 }
