@@ -30,7 +30,7 @@ public class Game {
         }
     }
     
-    //getters and setters
+    // getters and setters
     public Tile getTile(int x, int y){
         if (x < 0 || y < 0) { return Floor.WALL; }
     	return currFloor.getTile(x, y);
@@ -78,6 +78,7 @@ public class Game {
         return new Game(FloorLoader.loadFloor("res/floor.txt"));
     }
     
+    // creates entities for us to test
     private Game(Floor f) {
         this.pc = Player.init();
         pc.setFloor(f);
