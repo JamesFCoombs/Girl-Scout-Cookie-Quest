@@ -115,7 +115,8 @@ public class LivingGameEntity extends GameEntity {
     	setXLoc(lastXLocation);
     	setYLoc(lastYLocation);
     }
-
+    
+    // FIXME: Throws a nullpointerexception if there's no item equipped
     public void update() {
     	int bonusAttack = 0;
     	int bonusDefense = 0;
