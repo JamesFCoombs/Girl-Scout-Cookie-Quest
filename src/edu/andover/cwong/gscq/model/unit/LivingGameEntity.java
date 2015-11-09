@@ -86,7 +86,7 @@ public class LivingGameEntity extends GameEntity {
 
         int xDistance = xLocation - other.getXLoc();
         int yDistance = yLocation - other.getYLoc();
-        double distance = Math.sqrt(xDistance * xDistance + yDistance * yDistance);
+        double distance = Math.sqrt(xDistance*xDistance + yDistance*yDistance);
 
         if (1.0 * attackRange >= distance) {
             return true;
@@ -111,7 +111,9 @@ public class LivingGameEntity extends GameEntity {
     public void remove() {
         super.remove();
         for (int i = 0; i < inventory.size(); i++) {
-            getCurFloor().addGameEntity(new ItemEntity(xLocation, yLocation, inventory.get(i).getItemID()));
+            getCurFloor().addGameEntity(new ItemEntity(
+                    xLocation, yLocation, inventory.get(i).getItemID()
+            ));
             inventory.remove(i);
         }
     }
@@ -138,7 +140,9 @@ public class LivingGameEntity extends GameEntity {
     
     // ------- STATIC METHODS -------
 
-    public static int calculateDamage(LivingGameEntity attacker, LivingGameEntity defender) {
+    public static int calculateDamage(
+            LivingGameEntity attacker, LivingGameEntity defender
+    ) {
         return attacker.getBaseAttack() + attacker.getAttack() - defender.getDefense();
     }
 

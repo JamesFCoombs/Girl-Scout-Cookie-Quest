@@ -73,13 +73,15 @@ public class Game {
     	return String.format("Cookies: %s", pc.getCookieCount());
     }
     
+
     public ArrayList<Item> getInventory() { 
     	return pc.getInventory(); 
     }
     
     public ArrayList<CookieRecipe> getCookieList() { 
     	return pc.getCookieList(); 
-    	} 
+   	} 
+
     
     // Initialize the first floor
     public static Game init(boolean genFloor) {
