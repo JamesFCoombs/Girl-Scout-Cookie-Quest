@@ -26,7 +26,7 @@ public class Game {
         if (pc.move(input)) {
             currFloor.step();
             if (pc.getCurHealth() <= 0) { gameOver = true; }
-            pc.gainCookie(input);
+            //pc.move(input);
         }
     }
     
@@ -68,7 +68,6 @@ public class Game {
     }
     
     public ArrayList<Item> getInventory() { return pc.getInventory(); }
-    
     public ArrayList<CookieRecipe> getCookieList() { return pc.getCookieList(); } 
     
     // Initialize the first floor

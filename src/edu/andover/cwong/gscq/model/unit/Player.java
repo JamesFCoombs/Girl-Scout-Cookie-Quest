@@ -28,16 +28,17 @@ public class Player extends LivingGameEntity {
     	System.out.println("End the game.");
     	super.remove();
     }
-    public boolean gainCookie(int direction) {
-    	Boolean moved = super.move(direction);
-    	if (moved = true) {
+    public boolean move(int direction) {
+    	boolean moved = super.move(direction);
+    	if (moved) {
 			int bonusCookies = 0;
     		for (int i = 0; i < cookieList.size(); i++) {
             	bonusCookies += cookieList.get(i).cookieIncrease();
     		};
             setCookiesCount(bonusCookies);
+            return true;
     	};
-    	return true;
+    	return false;
     }
     // Spawns the player unit. TODO
     public static Player init() {
