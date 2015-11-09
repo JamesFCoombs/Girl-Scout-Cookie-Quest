@@ -30,6 +30,7 @@ public class Game {
         }
     }
     
+    //getters and setters
     public Tile getTile(int x, int y){
         if (x < 0 || y < 0) { return Floor.WALL; }
     	return currFloor.getTile(x, y);
@@ -44,30 +45,26 @@ public class Game {
     public int getPlayerYLoc(){
     	return pc.getYLoc();
     }
-    
     public GameEntity[][] getEntities(){
     	return currFloor.units;
     }
-    
     public String formatPlayerHP() {
         int c_hp = pc.getCurHealth();
         int m_hp = pc.getMaxHealth();
         return String.format("%d/%d", c_hp, m_hp);
     }
-    
     public String formatPlayerAtk() {
         return String.format("%s", pc.getAttack());
     }
-    
     public String formatPlayerDef() {
         return String.format("%s", pc.getDefense());
     }
-    
     public String formatCookieCount() {
     	return String.format("Cookies: %s", pc.getCookieCount());
     }
-    
-    public ArrayList<Item> getInventory() { return pc.getInventory(); }
+    public ArrayList<Item> getInventory() { 
+        return pc.getInventory(); 
+    }
     public ArrayList<CookieRecipe> getCookieList() {
         return pc.getCookieList();
     } 
