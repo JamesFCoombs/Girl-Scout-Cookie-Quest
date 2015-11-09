@@ -55,34 +55,40 @@ public class Game {
     	return currFloor.units;
     }
     
+    //This displays both the current health of the player
+    //and the maximum health that the player can have.
     public String formatPlayerHP() {
         int c_hp = pc.getCurHealth();
         int m_hp = pc.getMaxHealth();
         return String.format("%d/%d", c_hp, m_hp);
     }
     
+    //This displays the player attack on the screen.
     public String formatPlayerAtk() {
         return String.format("%s", pc.getAttack());
     }
     
+    //This displays the player defense on the screen.
     public String formatPlayerDef() {
         return String.format("%s", pc.getDefense());
     }
     
+    //This displays the number of cookies that the player has
+    //on the screen.
     public String formatCookieCount() {
     	return String.format("Cookies: %s", pc.getCookieCount());
     }
     
-
+    //This gets the player's inventory.
     public ArrayList<Item> getInventory() { 
     	return pc.getInventory(); 
     }
     
+    //This gets the player's list of cookies.
     public ArrayList<CookieRecipe> getCookieList() { 
     	return pc.getCookieList(); 
    	} 
 
-    
     // Initialize the first floor
     public static Game init(boolean genFloor) {
         if (genFloor) {
@@ -92,6 +98,7 @@ public class Game {
         return new Game(FloorLoader.loadFloor("res/floor.txt"));
     }
     
+    //This sets up the floor.
     private Game(Floor f) {
         this.pc = Player.init();
         pc.setFloor(f);
