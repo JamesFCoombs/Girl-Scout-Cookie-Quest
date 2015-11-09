@@ -3,8 +3,6 @@ package edu.andover.cwong.gscq.model.unit;
 import edu.andover.cwong.gscq.model.items.CookieRecipe;
 import edu.andover.cwong.gscq.model.items.Item;
 import edu.andover.cwong.gscq.model.nav.Floor;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 
 public abstract class GameEntity {
     int xLocation;
