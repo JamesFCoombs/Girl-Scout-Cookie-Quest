@@ -19,6 +19,7 @@ public class Game {
     private Floor currFloor;
     private ArrayList<Item> inventory;
     private Player pc;
+    public boolean gameOver = false;
     
     // Updates the game state based on input from the player
     // This method should only be called when the player takes some action
@@ -27,6 +28,7 @@ public class Game {
         // impossible. TODO
         pc.move(input);
         currFloor.step();
+        if (pc.getCurHealth() <= 0) { gameOver = true; }
         pc.gainCookie(input);
     }
     

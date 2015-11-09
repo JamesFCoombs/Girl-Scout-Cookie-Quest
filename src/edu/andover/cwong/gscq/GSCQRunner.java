@@ -103,9 +103,25 @@ public class GSCQRunner extends Application {
     
     // Updates all sprites onscreen to their current frames and positions.
     private void update() {
-        viewer.refreshHUD();
-        viewer.refreshCanvas();
-        // TODO
+        if (state.gameOver) {
+            try {
+                FXMLLoader loader = new FXMLLoader(
+                        GSCQRunner.class.getResource("view/EndContainer.fxml")
+                );
+                AnchorPane endContainer = loader.load();
+                this.primaryStage.setScene(new Scene(endContainer));
+                this.primaryStage.setResizable(false);
+                this.primaryStage.sizeToScene();
+            }
+            catch (IOException e) {
+                System.err.println("Couldn't load gameover layout. Aborting.");
+                System.exit(-3);
+            }
+        }
+        else {
+            viewer.refreshHUD();
+            viewer.refreshCanvas();
+        }
     }
 
     public static void main(String... args) {
