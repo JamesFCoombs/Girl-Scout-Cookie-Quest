@@ -66,7 +66,9 @@ public class Player extends LivingGameEntity {
     public void removeCookie() {
         super.remove();
         for (int i = 0; i < cookieList.size(); i++) {
-            getCurFloor().addGameEntity(new ItemEntity(xLocation, yLocation, cookieList.get(i).getItemID()));
+            getCurFloor().addGameEntity(new ItemEntity(
+                    xLocation, yLocation, cookieList.get(i).getItemID()
+            ));
             cookieList.remove(i);
         }
     }
