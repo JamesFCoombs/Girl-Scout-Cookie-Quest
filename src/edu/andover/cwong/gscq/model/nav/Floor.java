@@ -11,12 +11,13 @@ public class Floor {
     public Tile[][] floorTiles;
     public GameEntity[][] units;
 
-    // can we get rid of this ASAP
+    @Deprecated
     public Floor(int x, int y) {
         floorTiles = new Tile[y][x];
         units = new GameEntity[y][x];
     }
 
+    // if not inside the floor, return a wall tile
     public Tile getTile(int x, int y) {
         if (x < 0 || y < 0 ||
             x >= floorTiles[0].length || y >= floorTiles.length) {

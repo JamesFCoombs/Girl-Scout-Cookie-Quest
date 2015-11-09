@@ -10,7 +10,7 @@ public class KeyController {
     
     @SuppressWarnings("incomplete-switch")
     public void handleKeyInput(KeyEvent e) {
-        // Cam: these numbers don't make sense to me either
+        // turns the input into usable int
         switch (e.getCode()) {
         case DOWN:
             owner.update(3);
