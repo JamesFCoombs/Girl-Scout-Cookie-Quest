@@ -49,8 +49,7 @@ public class ItemEntity extends GameEntity {
     		thisItem = new Purse();
     	}else if (itemName.equals("Sash")) {
     		thisItem = new Sash();
-    	}
-    	else if (itemName.equals("CootieShot")) {
+    	}else if (itemName.equals("CootieShot")) {
     		thisItem = new CootieShot();
     	}else if (itemName.equals("PlainCookie")) {
     		thisItem = new PlainCookie();

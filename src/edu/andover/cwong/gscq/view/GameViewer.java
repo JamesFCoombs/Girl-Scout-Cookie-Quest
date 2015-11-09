@@ -110,6 +110,12 @@ public class GameViewer {
     		}
     	}
     }
+    
+    public void toggleEquip(){
+        for (Item a: owner.getInventory()){
+            a.toggleEquip();
+        }
+    }
 
     public void refreshHUD() {
         hpLabel.setText(owner.formatPlayerHP());
