@@ -68,7 +68,9 @@ public class Game {
     }
     
     public ArrayList<Item> getInventory() { return pc.getInventory(); }
-    public ArrayList<CookieRecipe> getCookieList() { return pc.getCookieList(); } 
+    public ArrayList<CookieRecipe> getCookieList() {
+        return pc.getCookieList();
+    } 
     
     // Initialize the first floor
     public static Game init(boolean genFloor) {
