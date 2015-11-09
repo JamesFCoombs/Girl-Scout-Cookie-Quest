@@ -50,42 +50,43 @@ public class GameViewer {
     private final int tiles = 36;
     private final int tilesPerRow = 6;
     
+    // FIXME: Change this to just make it better in general
     public void refreshCanvas(){
         entityGrid.getChildren().clear();
     	visibleTiles = new ImageView[tiles];
 	    for (int i=0; i<tiles; i++) {
+	        // get entities
 	        GameEntity e = owner.getEntity(
                     i%tilesPerRow-(tilesPerRow/2)+owner.getPlayerXLoc(),
-                    i/tilesPerRow-(tilesPerRow/2)+owner.getPlayerYLoc());
+                    i/tilesPerRow-(tilesPerRow/2)+owner.getPlayerYLoc()
+            );
+	        // Display the entities on each tile
             if (e!=null){
                 ImageView entityImage = new ImageView(
-                        new Image("file:res/0.png"
-                        )
+                        new Image("file:res/0.png")
                 );
                 if(e instanceof Player){
                     entityImage = new ImageView(
-                            new Image("file:res/char.png"
-                            )
+                            new Image("file:res/char.png")
                     );
                 }
                 else if(e instanceof Enemy){
                     entityImage = new ImageView(
-                            new Image("file:res/enemy.png"
-                            )
+                            new Image("file:res/enemy.png")
                     );
                 }
                 entityGrid.add(entityImage, 
                         3+e.getXLoc()-owner.getPlayerXLoc(), 
-                        3+e.getYLoc()-owner.getPlayerYLoc());
+                        3+e.getYLoc()-owner.getPlayerYLoc()
+                );
             }
+            // Display the tile image (N.png for tile ID N)
 	    	if (visibleTiles[i]==null){
 		        ImageView tileImage = new ImageView(
-		                new Image(String.format("file:res/%d.png",
-		                        owner.getTile(
-		                                i%tilesPerRow-(tilesPerRow/2)+owner.getPlayerXLoc(),
-		                                i/tilesPerRow-(tilesPerRow/2)+owner.getPlayerYLoc()
-		                        ).getID()
-		                ))
+		                new Image(String.format("file:res/%d.png",owner.getTile(
+		                    i%tilesPerRow-(tilesPerRow/2)+owner.getPlayerXLoc(),
+		                    i/tilesPerRow-(tilesPerRow/2)+owner.getPlayerYLoc()
+		                ).getID()))
 		        );
 	        visibleTiles[i] = tileImage;
 	    	}
@@ -94,29 +95,28 @@ public class GameViewer {
     }
     
     public void refreshEntities(){
+        // for each entity, refresh its position on the screen
     	for (GameEntity[] e:owner.getEntities()){
     		if (e!=null){
 	    		for (GameEntity entity:e){
 		        	if (entity!=null){
                         ImageView entityImage = new ImageView(
-                                new Image("file:res/0.png"
-                                )
+                                new Image("file:res/0.png")
                         );
                         if(entity instanceof Player){
                             entityImage = new ImageView(
-                                    new Image("file:res/char.png"
-                                    )
+                                    new Image("file:res/char.png")
                             );
                         }
                         else if(entity instanceof Enemy){
                             entityImage = new ImageView(
-                                    new Image("file:res/enemy.png"
-                                    )
+                                    new Image("file:res/enemy.png")
                             );
                         }
 		    	        entityGrid.add(entityImage, 
 		    	                3+entity.getXLoc()-owner.getPlayerXLoc(), 
-		    	                3+entity.getYLoc()-owner.getPlayerYLoc());
+		    	                3+entity.getYLoc()-owner.getPlayerYLoc()
+		    	        );
 	        		}
 	    		}
     		}
@@ -134,6 +134,7 @@ public class GameViewer {
         atkLabel.setText(owner.formatPlayerAtk());
         defLabel.setText(owner.formatPlayerDef());
         cookieLabel.setText(owner.formatCookieCount());
+        // TODO
         String inventory="Inventory: \n";
         for (Item a: owner.getInventory()){
             inventory+=a.getItemID()+"\n";
