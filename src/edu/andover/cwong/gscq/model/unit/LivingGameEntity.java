@@ -128,6 +128,7 @@ public class LivingGameEntity extends GameEntity {
         	int bonusAttack = 0;
         	int bonusDefense = 0;
         	for (int i = 0; i < inventory.size(); i++) {
+        	    if (inventory.get(i) == null) { continue; }
         		if (inventory.get(i).isEquipped()) {
         			bonusAttack += inventory.get(i).attackIncrease();
         			bonusDefense += inventory.get(i).defenseIncrease();
