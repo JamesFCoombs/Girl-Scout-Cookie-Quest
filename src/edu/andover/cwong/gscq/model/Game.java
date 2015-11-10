@@ -99,6 +99,7 @@ public class Game {
         return new Game(FloorLoader.loadFloor("res/floor.txt"));
     }
     
+    // creates entities for us to test
     // This sets up the floor.
     private Game(Floor f) {
         this.pc = Player.init();
