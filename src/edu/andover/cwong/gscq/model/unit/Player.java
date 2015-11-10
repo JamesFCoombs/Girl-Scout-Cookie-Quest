@@ -3,10 +3,6 @@ package edu.andover.cwong.gscq.model.unit;
 import java.util.ArrayList;
 
 import edu.andover.cwong.gscq.model.items.CookieRecipe;
-<<<<<<< HEAD
-=======
-//import edu.andover.cwong.gscq.model.items.Item;
->>>>>>> 52b15ed4214c529ac0e9cf2834245c31c0af279f
 import edu.andover.cwong.gscq.model.items.PlainCookie;
 
 public class Player extends LivingGameEntity {
