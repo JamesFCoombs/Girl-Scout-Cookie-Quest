@@ -1,4 +1,3 @@
-
 package edu.andover.cwong.gscq.model;
 
 import java.util.ArrayList;
@@ -53,7 +52,7 @@ public class Game {
     
     // This gets all the game entities on the floor.
     public GameEntity[][] getEntities(){
-    	return currFloor.units;
+    	return currFloor.getUnits();
     }
     
     // This displays both the current health of the player

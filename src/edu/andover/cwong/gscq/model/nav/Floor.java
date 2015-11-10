@@ -8,14 +8,17 @@ import edu.andover.cwong.gscq.model.unit.LivingGameEntity;
 // Represents a "grid" of terrain types and units on the floor.
 public class Floor {
     public static final Tile WALL = new Tile(0);
-    public Tile[][] floorTiles;
-    public GameEntity[][] units;
+    private Tile[][] floorTiles;
+    private GameEntity[][] units;
 
     @Deprecated
     public Floor(int x, int y) {
         floorTiles = new Tile[y][x];
         units = new GameEntity[y][x];
     }
+    
+    public Tile[][] getGrid() { return floorTiles; }
+    public GameEntity[][] getUnits() { return units; }
 
     // if not inside the floor, return a wall tile
     public Tile getTile(int x, int y) {
@@ -140,7 +143,7 @@ public class Floor {
     
     
     
-    
+    // XXX: I think this silliness warrants its own class
     // ----------- FLOOR GENERATION -----------
     
     @Deprecated
