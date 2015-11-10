@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
 import edu.andover.cwong.gscq.GSCQRunner;
+import edu.andover.cwong.gscq.view.FloorViewBuilder;
 import edu.andover.cwong.gscq.model.Game;
 import edu.andover.cwong.gscq.model.items.Item;
 import edu.andover.cwong.gscq.model.unit.Enemy;
@@ -33,12 +34,12 @@ public class GameViewer {
     private Label cookieLabel;
     @FXML
     private Label ivtLabel;
-
 	@FXML
 	private GridPane gameGrid;
-	
 	@FXML
 	private GridPane entityGrid;
+	@FXML
+	private ImageView mapView;
 
     private ImageView[] visibleTiles;
     
