@@ -11,7 +11,7 @@ public class Floor {
     public Tile[][] floorTiles;
     public GameEntity[][] units;
 
-    @Deprecated
+    
     public Floor(int x, int y) {
         floorTiles = new Tile[y][x];
         units = new GameEntity[y][x];
@@ -143,17 +143,18 @@ public class Floor {
     
     // ----------- FLOOR GENERATION -----------
     
-    @Deprecated
+    
     public static int[][] floorTilesCreator;
-    @Deprecated
+    
     private static ArrayList<Room> roomsOnFloor;
-    @Deprecated
+    
     public static int[][] createFloor(int width, int height) {
     	
     	floorTilesCreator = new int[width][height];
+    	
     	roomsOnFloor = new ArrayList<Room>();
     	
-    	int roomsPerFloor = (int) (1.0 * width * height / Room.PRIORITY_AREA / 4);
+    	// Set all tiles equal to 0, with -1 forming the perimiter.
     	
     	for (int i = 0; i < height; i++) {
     		for (int j = 0; j < width; j++) {
@@ -165,9 +166,9 @@ public class Floor {
     		}
     	}
     	
-
+    	// Generates the proper amount of rooms for this floor.
     	
-    	// Generate 1 path tile and 1 beacon tile
+    	int roomsPerFloor = (int) (1.0 * width * height / Room.PRIORITY_AREA / 4);
     	
     	while (roomsPerFloor > 0) {
     		if (generateRoom(new Room(
@@ -177,12 +178,22 @@ public class Floor {
     		}
     	}
     	
+    	// Generates paths between the rooms.
     	generatePaths();
+    	
+    	
+    	// If all rooms aren't connected, try again.
+    	for (int i = 0; i < roomsOnFloor.size(); i++) { 
+    		if (!roomsOnFloor.get(i).isConnected()) {
+    			createFloor(floorTilesCreator[0].length, floorTilesCreator.length);
+    			break;
+    		}
+    	}
     	
     	return floorTilesCreator;
     }
     
-    @Deprecated
+    
     public static boolean generateRoom(Room room) {
     	
     	for (int i = room.getTLTY() - 1; i < room.getBLTY() + 1; i++) {
@@ -216,7 +227,7 @@ public class Floor {
     	
     	return true;
     }
-    @Deprecated
+    
     private static void generateBeacon(Room room) {
     	// Select wall
     	boolean validWall;
@@ -257,291 +268,320 @@ public class Floor {
     		if (wall == 2) {
     			floorTilesCreator[startCoord][room.getTRTX() + 0] = 2;
     			floorTilesCreator[startCoord][room.getTRTX() + 1] = 5;
+    			room.setBeaconY(startCoord);
+    			room.setBeaconX(room.getTRTX() + 1);
     		} else {
     			floorTilesCreator[startCoord][room.getTLTX() - 1] = 2;
     			floorTilesCreator[startCoord][room.getTLTX() - 2] = 5;
+    			room.setBeaconY(startCoord);
+    			room.setBeaconX(room.getTLTX() - 2);
     		}
     	} else {
     		startCoord = (int) (Math.random() * room.getWidth()) + room.getTLTX();
     		if (wall == 1) {
     			floorTilesCreator[room.getTRTY() - 1][startCoord] = 2;
     			floorTilesCreator[room.getTRTY() - 2][startCoord] = 5;
+    			room.setBeaconX(startCoord);
+    			room.setBeaconY(room.getTRTY() - 2);
     		} else {
     			floorTilesCreator[room.getBLTY() + 0][startCoord] = 2;
     			floorTilesCreator[room.getBLTY() + 1][startCoord] = 5;
+    			room.setBeaconX(startCoord);
+    			room.setBeaconY(room.getBLTY() + 1);
     		}
     	}
     }
-    @Deprecated
+    
     private static void generatePaths() {
     	
     	try {
     	boolean validBeacon = false;
     	int beaconX;
     	int beaconY;
+    	roomsOnFloor.get(0).connectRoom();
     	
-    	// CYCLES THROUGH TILES TO FIND BEACONS
-    	for (int i = 0; i < floorTilesCreator.length; i++) {
-    		for (int j = 0; j < floorTilesCreator[0].length; j++) {
-    			if (floorTilesCreator[i][j] == 5) {
-    				
-    				validBeacon = false;
-    				
-    				// beaconX and beaconY search for a valid beacon
-    				beaconX = j;
-    				beaconY = i;
-    				int counter = 0;
-    				
-    				// 1 is up, 2 is right, 3 is down, 4 is left
-					int direction = 0;
-					int wallDir = 0;
-					
-					// Move away from current room until a wall is hit 
-					if (floorTilesCreator[beaconY][beaconX - 1] == 2) {
-						while (floorTilesCreator[beaconY][beaconX + 1] == 0) {
-							beaconX++;
-						}
-						wallDir = 2;
-						direction = 1;
-					} else if (floorTilesCreator[beaconY][beaconX + 1] == 2) {
-						while (floorTilesCreator[beaconY][beaconX - 1] == 0) {
-							beaconX--;
-						}
-						wallDir = 4;
-						direction = 1;
-					} else if (floorTilesCreator[beaconY - 1][beaconX] == 2) {
-						while (floorTilesCreator[beaconY + 1][beaconX] == 0) {
-							beaconY++;
-						}
-						wallDir = 3;
-						direction = 2;
-					} else if (floorTilesCreator[beaconY + 1][beaconX] == 2) {
-						while (floorTilesCreator[beaconY - 1][beaconX] == 0) {
-							beaconY--;
-						}
-						wallDir = 1;
-						direction = 2;
-					}
-					
-					int possibleLoc = validBeaconInVicinity(beaconX, beaconY, j, i);
-					if (possibleLoc > 0) {
-						beaconX = possibleLoc;
-						validBeacon = true;
-					} else if (possibleLoc < 0) {
-						beaconY = - possibleLoc;
-						validBeacon = true;
-					}
-    				
-    				while (counter <= 50 && !validBeacon) {
-    					
-    					counter++;
-    					
-    					
-    					
-    					// CRAWLS UP WALL
-    					while (!validBeacon && direction == 1) {
-    						if (floorTilesCreator[beaconY - 1][beaconX] == -1) {
-    							if (wallDir == 4) {
-    								direction = 2;
-    								wallDir = 1;
-    							}
-    							if (wallDir == 2) {
-    								direction = 4;
-    								wallDir = 1;
-    							}
-    						}
-    						
-    						beaconY--;
-    						int validBeaconLocation = validBeaconInVicinity(beaconX, beaconY, j, i);
-    						if (validBeaconLocation > 0) {
-    							beaconX = validBeaconLocation;
-    							validBeacon = true;
-    						} else if (validBeaconLocation < 0) {
-    							beaconY = -validBeaconLocation;
-    							validBeacon = true;
-    						}
-    						
-    						if (wallDir == 4) {
-    							if (floorTilesCreator[beaconY][beaconX - 1] != -1) {
-    								direction = 4;
-    								wallDir = 3;
-    							}
-    						}
-    						if (wallDir == 2) {
-    							if (floorTilesCreator[beaconY][beaconX + 1] != -1) {
-    								direction = 2;
-    								wallDir = 3;
-    							}
-    						}
+    	for (int a = 0; a < roomsOnFloor.size(); a++) {
+    		int i = roomsOnFloor.get(a).getBeaconY();
+    		int j = roomsOnFloor.get(a).getBeaconX();
+    		
+    		validBeacon = false;
+    		
+    		// beaconX and beaconY search for a valid beacon
+    		beaconX = j;
+    		beaconY = i;
+    		int counter = 0;
+    		
+    		// 1 is up, 2 is right, 3 is down, 4 is left
+			int direction = 0;
+			int wallDir = 0;
+			
+			// Move away from current room until a wall is hit 
+			if (floorTilesCreator[beaconY][beaconX - 1] == 2) {
+				while (floorTilesCreator[beaconY][beaconX + 1] == 0) {
+					beaconX++;
+				}
+				wallDir = 2;
+				direction = 1;
+			} else if (floorTilesCreator[beaconY][beaconX + 1] == 2) {
+				while (floorTilesCreator[beaconY][beaconX - 1] == 0) {
+					beaconX--;
+				}
+				wallDir = 4;
+				direction = 1;
+			} else if (floorTilesCreator[beaconY - 1][beaconX] == 2) {
+				while (floorTilesCreator[beaconY + 1][beaconX] == 0) {
+					beaconY++;
+				}
+				wallDir = 3;
+				direction = 2;
+			} else if (floorTilesCreator[beaconY + 1][beaconX] == 2) {
+				while (floorTilesCreator[beaconY - 1][beaconX] == 0) {
+					beaconY--;
+				}
+				wallDir = 1;
+				direction = 2;
+			}
+			
+			int possibleLoc = validBeaconInVicinity(beaconX, beaconY, j, i);
+			if (possibleLoc > 0) {
+				beaconX = possibleLoc;
+				validBeacon = true;
+			} else if (possibleLoc < 0) {
+				beaconY = - possibleLoc;
+				validBeacon = true;
+			}
+    		
+    		while (counter <= 50 && !validBeacon) {
+    			
+    			counter++;
+    			
+    			// CRAWLS UP WALL
+    			while (!validBeacon && direction == 1) {
+    				if (floorTilesCreator[beaconY - 1][beaconX] == -1) {
+    					if (wallDir == 4) {
+    						direction = 2;
+    						wallDir = 1;
     					}
-    					
-    					// CRAWLS RIGHT ALONG WALL
-    					while (!validBeacon && direction == 2) {
-    						
-    						if (floorTilesCreator[beaconY][beaconX + 1] == -1) {
-    							if (wallDir == 1) {
-    								direction = 3;
-    								wallDir = 2;
-    							}
-    							if (wallDir == 3) {
-    								direction = 1;
-    								wallDir = 2;
-    							}
-    						}
-    						
-    						beaconX++;
-    						int validBeaconLocation = validBeaconInVicinity(beaconX, beaconY, j, i);
-    						if (validBeaconLocation > 0) {
-    							beaconX = validBeaconLocation;
-    							validBeacon = true;
-    						} else if (validBeaconLocation < 0) {
-    							beaconY = -validBeaconLocation;
-    							validBeacon = true;
-    						}
-    						
-    						if (wallDir == 1) {
-    							if (floorTilesCreator[beaconY - 1][beaconX] != -1) {
-    								direction = 1;
-    								wallDir = 4;
-    							}
-    						}
-    						if (wallDir == 3) {
-    							if (floorTilesCreator[beaconY + 1][beaconX] != -1) {
-    								direction = 3;
-    								wallDir = 4;
-    							}
-    						}
-    					}
-    					
-    					// CRAWLS DOWN ALONG WALL
-    					while (!validBeacon && direction == 3) {
-    						
-    						if (
-        							floorTilesCreator[beaconY + 1][beaconX] == -1) {
-    							if (wallDir == 4) {
-    								direction = 2;
-    								wallDir = 3;
-    							}
-    							if (wallDir == 2) {
-    								direction = 4;
-    								wallDir = 3;
-    							}
-    						}
-    						
-    						beaconY++;
-    						int validBeaconLocation = validBeaconInVicinity(beaconX, beaconY, j, i);
-    						if (validBeaconLocation > 0) {
-    							beaconX = validBeaconLocation;
-    							validBeacon = true;
-    						} else if (validBeaconLocation < 0) {
-    							beaconY = -validBeaconLocation;
-    							validBeacon = true;
-    						}
-    						
-    						if (wallDir == 4) {
-    							if (floorTilesCreator[beaconY][beaconX - 1] != -1) {
-    								direction = 4;
-    								wallDir = 1;
-    							}
-    						}
-    						if (wallDir == 2) {
-    							if (floorTilesCreator[beaconY][beaconX + 1] != -1) {
-    								direction = 2;
-    								wallDir = 1;
-    							}
-    						}
-    					}
-    					
-    					// CRAWLS LEFT ALONG WALL
-    					while (!validBeacon && direction == 4) {
-    						
-    						if (floorTilesCreator[beaconY][beaconX - 1] == -1) {
-    							if (wallDir == 1) {
-    								direction = 3;
-    								wallDir = 4;
-    							}
-    							if (wallDir == 3) {
-    								direction = 1;
-    								wallDir = 4;
-    							}
-    						}
-    						beaconX--;
-    						int validBeaconLocation = validBeaconInVicinity(beaconX, beaconY, j, i);
-    						if (validBeaconLocation > 0) {
-    							beaconX = validBeaconLocation;
-    							validBeacon = true;
-    						} else if (validBeaconLocation < 0) {
-    							beaconY = -validBeaconLocation;
-    							validBeacon = true;
-    						}
-    						
-    						if (wallDir == 1) {
-    							if (floorTilesCreator[beaconY - 1][beaconX] != -1) {
-    								direction = 1;
-    								wallDir = 2;
-    							}
-    						}
-    						if (wallDir == 3) {
-    							if (floorTilesCreator[beaconY + 1][beaconX] != -1) {
-    								direction = 3;
-    								wallDir = 2;
-    							}
-    						}
+    					if (wallDir == 2) {
+    						direction = 4;
+    						wallDir = 1;
     					}
     				}
     				
-    				if (!validBeacon) {
-    					createFloor(floorTilesCreator[0].length, floorTilesCreator.length);
-    					return;
+    				beaconY--;
+    				int validBeaconLocation = validBeaconInVicinity(beaconX, beaconY, j, i);
+    				if (validBeaconLocation > 0) {
+    					beaconX = validBeaconLocation;
+    					validBeacon = true;
+    				} else if (validBeaconLocation < 0) {
+    					beaconY = -validBeaconLocation;
+    					validBeacon = true;
     				}
     				
-
-    				// GENERATES PATH BETWEEN BEACONS
+    				if (wallDir == 4) {
+    					if (floorTilesCreator[beaconY][beaconX - 1] != -1) {
+    						direction = 4;
+    						wallDir = 3;
+    					}
+    				}
+    				if (wallDir == 2) {
+    					if (floorTilesCreator[beaconY][beaconX + 1] != -1) {
+    						direction = 2;
+    						wallDir = 3;
+    					}
+    				}
+    			}
+    			
+    			// CRAWLS RIGHT ALONG WALL
+    			while (!validBeacon && direction == 2) {
     				
-    				boolean connected = false;
-    				int x = j;
-    				int y = i;
+    				if (floorTilesCreator[beaconY][beaconX + 1] == -1) {
+    					if (wallDir == 1) {
+    						direction = 3;
+    						wallDir = 2;
+    					}
+    					if (wallDir == 3) {
+    						direction = 1;
+    						wallDir = 2;
+    					}
+    				}
+    		
+    				beaconX++;
+    				int validBeaconLocation = validBeaconInVicinity(beaconX, beaconY, j, i);
+    				if (validBeaconLocation > 0) {
+    					beaconX = validBeaconLocation;
+    					validBeacon = true;
+    				} else if (validBeaconLocation < 0) {
+    					beaconY = -validBeaconLocation;
+    					validBeacon = true;
+    				}
     				
-    				while (!connected) {
-    					
-    					while (x < beaconX) { 
-    						x++;
-							if (floorTilesCreator[y][x] != 5) {
-								floorTilesCreator[y][x] = 1;
-							}
+    				if (wallDir == 1) {
+    					if (floorTilesCreator[beaconY - 1][beaconX] != -1) {
+    						direction = 1;
+    						wallDir = 4;
     					}
-    					while (x > beaconX) {
-    						x--;
-    						if (floorTilesCreator[y][x] != 5) {
-								floorTilesCreator[y][x] = 1;
-							}
+    				}
+    				if (wallDir == 3) {
+    					if (floorTilesCreator[beaconY + 1][beaconX] != -1) {
+    						direction = 3;
+    						wallDir = 4;
     					}
-    					
-    					while (y > beaconY) {
-    						y--;
-    						if (floorTilesCreator[y][x] != 5) {
-								floorTilesCreator[y][x] = 1;
-							}
+    				}
+    			}
+    			
+    			// CRAWLS DOWN ALONG WALL
+    			while (!validBeacon && direction == 3) {
+    				
+    				if (
+        					floorTilesCreator[beaconY + 1][beaconX] == -1) {
+    					if (wallDir == 4) {
+    						direction = 2;
+    						wallDir = 3;
     					}
-    					while (y < beaconY) {
-    						y++;
-    						if (floorTilesCreator[y][x] != 5) {
-								floorTilesCreator[y][x] = 1;
-							}
-    					}
-    					
-    					if (beaconX == x && beaconY == y) {
-    						connected = true;
+    					if (wallDir == 2) {
+    						direction = 4;
+    						wallDir = 3;
     					}
     				}
     				
+    				beaconY++;
+    				int validBeaconLocation = validBeaconInVicinity(beaconX, beaconY, j, i);
+    				if (validBeaconLocation > 0) {
+    					beaconX = validBeaconLocation;
+    					validBeacon = true;
+    				} else if (validBeaconLocation < 0) {
+    					beaconY = -validBeaconLocation;
+    					validBeacon = true;
+    				}
     				
+    				if (wallDir == 4) {
+    					if (floorTilesCreator[beaconY][beaconX - 1] != -1) {
+    						direction = 4;
+    						wallDir = 1;
+    					}
+    				}
+    				if (wallDir == 2) {
+    					if (floorTilesCreator[beaconY][beaconX + 1] != -1) {
+    						direction = 2;
+    						wallDir = 1;
+    					}
+    				}
+    			}
+    					
+    			// CRAWLS LEFT ALONG WALL
+    			while (!validBeacon && direction == 4) {
+    				
+    				if (floorTilesCreator[beaconY][beaconX - 1] == -1) {
+    					if (wallDir == 1) {
+    						direction = 3;
+    						wallDir = 4;
+    					}
+    					if (wallDir == 3) {
+    						direction = 1;
+    						wallDir = 4;
+    					}
+    				}
+    				beaconX--;
+    				int validBeaconLocation = validBeaconInVicinity(beaconX, beaconY, j, i);
+    				if (validBeaconLocation > 0) {
+    					beaconX = validBeaconLocation;
+    					validBeacon = true;
+    				} else if (validBeaconLocation < 0) {
+    					beaconY = -validBeaconLocation;
+    					validBeacon = true;
+    				}
+    				
+    				if (wallDir == 1) {
+    					if (floorTilesCreator[beaconY - 1][beaconX] != -1) {
+    						direction = 1;
+    						wallDir = 2;
+    					}
+    				}
+    					if (wallDir == 3) {
+    					if (floorTilesCreator[beaconY + 1][beaconX] != -1) {
+    						direction = 3;
+    						wallDir = 2;
+    					}
+    				}
     			}
     		}
-    	}
+    		
+    		if (!validBeacon) {
+    			createFloor(floorTilesCreator[0].length, floorTilesCreator.length);
+    			return;
+    		}
+    		
+   			// GENERATES PATH BETWEEN BEACONS
+  				
+  			boolean arrived = false;
+  				
+  			int x = j;
+  			int y = i;
+  			
+  			while (!arrived) {
+  				
+  				while (x < beaconX) { 
+  					x++;
+  					if (floorTilesCreator[y][x] == 6
+  							|| floorTilesCreator[y][x] == 1) {
+  						beaconX = x;
+  						beaconY = y;
+  					} else if (floorTilesCreator[y][x] != 5) {
+						floorTilesCreator[y][x] = 1;
+					}
+  				}
+  				while (x > beaconX) {
+  					x--;
+  					if (floorTilesCreator[y][x] == 6
+  							|| floorTilesCreator[y][x] == 1) {
+  						beaconX = x;
+  						beaconY = y;
+  					} else if (floorTilesCreator[y][x] != 5) {
+  						floorTilesCreator[y][x] = 1;
+  					}
+  				}
+  				
+  				while (y > beaconY) {
+  					y--;
+  					if (floorTilesCreator[y][x] == 6
+  							|| floorTilesCreator[y][x] == 1) {
+  						beaconX = x;
+  						beaconY = y;
+  					} else if (floorTilesCreator[y][x] != 5) {
+  						floorTilesCreator[y][x] = 1;
+  					}
+  				}
+  				while (y < beaconY) {
+  					y++;
+  					if (floorTilesCreator[y][x] == 6
+  							|| floorTilesCreator[y][x] == 1) {
+  						beaconX = x;
+  						beaconY = y;
+  					} else if (floorTilesCreator[y][x] != 5) {
+  						floorTilesCreator[y][x] = 1;
+  					}
+  				}
+  				
+  				if (beaconX == x && beaconY == y) {
+  					arrived = true;
+  				}
+  				
+  			}
+  			
+  			if (floorTilesCreator[beaconY][beaconX] == 6) {
+  				connectTiles(beaconX, beaconY);
+  			}
+  			
+  			if (roomsOnFloor.get(a).isConnected()) {
+  				connectTiles(j, i);
+  			}
+  			
+  			  			
+  		}
     	} catch (ArrayIndexOutOfBoundsException e) {
     		createFloor(floorTilesCreator[0].length, floorTilesCreator.length);
-			return;
+    		return;
     	}
     	
     	
@@ -549,12 +589,13 @@ public class Floor {
     
     // RETURNS 0 IF NO BEACON, POSITIVE NUMBER IF DIFFERENT X COORD, NEGATIVE NUMBER
     //                                       IF DIFFERENT Y COORD
-    @Deprecated    
+    
     private static int validBeaconInVicinity(int beaconX, int beaconY, int origX, int origY) {
     	
     	for (int i = beaconX; i < floorTilesCreator.length; i++) {
     		if (i != origX && (floorTilesCreator[beaconY][i] == 1
-    				|| floorTilesCreator[beaconY][i] == 5)) {
+    				|| floorTilesCreator[beaconY][i] == 5
+    				|| floorTilesCreator[beaconY][i] == 6)) {
     			return i;
     		}
     		if (floorTilesCreator[beaconY][i] != 0) {
@@ -564,7 +605,8 @@ public class Floor {
     	
     	for (int i = beaconX; i > 0; i--) {
     		if (i != origX && (floorTilesCreator[beaconY][i] == 1
-    				|| floorTilesCreator[beaconY][i] == 5)) {
+    				|| floorTilesCreator[beaconY][i] == 5
+    				|| floorTilesCreator[beaconY][i] == 6)) {
     			return i;
     		}
     		if (floorTilesCreator[beaconY][i] != 0) {
@@ -574,7 +616,8 @@ public class Floor {
     	
     	for (int i = beaconY; i < floorTilesCreator[0].length; i++) {
     		if (i != origY && (floorTilesCreator[i][beaconX] == 1
-    				|| floorTilesCreator[i][beaconX] == 5)) {
+    				|| floorTilesCreator[i][beaconX] == 5
+    				|| floorTilesCreator[i][beaconX] == 6)) {
     			return -i;
     		}
     		if (floorTilesCreator[i][beaconX] != 0) {
@@ -584,7 +627,8 @@ public class Floor {
     	
     	for (int i = beaconY; i > 0; i--) {
     		if (i != origY && (floorTilesCreator[i][beaconX] == 1
-    				|| floorTilesCreator[i][beaconX] == 5)) {
+    				|| floorTilesCreator[i][beaconX] == 5
+    				|| floorTilesCreator[i][beaconX] == 6)) {
     			return -i;
     		}
     		if (floorTilesCreator[i][beaconX] != 0) {
@@ -593,5 +637,45 @@ public class Floor {
     	}
     	
     	return 0;
+    }
+    
+    private static void connectTiles(int x, int y) {
+    	
+    	// Flips the tile in question.
+    	
+    	if (floorTilesCreator[y][x] == 1) {
+    		floorTilesCreator[y][x] = 6;
+    	} else if (floorTilesCreator[y][x] == 5) {
+    		
+    		floorTilesCreator[y][x] = 6;
+    		
+    		for (int a = 0; a < roomsOnFloor.size(); a++) {
+    			if (roomsOnFloor.get(a).getBeaconX() == x
+    					&& roomsOnFloor.get(a).getBeaconY() == y) {
+    				roomsOnFloor.get(a).connectRoom();
+    			}
+    		}
+    	} else if (floorTilesCreator[y][x] != 6){
+    		return;
+    	}
+    	
+    	// Flips surrounding tiles
+    	if (floorTilesCreator[y - 1][x] == 1
+    			|| floorTilesCreator[y - 1][x] == 5) {
+    		connectTiles(x, y - 1);
+    	}
+    	if (floorTilesCreator[y + 1][x] == 1
+    			|| floorTilesCreator[y + 1][x] == 5) {
+    		connectTiles(x, y + 1);
+    	}
+    	if (floorTilesCreator[y][x - 1] == 1
+    			|| floorTilesCreator[y][x - 1] == 5) {
+    			connectTiles(x - 1, y);
+    	}
+    	if (floorTilesCreator[y][x + 1] == 1
+    			|| floorTilesCreator[y][x + 1] == 5) {
+    		connectTiles(x + 1, y);
+    	}
+    	
     }
 }
