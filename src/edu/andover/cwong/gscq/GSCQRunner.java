@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -14,7 +15,6 @@ import java.io.IOException;
 import edu.andover.cwong.gscq.view.GameViewer;
 import edu.andover.cwong.gscq.control.KeyController;
 import edu.andover.cwong.gscq.model.Game;
-import edu.andover.cwong.gscq.model.unit.GameEntity;
 
 // The "master" class - exists outside of MVC. Coordinates the three and handles
 // file IO for the various FXML (view) files.
@@ -50,8 +50,9 @@ public class GSCQRunner extends Application {
     // Initialize the root container (Scene) to a "base" window.
     public void initRoot() {
         try {
-            FXMLLoader loader = new FXMLLoader(
-                    GSCQRunner.class.getResource("view/RootFrame.fxml"));
+            FXMLLoader loader = new FXMLLoader(GSCQRunner.class.getResource(
+                    "view/RootFrame.fxml"
+            ));
             layoutRoot = loader.load();
             this.primaryStage.setScene(new Scene(layoutRoot));
             this.primaryStage.setResizable(false);
@@ -62,17 +63,58 @@ public class GSCQRunner extends Application {
         }
     }
     
+    
+    public void displayControls() {
+        try {
+            FXMLLoader loader = new FXMLLoader(GSCQRunner.class.getResource(
+                    "view/ControlsDialog.fxml"
+            ));
+            AnchorPane dialog = loader.load();
+            Stage s = new Stage();
+            s.setTitle("Controls");
+            s.initModality(Modality.WINDOW_MODAL);
+            s.initOwner(primaryStage);
+            s.setScene(new Scene(dialog));
+            s.showAndWait();
+        }
+        catch(IOException e) {
+            System.err.println("Unable to load controls display. Skipping.");
+            return;
+        }
+    }
+    
+    public void displayMinimap() {
+        try {
+            FXMLLoader loader = new FXMLLoader(GSCQRunner.class.getResource(
+                    "view/MinimapDialog.fxml"
+            ));
+            AnchorPane dialog = loader.load();
+            Stage s = new Stage();
+            s.setTitle("map");
+            s.initModality(Modality.WINDOW_MODAL);
+            s.initOwner(primaryStage);
+            s.setScene(new Scene(dialog));
+            s.showAndWait();
+        }
+        catch(IOException e) {
+            System.err.println("Unable to load controls display. Skipping.");
+            return;
+        }
+    }
+    
     // Loads and initializes the "container" - the "meat" of the scene. Places
     // the container in the middle of the BorderPane and attaches relevant
     // key and mouse listeners.
     public void initContainer() {
         try {
-            FXMLLoader loader = new FXMLLoader(
-                    GSCQRunner.class.getResource("view/GameContainer.fxml"));
+            FXMLLoader loader = new FXMLLoader(GSCQRunner.class.getResource(
+                    "view/GameContainer.fxml"
+            ));
             AnchorPane gameContainer = loader.load();
             // Let's get this party started
             viewer = loader.getController();
             viewer.setOwner(state);
+            viewer.setRunner(this);
             
             // "ctrlr::handleKeyInput" is a "method object"; this line is
             // essentially equivalent to (e) -> { ctrlr.handleKeyInput(); }.
@@ -103,9 +145,25 @@ public class GSCQRunner extends Application {
     
     // Updates all sprites onscreen to their current frames and positions.
     private void update() {
-        viewer.refreshHUD();
-        viewer.refreshCanvas();
-        // TODO
+        if (state.gameOver) {
+            try {
+                FXMLLoader loader = new FXMLLoader(GSCQRunner.class.getResource(
+                        "view/EndContainer.fxml"
+                ));
+                AnchorPane endContainer = loader.load();
+                this.primaryStage.setScene(new Scene(endContainer));
+                this.primaryStage.setResizable(false);
+                this.primaryStage.sizeToScene();
+            }
+            catch (IOException e) {
+                System.err.println("Couldn't load gameover layout. Aborting.");
+                System.exit(-3);
+            }
+        }
+        else {
+            viewer.refreshHUD();
+            viewer.refreshCanvas();
+        }
     }
 
     public static void main(String... args) {

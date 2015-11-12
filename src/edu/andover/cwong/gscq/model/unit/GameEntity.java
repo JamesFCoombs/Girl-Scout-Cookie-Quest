@@ -1,9 +1,8 @@
 package edu.andover.cwong.gscq.model.unit;
 
+import edu.andover.cwong.gscq.model.items.CookieRecipe;
 import edu.andover.cwong.gscq.model.items.Item;
 import edu.andover.cwong.gscq.model.nav.Floor;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 
 public abstract class GameEntity {
     int xLocation;
@@ -17,8 +16,10 @@ public abstract class GameEntity {
     }
 
     public boolean isInMap() {
-        if (curFloor.getWidth() <= xLocation || curFloor.getHeight() <= yLocation ||
-        		0 > xLocation || 0 > yLocation) {
+        if (curFloor.getWidth() <= xLocation ||
+            curFloor.getHeight() <= yLocation ||
+            0 > xLocation || 0 > yLocation
+        ) {
             return false;
         }
         return true;
@@ -33,6 +34,8 @@ public abstract class GameEntity {
     public abstract void update();
     
     public abstract void revertMovement();
+    
+    public abstract boolean addCookie(CookieRecipe cookieRecipe);
 
     // ------- GET AND SET METHODS -------
 

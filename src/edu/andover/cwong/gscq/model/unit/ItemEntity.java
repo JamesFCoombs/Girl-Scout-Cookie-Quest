@@ -24,6 +24,10 @@ public class ItemEntity extends GameEntity {
         return false;
     }
     
+    public boolean addCookie(CookieRecipe cookieRecipe) {
+    	return false;
+    }
+    
     public void revertMovement() {}
 
     public void update() {}
@@ -49,10 +53,11 @@ public class ItemEntity extends GameEntity {
     		thisItem = new Purse();
     	}else if (itemName.equals("Sash")) {
     		thisItem = new Sash();
+    	}else if (itemName.equals("CootieShot")) {
+    		thisItem = new CootieShot();
+    	}else if (itemName.equals("PlainCookie")) {
+    		thisItem = new PlainCookie();
     	}
     	
-    	else if (itemName.equals("CootieShot")) {
-    		thisItem = new CootieShot();
-    	}
     }
 }

@@ -2,6 +2,7 @@ package edu.andover.cwong.gscq.model.unit;
 
 import java.util.ArrayList;
 
+import edu.andover.cwong.gscq.model.items.CookieRecipe;
 import edu.andover.cwong.gscq.model.items.Item;
 
 public class LivingGameEntity extends GameEntity {
@@ -17,11 +18,9 @@ public class LivingGameEntity extends GameEntity {
     private int lastXLocation;
     private int lastYLocation;
 
-    /**
-     * GameEntity that can move initializer
-     * @param xLoc
-     * @param yLoc
-     */
+    // GameEntity that can move initializer
+    // @param xLoc
+    // @param yLoc
     public LivingGameEntity(int xLoc, int yLoc) {
         xLocation = xLoc;
         yLocation = yLoc;
@@ -35,15 +34,6 @@ public class LivingGameEntity extends GameEntity {
     // 2 is right
     // 3 is down
     // 4 is left
-    /**
-     * Moves the Entity one unit in the specified direction
-     * 1 is up
-     * 2 is right
-     * 3 is down
-     * 4 is left
-     * @param direction
-     * @return
-     */
     public boolean move(int direction) {
     	lastXLocation = getXLoc();
     	lastYLocation = getYLoc();
@@ -85,7 +75,7 @@ public class LivingGameEntity extends GameEntity {
 
         int xDistance = xLocation - other.getXLoc();
         int yDistance = yLocation - other.getYLoc();
-        double distance = Math.sqrt(xDistance * xDistance + yDistance * yDistance);
+        double distance = Math.sqrt(xDistance*xDistance + yDistance*yDistance);
 
         if (1.0 * attackRange >= distance) {
             return true;
@@ -98,6 +88,10 @@ public class LivingGameEntity extends GameEntity {
         inventory.add(item);
         return true;
     }
+    
+    public boolean addCookie(CookieRecipe cookieRecipe) {
+    	return false;
+    }
 
     public void dealWithCollision(GameEntity other) {
         other.revertMovement();
@@ -106,7 +100,9 @@ public class LivingGameEntity extends GameEntity {
     public void remove() {
         super.remove();
         for (int i = 0; i < inventory.size(); i++) {
-            getCurFloor().addGameEntity(new ItemEntity(xLocation, yLocation, inventory.get(i).getItemID()));
+            getCurFloor().addGameEntity(new ItemEntity(
+                    xLocation, yLocation, inventory.get(i).getItemID()
+            ));
             inventory.remove(i);
         }
     }
@@ -115,23 +111,28 @@ public class LivingGameEntity extends GameEntity {
     	setXLoc(lastXLocation);
     	setYLoc(lastYLocation);
     }
-
+    
     public void update() {
-    	int bonusAttack = 0;
-    	int bonusDefense = 0;
-    	for (int i = 0; i < inventory.size(); i++) {
-    		if (inventory.get(i).isEquipped()) {
-    			bonusAttack += inventory.get(i).attackIncrease();
-    			bonusDefense += inventory.get(i).defenseIncrease();
-    		}
-    	}
-    	setAttack(bonusAttack);
-    	setDefense(bonusDefense);
+        if (inventory.size() > 0) {
+        	int bonusAttack = 0;
+        	int bonusDefense = 0;
+        	for (int i = 0; i < inventory.size(); i++) {
+        	    if (inventory.get(i) == null) { continue; }
+        		if (inventory.get(i).isEquipped()) {
+        			bonusAttack += inventory.get(i).attackIncrease();
+        			bonusDefense += inventory.get(i).defenseIncrease();
+        		}
+        	}
+        	setAttack(bonusAttack);
+        	setDefense(bonusDefense);
+        }
     }
     
     // ------- STATIC METHODS -------
 
-    public static int calculateDamage(LivingGameEntity attacker, LivingGameEntity defender) {
+    public static int calculateDamage(
+            LivingGameEntity attacker, LivingGameEntity defender
+    ) {
         return attacker.getBaseAttack() + attacker.getAttack() - defender.getDefense();
     }
 
