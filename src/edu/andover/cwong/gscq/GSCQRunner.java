@@ -26,6 +26,7 @@ public class GSCQRunner extends Application {
     // Controller/coordination things
     private GameViewer viewer;
     private KeyController ctrlr;
+    private Timeline tl;
     
     // model things
     private Game state;
@@ -125,7 +126,7 @@ public class GSCQRunner extends Application {
             // the timeline the model, so I'd rather put the timeline outside
             // of the MVC architecture altogether. The update() method just
             // calls the respective update() methods of all sprites onscreen.
-            Timeline tl = new Timeline(new KeyFrame(
+            tl = new Timeline(new KeyFrame(
                     Duration.millis(150), (e) -> { this.update(); }
             ));
             tl.setCycleCount(Timeline.INDEFINITE);
@@ -154,6 +155,7 @@ public class GSCQRunner extends Application {
                 this.primaryStage.setScene(new Scene(endContainer));
                 this.primaryStage.setResizable(false);
                 this.primaryStage.sizeToScene();
+                tl.pause();
             }
             catch (IOException e) {
                 System.err.println("Couldn't load gameover layout. Aborting.");
