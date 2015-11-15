@@ -68,16 +68,18 @@ public class Floor {
     	floorTiles[y][x]=tile;
     }
 
-    public void unitHasMoved(LivingGameEntity lge, int xLoc, int yLoc) {
+    public boolean unitHasMoved(LivingGameEntity lge, int xLoc, int yLoc) {
+    	if (floorTiles[yLoc][xLoc] == WALL) {
+    		return false;
+    	}
     	if (units[yLoc][xLoc] != null) {
     		units[yLoc][xLoc].dealWithCollision(lge);
     	} 
-    	if (units[yLoc][xLoc] != null) {
-    		return;
-    	} else {
+    	if (units[yLoc][xLoc] == null) {
     		units[lge.getLastYLocation()][lge.getLastXLocation()] = null;
     		units[yLoc][xLoc] = lge;
     	}
+    	return true;
     }
     
     public void removeGameEntity(GameEntity ge) {

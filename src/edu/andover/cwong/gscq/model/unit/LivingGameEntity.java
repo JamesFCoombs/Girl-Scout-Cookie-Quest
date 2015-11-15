@@ -59,7 +59,10 @@ public class LivingGameEntity extends GameEntity {
         	revertMovement();
         	return false;
         }
-        curFloor.unitHasMoved(this, xLocation, yLocation);
+        if (!curFloor.unitHasMoved(this, xLocation, yLocation)) {
+        	revertMovement();
+        	return false;
+        }
         
         return true;
     }

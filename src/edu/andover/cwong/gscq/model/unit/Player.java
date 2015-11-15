@@ -51,10 +51,10 @@ public class Player extends LivingGameEntity {
 			int bonusCookies = 0;
     		for (int i = 0; i < cookieList.size(); i++) {
             	bonusCookies += cookieList.get(i).cookieIncrease();
-    		};
+    		}
             setCookiesCount(bonusCookies);
             return true;
-    	};
+    	}
     	return false;
     }
     
