@@ -90,10 +90,12 @@ public class Floor {
     }
 
     public boolean addGameEntity(GameEntity ge) {
-        if (units[ge.getYLoc()][ge.getXLoc()] != null) {
+        if (units[ge.getYLoc()][ge.getXLoc()] != null
+        		|| floorTiles[ge.getYLoc()][ge.getXLoc()] == WALL) {
             return false;
         }
         units[ge.getYLoc()][ge.getXLoc()] = ge;
+        ge.setFloor(this);
         return true;
     }
   
@@ -153,9 +155,9 @@ public class Floor {
     	
     	// Spawns the exit in the specified room.
     	spawnX = exitRoom.getTLTX() + 
-    			((int) (Math.random() * playerRoom.getWidth()));
+    			((int) (Math.random() * exitRoom.getWidth()));
     	spawnY = exitRoom.getTLTY() +
-    			((int) (Math.random() * playerRoom.getHeight()));
+    			((int) (Math.random() * exitRoom.getHeight()));
     	
     	floorTiles[spawnY][spawnX] = EXIT;
     	
@@ -164,6 +166,14 @@ public class Floor {
     	spawnY = shopRoom.getTLTY();
     	
     	floorTiles[spawnY][spawnX] = SHOP;
+    	
+    	// TODO TEST CODE REMOVE
+    	spawnX = playerRoom.getTLTX() + 
+    			((int) (Math.random() * playerRoom.getWidth()));
+    	spawnY = playerRoom.getTLTY() +
+    			((int) (Math.random() * playerRoom.getHeight()));
+    	
+    	addGameEntity(new Enemy(spawnX, spawnY));
     	
     }
     

@@ -25,7 +25,7 @@ public class Game {
     public void update(int input) {
         if (pc.move(input)) {
             currFloor.step();
-            if (pc.getCurHealth() <= 0) { gameOver = true; }
+            //if (pc.getCurHealth() <= 0) { gameOver = true; }
         }
     }
     

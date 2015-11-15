@@ -98,7 +98,9 @@ public class LivingGameEntity extends GameEntity {
 
     public void dealWithCollision(LivingGameEntity other) {
     	takeDamage(calculateDamage(this, other));
-        other.revertMovement();
+    	if (curHealth > 0) {
+    		other.revertMovement();
+    	}
     }
 
     public void remove() {

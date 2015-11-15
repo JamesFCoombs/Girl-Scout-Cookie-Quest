@@ -11,7 +11,7 @@ public class Enemy extends LivingGameEntity{
 	public Enemy(int xLoc, int yLoc) {
 		super(xLoc, yLoc);
 		
-		initializeMaxHealth(10);
+		initializeMaxHealth(5);
 		setDefense(0);
 		setAttack(0);
 		setBaseAttack(BASE_ATTACK);
@@ -57,7 +57,7 @@ public class Enemy extends LivingGameEntity{
 			} else if(player.getYLoc() > yLocation) {
 				move(3);
 			} else {
-				move(4);
+				move(1);
 			}
 		} else {
 			// TODO Move to a new room.
