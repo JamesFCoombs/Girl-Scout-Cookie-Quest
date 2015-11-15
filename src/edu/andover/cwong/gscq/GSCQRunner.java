@@ -43,7 +43,7 @@ public class GSCQRunner extends Application {
     // and enemies loaded. Also sets up our KeyListener to interface with
     // this state object.
     public void startGame() {
-        state = Game.init(false);
+        state = Game.init(true);
         ctrlr = new KeyController(state);
     }
     

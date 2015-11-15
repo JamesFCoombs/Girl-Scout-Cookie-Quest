@@ -1,12 +1,16 @@
 package edu.andover.cwong.gscq.model.unit;
 
+import edu.andover.cwong.gscq.model.nav.Room;
+
 public class Enemy extends LivingGameEntity{
 	
-	private Player player;
+	
 	private static final int BASE_ATTACK = 3;
+	private Room room;
 	
 	public Enemy(int xLoc, int yLoc) {
 		super(xLoc, yLoc);
+		
 		initializeMaxHealth(10);
 		setDefense(0);
 		setAttack(0);
@@ -42,13 +46,28 @@ public class Enemy extends LivingGameEntity{
 	}
 	
 	private void calculatePathing() {
-		// Stuff
+		if (room == null) {
+			// TODO Continue pathing.
+		} else if (room.isInRoom(player)) {
+			// Moves towards the player.
+			if (player.getXLoc() > xLocation) {
+				move(2);
+			} else if (player.getXLoc() < xLocation) {
+				move(4);
+			} else if(player.getYLoc() > yLocation) {
+				move(3);
+			} else {
+				move(4);
+			}
+		} else {
+			// TODO Move to a new room.
+		}
 	}
 	
 	// ------- GET AND SET METHODS -------
 	
-	public void setPlayer(Player plr) {
-		player = plr;
+	public void setRoom(Room room) {
+		this.room = room;
 	}
 
 }

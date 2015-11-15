@@ -92,19 +92,21 @@ public class Game {
 
     // Initialize the first floor
     public static Game init(boolean genFloor) {
+    	new Player(0,0);
         if (genFloor) {
-            throw new UnsupportedOperationException(
-                    "Floor generation is hard");
+           return new Game(new Floor(40, 40));
+        } else {
+        	return new Game(FloorLoader.loadFloor("res/floor.txt"));
         }
-        return new Game(FloorLoader.loadFloor("res/floor.txt"));
     }
     
     // creates entities for us to test
     // This sets up the floor.
     private Game(Floor f) {
-        this.pc = Player.init();
+    	this.pc = GameEntity.player;
         pc.setFloor(f);
         this.currFloor = f;
+        /*
         Enemy enemy1=new Enemy(3,3);
         enemy1.setPlayer(pc);
         this.currFloor.addGameEntity(enemy1);
@@ -117,6 +119,6 @@ public class Game {
         this.currFloor.addGameEntity(plainCookie);
         mascara.setFloor(this.currFloor);
         sash.setFloor(this.currFloor);
-        plainCookie.setFloor(this.currFloor);
+        plainCookie.setFloor(this.currFloor); */
     }
 }

@@ -9,16 +9,16 @@ public class EntityTester {
 	private static Floor floor;
 	
 	public static void main(String[] args) {
-		floor = new Floor(10000, 10000);
-		floor.createFloor(10000, 10000);
+		String str = "plainCookieRecipe";
+		System.out.println(str.substring(str.length() - 6));
+		/*
+		floor = new Floor(40, 40);
 		
 		Player player = new Player(8, 8);
 		Enemy enemy1 = new Enemy(3, 3);
 		Enemy enemy2 = new Enemy(8, 7);
 		ItemEntity badge = new ItemEntity(8, 9, "Sash");
 		
-		enemy1.setPlayer(player);
-		enemy2.setPlayer(player);
 		
 		floor.addGameEntity(player);
 		floor.addGameEntity(enemy1);
@@ -41,7 +41,7 @@ public class EntityTester {
 			System.out.println("HP: " + player.getCurHealth());
 			
 		}
-		kbrd.close();
+		kbrd.close(); */
 	}
 	
 	public static void displayMap() {

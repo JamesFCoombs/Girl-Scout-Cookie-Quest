@@ -93,7 +93,8 @@ public class LivingGameEntity extends GameEntity {
     	return false;
     }
 
-    public void dealWithCollision(GameEntity other) {
+    public void dealWithCollision(LivingGameEntity other) {
+    	takeDamage(calculateDamage(this, other));
         other.revertMovement();
     }
 

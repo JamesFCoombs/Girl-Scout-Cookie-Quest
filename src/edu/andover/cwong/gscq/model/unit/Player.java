@@ -3,20 +3,34 @@ package edu.andover.cwong.gscq.model.unit;
 import java.util.ArrayList;
 
 import edu.andover.cwong.gscq.model.items.CookieRecipe;
+import edu.andover.cwong.gscq.model.items.Item;
 import edu.andover.cwong.gscq.model.items.PlainCookie;
 
 public class Player extends LivingGameEntity {
+	
 	public int cookieCount = 0;
 	private ArrayList<CookieRecipe> cookieList;
+	
+	
     public Player(int xLoc, int yLoc) {
         super(xLoc, yLoc);
-        initializeMaxHealth(5); //SHOULD BE TEN
+        
+        initializeMaxHealth(10);
         setDefense(0);
         setAttack(0);
         setBaseAttack(6);
+        
         cookieList = new ArrayList<CookieRecipe>();
-        CookieRecipe cookie1 = new PlainCookie();
-        addCookie(cookie1);
+        addCookie(new PlainCookie());
+        
+        player = this;
+    }
+    
+    public boolean addItem(Item item) {
+    	//if (item is a cookieRecipe) {
+    	//		addCookie(item)
+    	//}
+    	return super.addItem(item);
     }
     public boolean addCookie(CookieRecipe cookieRecipe) {
     	cookieList.add(cookieRecipe);
@@ -44,12 +58,6 @@ public class Player extends LivingGameEntity {
     	return false;
     }
     
-    // Spawns the player unit. TODO
-    public static Player init() {
-        // TODO: fix this
-        return new Player(5, 5);
-    }
-    
     // This resets the number of cookies the player has every
     // time the player should gain a cookie by movement. 
     public void setCookiesCount(int cookies) {
@@ -65,8 +73,7 @@ public class Player extends LivingGameEntity {
     	return cookieList;
     }
     
-    public void removeCookie() {
-        super.remove();
+    public void removeCookies() {super.remove();
         for (int i = 0; i < cookieList.size(); i++) {
             getCurFloor().addGameEntity(new ItemEntity(
                     xLocation, yLocation, cookieList.get(i).getItemID()
