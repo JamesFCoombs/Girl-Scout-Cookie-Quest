@@ -59,7 +59,10 @@ public class LivingGameEntity extends GameEntity {
         	revertMovement();
         	return false;
         }
-        curFloor.unitHasMoved(this, xLocation, yLocation);
+        if (!curFloor.unitHasMoved(this, xLocation, yLocation)) {
+        	revertMovement();
+        	return false;
+        }
         
         return true;
     }
@@ -93,8 +96,11 @@ public class LivingGameEntity extends GameEntity {
     	return false;
     }
 
-    public void dealWithCollision(GameEntity other) {
-        other.revertMovement();
+    public void dealWithCollision(LivingGameEntity other) {
+    	takeDamage(calculateDamage(this, other));
+    	if (curHealth > 0) {
+    		other.revertMovement();
+    	}
     }
 
     public void remove() {
