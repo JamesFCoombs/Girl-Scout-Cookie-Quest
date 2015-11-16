@@ -25,8 +25,14 @@ public class Game {
     public void update(int input) {
         if (pc.move(input)) {
             currFloor.step();
-            if (pc.getCurHealth() <= 0) { gameOver = true; }
+            //if (pc.getCurHealth() <= 0) { gameOver = true; }
         }
+    }
+    
+    public void seeInventory(int input, int item) {
+    	if (pc.openInventory(input, item)) {
+    		pc.selectItem(item);
+    	}
     }
     
     // This returns which tile a game entity (an item is on.
@@ -92,24 +98,28 @@ public class Game {
 
     // Initialize the first floor
     public static Game init(boolean genFloor) {
+    	new Player(0,0);
         if (genFloor) {
-            throw new UnsupportedOperationException(
-                    "Floor generation is hard");
+           return new Game(new Floor(40, 40));
+        } 
+        else {
+        	return new Game(new Floor (40, 40));
         }
-        return new Game(FloorLoader.loadFloor("res/floor.txt"));
+        
     }
     
     // creates entities for us to test
     // This sets up the floor.
     private Game(Floor f) {
-        this.pc = Player.init();
+    	this.pc = GameEntity.player;
         pc.setFloor(f);
         this.currFloor = f;
+        
         Enemy enemy1=new Enemy(3,3);
-        enemy1.setPlayer(pc);
+        //enemy1.setPlayer(pc);
         this.currFloor.addGameEntity(enemy1);
         enemy1.setFloor(this.currFloor);
-        ItemEntity sash = new ItemEntity(8, 9, "Sash");
+        ItemEntity sash = new ItemEntity(4, 5, "Sash");
         this.currFloor.addGameEntity(sash);
         ItemEntity mascara = new ItemEntity(3, 9, "Mascara");
         this.currFloor.addGameEntity(mascara);
@@ -117,6 +127,6 @@ public class Game {
         this.currFloor.addGameEntity(plainCookie);
         mascara.setFloor(this.currFloor);
         sash.setFloor(this.currFloor);
-        plainCookie.setFloor(this.currFloor);
+        plainCookie.setFloor(this.currFloor); 
     }
 }

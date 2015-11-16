@@ -2,19 +2,30 @@ package edu.andover.cwong.gscq.model.nav;
 
 import java.util.ArrayList;
 
-import edu.andover.cwong.gscq.model.unit.GameEntity;
-import edu.andover.cwong.gscq.model.unit.LivingGameEntity;
+import edu.andover.cwong.gscq.model.unit.*;
 
 // Represents a "grid" of terrain types and units on the floor.
 public class Floor {
+	
+	// Each tile represents one square on the map.
     public static final Tile WALL = new Tile(0);
+    public static final Tile PATH = new Tile(1);
+    public static final Tile ROOM = new Tile(2);
+    public static final Tile SHOP = new Tile(3);
+    public static final Tile EXIT = new Tile(4);
+    
+    // The grid that represents the map.
     public Tile[][] floorTiles;
+    
+    // A grid that represents each GameEntity's location
+    // on the map.
     public GameEntity[][] units;
 
     
     public Floor(int x, int y) {
         floorTiles = new Tile[y][x];
         units = new GameEntity[y][x];
+        generateFloor(x, y);
     }
 
     // if not inside the floor, return a wall tile
@@ -57,16 +68,18 @@ public class Floor {
     	floorTiles[y][x]=tile;
     }
 
-    public void unitHasMoved(LivingGameEntity lge, int xLoc, int yLoc) {
+    public boolean unitHasMoved(LivingGameEntity lge, int xLoc, int yLoc) {
+    	if (floorTiles[yLoc][xLoc] == WALL) {
+    		return false;
+    	}
     	if (units[yLoc][xLoc] != null) {
     		units[yLoc][xLoc].dealWithCollision(lge);
     	} 
-    	if (units[yLoc][xLoc] != null) {
-    		return;
-    	} else {
+    	if (units[yLoc][xLoc] == null) {
     		units[lge.getLastYLocation()][lge.getLastXLocation()] = null;
     		units[yLoc][xLoc] = lge;
     	}
+    	return true;
     }
     
     public void removeGameEntity(GameEntity ge) {
@@ -76,70 +89,93 @@ public class Floor {
         units[ge.getYLoc()][ge.getXLoc()] = null;
     }
 
-    public void addGameEntity(GameEntity ge) {
-        if (units[ge.getYLoc()][ge.getXLoc()] != null) {
-            throw new IllegalArgumentException(
-                    "Can't spawn units on occupied square!");
+    public boolean addGameEntity(GameEntity ge) {
+        if (units[ge.getYLoc()][ge.getXLoc()] != null
+        		|| floorTiles[ge.getYLoc()][ge.getXLoc()] == WALL) {
+            return false;
         }
         units[ge.getYLoc()][ge.getXLoc()] = ge;
+        ge.setFloor(this);
+        return true;
     }
-    
-    private int rowsConstructed = 0;
-    
-    // Factory-private constructor
-    private Floor(int[] row) {
-        floorTiles = new Tile[row.length][row.length];
-        units = new GameEntity[row.length][row.length];
-        floorTiles[0] = Tile.convertInts(row);
-        rowsConstructed = 1;
+  
+    public void generateFloor(int width, int height) {
+    	
+    	// Creates a new map for this floor.
+    	units = new GameEntity[height][width];
+    	floorTiles = new Tile[height][width];
+    	
+    	// Make a grid of ints for the map to cast from
+    	createFloor(width, height);
+    	
+    	// Takes the generated int grid and applies it to the map.
+    	for (int i = 0; i < floorTiles.length; i++) {
+    		for (int j = 0; j < floorTiles[0].length; j++) {
+    			if (floorTilesCreator[i][j] == 0) {
+    				floorTiles[i][j] = WALL;
+    			} else if (floorTilesCreator[i][j] == 1) {
+    				floorTiles[i][j] = PATH;
+    			} else if (floorTilesCreator[i][j] == 2) {
+    				floorTiles[i][j] = ROOM;
+    			} else {
+    				throw new IllegalArgumentException("Floor Generation messed up.");
+    			}
+    		}
+    	}
+    	
+    	// Determines which room the player spawns in, which
+    	// room the shop spawns in, and which room the exit
+    	// spawns in.
+    	Room playerRoom;
+    	Room shopRoom;
+    	Room exitRoom;
+    	
+    	int spawnX;
+    	int spawnY;
+    	
+    	playerRoom = roomsOnFloor.get((int) (Math.random() * roomsOnFloor.size()));
+    	
+    	do {
+    		shopRoom = roomsOnFloor.get((int) (Math.random() * roomsOnFloor.size()));
+    	} while (shopRoom == playerRoom);
+    	
+    	do {
+    		exitRoom = roomsOnFloor.get((int) (Math.random() * roomsOnFloor.size()));
+    	} while (exitRoom == playerRoom || exitRoom == shopRoom);
+    	
+    	// Spawns the player in the specified room.
+    	spawnX = playerRoom.getTLTX() + 
+    			((int) (Math.random() * playerRoom.getWidth()));
+    	spawnY = playerRoom.getTLTY() +
+    			((int) (Math.random() * playerRoom.getHeight()));
+    	
+    	units[spawnY][spawnX] = GameEntity.player;
+    	GameEntity.player.setXLoc(spawnX);
+    	GameEntity.player.setYLoc(spawnY);
+    	
+    	// Spawns the exit in the specified room.
+    	spawnX = exitRoom.getTLTX() + 
+    			((int) (Math.random() * exitRoom.getWidth()));
+    	spawnY = exitRoom.getTLTY() +
+    			((int) (Math.random() * exitRoom.getHeight()));
+    	
+    	floorTiles[spawnY][spawnX] = EXIT;
+    	
+    	// Spawns the shop in the specified room.
+    	spawnX = (shopRoom.getTLTX() + shopRoom.getTRTX()) / 2;
+    	spawnY = shopRoom.getTLTY();
+    	
+    	floorTiles[spawnY][spawnX] = SHOP;
+    	
+    	// TODO TEST CODE REMOVE
+    	spawnX = playerRoom.getTLTX() + 
+    			((int) (Math.random() * playerRoom.getWidth()));
+    	spawnY = playerRoom.getTLTY() +
+    			((int) (Math.random() * playerRoom.getHeight()));
+    	
+    	addGameEntity(new Enemy(spawnX, spawnY));
+    	
     }
-    
-    // Adds a row to the Floor currently being constructed
-    private void addRow(int[] row) {
-        if (row.length != floorTiles.length) {
-            System.err.println("Invalid floor formatting: Must be rectangle");
-            System.exit(-2);
-        }
-        // make the array larger
-        if (rowsConstructed >= floorTiles.length) {
-            Tile[][] n_tiles = new Tile[floorTiles.length+1][row.length];
-            System.arraycopy(floorTiles, 0, n_tiles, 0, floorTiles.length);
-            GameEntity[][] n_ge =
-                    new GameEntity[floorTiles.length+1][row.length];
-            System.arraycopy(units, 0, n_ge, 0, floorTiles.length);
-            this.floorTiles = n_tiles;
-            this.units = n_ge;
-        }
-        floorTiles[rowsConstructed] = Tile.convertInts(row);
-        rowsConstructed++;
-    }
-    
-    // All of this ugliness is pretty much just factory code
-    
-    private static Floor construct = null;
-    
-    // Either creates a new Floor (which subsequent calls will add rows onto)
-    // or adds a row onto the existing construction.
-    public static void constructFloor(int[] row) {
-        if (construct == null) {
-            construct = new Floor(row);
-            return;
-        }
-        construct.addRow(row);
-    }
-    
-    // Return the completed floor plan. TODO get rid of trailing empty rows
-    public static Floor getConstructed() {
-        Floor result = construct;
-        // get rid of the reference so we can construct a new floor
-        construct = null;
-        return result;
-    }
-    
-    
-    
-    
-    
     
     // ----------- FLOOR GENERATION -----------
     
@@ -148,7 +184,7 @@ public class Floor {
     
     private static ArrayList<Room> roomsOnFloor;
     
-    public static int[][] createFloor(int width, int height) {
+    private static int[][] createFloor(int width, int height) {
     	
     	floorTilesCreator = new int[width][height];
     	
@@ -189,6 +225,11 @@ public class Floor {
     			break;
     		}
     	}
+    	
+    	// Clean up the tiles, removing behind the scenes numbers that
+    	// were used for generation but should not be used for the real
+    	// code.
+    	cleanTiles();
     	
     	// Returns the floor.
     	return floorTilesCreator;
@@ -340,7 +381,7 @@ public class Floor {
   			
   			while (!arrived) {
   				
-  				counter = (int) (Math.random() * 15) + 10;
+  				counter = (int) (Math.random() * 10) + 5;
   				
   				while (x < beaconX) { 
   					x++;
@@ -471,5 +512,27 @@ public class Floor {
     		connectTiles(x + 1, y);
     	}
     	
+    }
+    
+    public static void cleanTiles() {
+    	for (int a = 0; a < roomsOnFloor.size(); a++) {
+    		Room room = roomsOnFloor.get(a);
+    		for (int i = room.getTLTY(); i < room.getBLTY(); i++) {
+        		for (int j = room.getTLTX(); j < room.getTRTX(); j++) {
+        			floorTilesCreator[i][j] = 2;
+        		}
+        	}
+    	}
+    	
+    	for (int i = 0; i < floorTilesCreator.length; i++) {
+    		for (int j = 0; j < floorTilesCreator[0].length; j++) {
+    			if (floorTilesCreator[i][j] == 6) {
+    				floorTilesCreator[i][j] = 1;
+    			}
+    			if (floorTilesCreator[i][j] == -1) {
+    				floorTilesCreator[i][j] = 0;
+    			}
+    		}
+    	}
     }
 }

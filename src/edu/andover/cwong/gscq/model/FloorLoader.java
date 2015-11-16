@@ -7,6 +7,7 @@ import java.util.Scanner;
 import edu.andover.cwong.gscq.model.nav.Floor;
 
 // IO encapsulation to load a floor layout from a given file.
+/*
 public class FloorLoader {
     public static Floor loadFloor(String path) {
         try {
@@ -20,10 +21,10 @@ public class FloorLoader {
                 for (int i = 0 ; i < ids.length ; i++) {
                     row[i] = Integer.parseInt(ids[i]);
                 }
-                Floor.constructFloor(row);
+        //        Floor.constructFloor(row);
             }
             sc.close();
-            return Floor.getConstructed();
+        //    return Floor.getConstructed();
         }
         catch (IOException e) {
             System.err.println("Unable to locate floor. Aborting.");
@@ -38,4 +39,5 @@ public class FloorLoader {
             return null;
         }
     }
-}
+    */
+
