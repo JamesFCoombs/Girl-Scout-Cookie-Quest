@@ -25,7 +25,7 @@ public class KeyController {
             owner.update(2);
             break;
         case I:     
-        	owner.update(5);
+        	owner.seeInventory(5);
         	break;
         }
     }

@@ -29,10 +29,8 @@ public class Game {
         }
     }
     
-    public void seeInventory(int input, int item) {
-    	if (pc.openInventory(input, item)) {
-    		pc.selectItem(item);
-    	}
+    public void seeInventory(int input) {
+    	pc.openInventory(input);
     }
     
     // This returns which tile a game entity (an item is on.
