@@ -74,7 +74,9 @@ public class Player extends LivingGameEntity {
     public boolean openInventory(int input) {
         if (input == 5) {
         	System.out.println(inventory.get(0));
-            inventory.get(0).toggleEquip();
+        	inventory.get(0).toggleEquip();
+            setAttack(inventory.get(0).attackIncrease());
+            setDefense(inventory.get(0).defenseIncrease());
         } else {
             throw new IllegalArgumentException(
                 "Invalid direction for LGE movement");
