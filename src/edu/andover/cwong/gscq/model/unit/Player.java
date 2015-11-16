@@ -23,7 +23,7 @@ public class Player extends LivingGameEntity {
         cookieList = new ArrayList<CookieRecipe>();
         addCookie(new PlainCookie());
         
-        player = this;
+        GameEntity.player = this;
     }
     
     public boolean addItem(Item item) {

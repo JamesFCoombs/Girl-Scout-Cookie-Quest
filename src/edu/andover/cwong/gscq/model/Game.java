@@ -17,6 +17,7 @@ import edu.andover.cwong.gscq.model.items.Item;
 public class Game {
     // Holds all of the relevant data for navigation
     private Floor currFloor;
+    private static int currentLevel;
     private Player pc;
     public boolean gameOver = false;
     
@@ -24,8 +25,14 @@ public class Game {
     // This method should only be called when the player takes some action
     public void update(int input) {
         if (pc.move(input)) {
+        	
+        	if (currFloor.floorTiles[GameEntity.player.getYLoc()]
+        			[GameEntity.player.getXLoc()].getID() == 4) {
+        		nextFloor();
+        	}
+        	
             currFloor.step();
-            //if (pc.getCurHealth() <= 0) { gameOver = true; }
+            if (pc.getCurHealth() <= 0) { gameOver = true; }
         }
     }
     
@@ -90,14 +97,25 @@ public class Game {
     	return pc.getCookieList(); 
    	} 
 
+    private void nextFloor() {
+    	currentLevel += 1;
+    	int x = 30 + currentLevel * 10;
+    	this.currFloor = new Floor(x, x);
+    }
+
     // Initialize the first floor
     public static Game init(boolean genFloor) {
+    	
     	new Player(0,0);
+    	
+    	currentLevel = 1;
+    	
         if (genFloor) {
            return new Game(new Floor(40, 40));
         } else {
         	return new Game(FloorLoader.loadFloor("res/floor.txt"));
         }
+        
     }
     
     // creates entities for us to test
@@ -106,19 +124,5 @@ public class Game {
     	this.pc = GameEntity.player;
         pc.setFloor(f);
         this.currFloor = f;
-        /*
-        Enemy enemy1=new Enemy(3,3);
-        enemy1.setPlayer(pc);
-        this.currFloor.addGameEntity(enemy1);
-        enemy1.setFloor(this.currFloor);
-        ItemEntity sash = new ItemEntity(8, 9, "Sash");
-        this.currFloor.addGameEntity(sash);
-        ItemEntity mascara = new ItemEntity(3, 9, "Mascara");
-        this.currFloor.addGameEntity(mascara);
-        ItemEntity plainCookie = new ItemEntity(5, 10, "PlainCookie");
-        this.currFloor.addGameEntity(plainCookie);
-        mascara.setFloor(this.currFloor);
-        sash.setFloor(this.currFloor);
-        plainCookie.setFloor(this.currFloor); */
     }
 }

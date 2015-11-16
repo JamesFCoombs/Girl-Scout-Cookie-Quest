@@ -2,6 +2,7 @@ package edu.andover.cwong.gscq.model.nav;
 
 import java.util.ArrayList;
 
+import edu.andover.cwong.gscq.model.Game;
 import edu.andover.cwong.gscq.model.unit.*;
 
 // Represents a "grid" of terrain types and units on the floor.
@@ -58,6 +59,9 @@ public class Floor {
     // Control what happens for a single "turn" (or "step") of the game. Only
     // called when the player takes an action.
     public void step() {
+    	
+    	
+    	
         for (GameEntity[] row : units) {
             for (GameEntity unit : row) {
             	if (unit != null) { unit.update(); }
