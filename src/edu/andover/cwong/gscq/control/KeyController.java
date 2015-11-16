@@ -24,6 +24,9 @@ public class KeyController {
         case RIGHT:
             owner.update(2);
             break;
+        case I:     
+        	owner.update(5);
+        	break;
         }
     }
     
