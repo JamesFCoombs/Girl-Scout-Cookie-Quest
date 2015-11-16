@@ -10,7 +10,7 @@ public class Player extends LivingGameEntity {
 	private ArrayList<CookieRecipe> cookieList;
     public Player(int xLoc, int yLoc) {
         super(xLoc, yLoc);
-        initializeMaxHealth(5); //SHOULD BE TEN
+        initializeMaxHealth(10); //SHOULD BE TEN
         setDefense(0);
         setAttack(0);
         setBaseAttack(6);
