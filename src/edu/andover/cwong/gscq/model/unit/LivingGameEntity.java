@@ -13,7 +13,7 @@ public class LivingGameEntity extends GameEntity {
     private int attack;
     private int baseAttack;
     private int attackRange;
-    private ArrayList<Item> inventory;
+    public ArrayList<Item> inventory;
     
     private int lastXLocation;
     private int lastYLocation;

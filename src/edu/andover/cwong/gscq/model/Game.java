@@ -29,6 +29,12 @@ public class Game {
         }
     }
     
+    public void seeInventory(int input) {
+    	if (pc.openInventory(input)) {
+    		
+    	}
+    }
+    
     // This returns which tile a game entity (an item is on.
     //getters and setters
     public Tile getTile(int x, int y){
@@ -95,9 +101,11 @@ public class Game {
     	new Player(0,0);
         if (genFloor) {
            return new Game(new Floor(40, 40));
-        } else {
-        	return new Game(FloorLoader.loadFloor("res/floor.txt"));
+        } 
+        else {
+        	return new Game(new Floor (40, 40));
         }
+        
     }
     
     // creates entities for us to test
@@ -106,12 +114,12 @@ public class Game {
     	this.pc = GameEntity.player;
         pc.setFloor(f);
         this.currFloor = f;
-        /*
+        
         Enemy enemy1=new Enemy(3,3);
-        enemy1.setPlayer(pc);
+        //enemy1.setPlayer(pc);
         this.currFloor.addGameEntity(enemy1);
         enemy1.setFloor(this.currFloor);
-        ItemEntity sash = new ItemEntity(8, 9, "Sash");
+        ItemEntity sash = new ItemEntity(4, 5, "Sash");
         this.currFloor.addGameEntity(sash);
         ItemEntity mascara = new ItemEntity(3, 9, "Mascara");
         this.currFloor.addGameEntity(mascara);
@@ -119,6 +127,6 @@ public class Game {
         this.currFloor.addGameEntity(plainCookie);
         mascara.setFloor(this.currFloor);
         sash.setFloor(this.currFloor);
-        plainCookie.setFloor(this.currFloor); */
+        plainCookie.setFloor(this.currFloor); 
     }
 }

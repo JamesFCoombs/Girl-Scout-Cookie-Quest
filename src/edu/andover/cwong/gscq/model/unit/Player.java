@@ -58,6 +58,21 @@ public class Player extends LivingGameEntity {
     	return false;
     }
     
+    // This makes the number of cookies a player has
+    // increase every time the player moves.
+    public boolean openInventory(int input) {
+        if (input == 5) {
+            Item firstItem = inventory.get(0);
+            firstItem.toggleEquip();
+        } else {
+            throw new IllegalArgumentException(
+                "Invalid direction for LGE movement");
+            }
+        return true;
+    }
+         
+    
+    
     // This resets the number of cookies the player has every
     // time the player should gain a cookie by movement. 
     public void setCookiesCount(int cookies) {
