@@ -11,7 +11,6 @@ public class Player extends LivingGameEntity {
 	
 	public int cookieCount = 0;
 	private ArrayList<CookieRecipe> cookieList;
-	private ArrayList<Item> inventory;
 	
 	
     public Player(int xLoc, int yLoc) {
@@ -24,11 +23,9 @@ public class Player extends LivingGameEntity {
         
         cookieList = new ArrayList<CookieRecipe>();
         addCookie(new PlainCookie());
-        System.out.println(cookieList);
         inventory = new ArrayList<Item>();
         addItem1(new Mascara());
-        System.out.println(inventory);
-        
+        //System.out.println(inventory);
         
         GameEntity.player = this;
     }
@@ -75,8 +72,8 @@ public class Player extends LivingGameEntity {
     // This makes the number of cookies a player has
     // increase every time the player moves.
     public boolean openInventory(int input) {
-    	System.out.println(inventory.get(0));
         if (input == 5) {
+        	System.out.println(inventory.get(0));
             inventory.get(0).toggleEquip();
         } else {
             throw new IllegalArgumentException(

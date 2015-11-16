@@ -93,11 +93,13 @@ public class Game {
     
     // This gets the player's inventory.
     public ArrayList<Item> getInventory() { 
+    //	System.out.println(pc.getInventory());
     	return pc.getInventory(); 
     }
 
     // This gets the player's list of cookies.
     public ArrayList<CookieRecipe> getCookieList() { 
+    	System.out.println(pc.getCookieList());
     	return pc.getCookieList(); 
    	} 
 

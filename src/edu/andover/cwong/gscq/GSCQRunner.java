@@ -131,9 +131,9 @@ public class GSCQRunner extends Application {
             tl.setCycleCount(Timeline.INDEFINITE);
             tl.play();
             // Now that we're all set up, we can show our window.
-            GameViewer gv = loader.getController();
-            gv.setOwner(state);
-            gv.refreshCanvas();
+//            GameViewer gv = loader.getController();
+//            gv.setOwner(state);
+//            gv.refreshCanvas();
             layoutRoot.setCenter(gameContainer);
             this.primaryStage.show();
         } catch (IOException e) {
