@@ -29,9 +29,9 @@ public class Game {
         }
     }
     
-    public void seeInventory(int input) {
-    	if (pc.openInventory(input)) {
-    		
+    public void seeInventory(int input, int item) {
+    	if (pc.openInventory(input, item)) {
+    		pc.selectItem(item);
     	}
     }
     
