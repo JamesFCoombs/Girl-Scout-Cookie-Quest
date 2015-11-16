@@ -8,6 +8,7 @@ import edu.andover.cwong.gscq.model.unit.GameEntity;
 import edu.andover.cwong.gscq.model.unit.ItemEntity;
 import edu.andover.cwong.gscq.model.unit.Player;
 import edu.andover.cwong.gscq.model.nav.Floor;
+import edu.andover.cwong.gscq.model.nav.Room;
 import edu.andover.cwong.gscq.model.nav.Tile;
 import edu.andover.cwong.gscq.model.items.CookieRecipe;
 import edu.andover.cwong.gscq.model.items.Item;
@@ -106,9 +107,34 @@ public class Game {
     private void nextFloor() {
     	currentLevel += 1;
     	int x = 30 + currentLevel * 10;
-    	this.currFloor = new Floor(x, x);
+    	currFloor.generateFloor(x, x);
+    	setupFloor();
     }
 
+    private void setupFloor() {
+    	int i = 0;
+    	boolean isItem;
+    	while (i < currFloor.getRoomsOnFloor().size()) {
+    		isItem = (Math.random() > .5);
+    		Room room = currFloor.getRoomsOnFloor().get(i);
+    		int spawnX = room.getTLTX() + 
+        			((int) (Math.random() * room.getWidth()));
+        	int spawnY = room.getTLTY() +
+        			((int) (Math.random() * room.getHeight()));
+        	
+        	if (!isItem && currFloor.addGameEntity(new Enemy(spawnX, spawnY))) {
+        		i++;
+        	} else if (isItem && currFloor.addGameEntity(
+        			randomGenerateItem(spawnX, spawnY))) {
+        		i++;
+        	}
+    	}
+    }
+    
+    private ItemEntity randomGenerateItem(int spawnX, int spawnY) {
+    	return new ItemEntity(spawnX, spawnY, "Sash");
+    }
+    
     // Initialize the first floor
     public static Game init(boolean genFloor) {
     	
@@ -131,5 +157,6 @@ public class Game {
     	this.pc = GameEntity.player;
         pc.setFloor(f);
         this.currFloor = f;
+        setupFloor();
     }
 }
