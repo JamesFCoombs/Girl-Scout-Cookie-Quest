@@ -30,7 +30,7 @@ public class Player extends LivingGameEntity {
         System.out.println(inventory);
         
         
-        player = this;
+        GameEntity.player = this;
     }
     
     public boolean addItem(Item item) {
