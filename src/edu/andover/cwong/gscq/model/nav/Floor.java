@@ -56,6 +56,10 @@ public class Floor {
         return floorTiles.length;
     }
     
+    public ArrayList<Room> getRoomsOnFloor() {
+    	return roomsOnFloor;
+    }
+    
     // Control what happens for a single "turn" (or "step") of the game. Only
     // called when the player takes an action.
     public void step() {
@@ -171,13 +175,6 @@ public class Floor {
     	
     	floorTiles[spawnY][spawnX] = SHOP;
     	
-    	// TODO TEST CODE REMOVE
-    	spawnX = playerRoom.getTLTX() + 
-    			((int) (Math.random() * playerRoom.getWidth()));
-    	spawnY = playerRoom.getTLTY() +
-    			((int) (Math.random() * playerRoom.getHeight()));
-    	
-    	addGameEntity(new Enemy(spawnX, spawnY));
     	
     }
     
