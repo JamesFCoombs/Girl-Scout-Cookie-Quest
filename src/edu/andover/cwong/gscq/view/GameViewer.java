@@ -13,7 +13,6 @@ import javafx.geometry.Rectangle2D;
 import edu.andover.cwong.gscq.GSCQRunner;
 import edu.andover.cwong.gscq.view.FloorViewBuilder;
 import edu.andover.cwong.gscq.model.Game;
-import edu.andover.cwong.gscq.model.items.Item;
 import edu.andover.cwong.gscq.model.unit.GameEntity;
 
 // What JFX calls a "controller" for the game panel. Handles refreshing of
@@ -28,6 +27,8 @@ public class GameViewer {
     private GSCQRunner runner;
     private Game owner;
     
+    private int displayedFloor = 1;
+    
     // The list of sprites currently needed on the floor
     private ArrayList<EntitySprite> sprites = new ArrayList<>();
     
@@ -41,7 +42,7 @@ public class GameViewer {
     @FXML
     private Label cookieLabel;
     @FXML
-    private Label ivtLabel;
+    private Label floorLabel;
     @FXML
     private ImageView mapView;
     @FXML
@@ -64,6 +65,7 @@ public class GameViewer {
             }
         }
         mapView.setImage(floorView);
+        refreshHUD();
         refreshMapview();
         refreshEntities();
     }
@@ -92,6 +94,10 @@ public class GameViewer {
     
     public void updateFrame() {
         for (EntitySprite s : this.sprites) { s.refresh(); }
+        if (this.displayedFloor != owner.getCurrentLevel()) {
+            this.displayedFloor = owner.getCurrentLevel();
+            this.setupFloorView();
+        }
     }
     
     public void refreshHUD() {
@@ -99,13 +105,9 @@ public class GameViewer {
         atkLabel.setText(owner.formatPlayerAtk());
         defLabel.setText(owner.formatPlayerDef());
         cookieLabel.setText(owner.formatCookieCount());
-        // TODO
-        String inventory="Inventory: \n";
-        for (Item a : owner.getInventory()){
-            if (a == null) { continue; }
-            inventory += a.getItemID()+"\n";
-        }
-        ivtLabel.setText(inventory);
+        // It's kind of abusing type coersion, but it looks cleaner than any
+        // alternative I could think of.
+        floorLabel.setText("" + this.displayedFloor);
     }
     
     public void setRunner(GSCQRunner r) {

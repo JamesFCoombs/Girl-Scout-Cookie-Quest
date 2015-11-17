@@ -15,7 +15,6 @@ public class Player extends LivingGameEntity {
 	private ArrayList<CookieRecipe> cookieList;
 	
     public Player(int xLoc, int yLoc) {
-    	
         super(xLoc, yLoc);
         
         // The inital stats for the player.
@@ -46,6 +45,11 @@ public class Player extends LivingGameEntity {
     	cookieList.add(cookieRecipe);
     	return true;
     }
+ 
+    // This removes the player from the game.
+    public void remove() {
+    	super.remove();
+    }
     
     // Moves the player. If the player moved, increments cookieCount.
     public boolean move(int direction) {
@@ -63,6 +67,7 @@ public class Player extends LivingGameEntity {
     
     // TODO FIX THIS
     // Equips the first item in the inventory.
+    @Deprecated
     public boolean openInventory(int input) {
         if (input == 5) {
         	System.out.println(inventory.get(0));

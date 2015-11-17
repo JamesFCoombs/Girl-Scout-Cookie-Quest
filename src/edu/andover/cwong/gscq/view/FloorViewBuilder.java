@@ -36,6 +36,7 @@ public class FloorViewBuilder extends ImageView {
             System.exit(1);
         }
         // XXX - Properly this should be inside the try-catch block
+        // This looks like a job for python's try-catch-else construct!
         BufferedImage result = new BufferedImage(
                 (f.getWidth()+ViewConstants.EDGE_BLANKS)
                     * ViewConstants.TILE_DIMENSIONS,
