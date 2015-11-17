@@ -1,20 +1,24 @@
 package edu.andover.cwong.gscq.model.unit;
 
 import java.util.ArrayList;
-
-import edu.andover.cwong.gscq.model.items.CookieRecipe;
 import edu.andover.cwong.gscq.model.items.Item;
 
 public class LivingGameEntity extends GameEntity {
-
+	
+	// The LivingGameEntity's stats.
     private int curHealth;
     private int maxHealth;
     private int defense;
     private int attack;
     private int baseAttack;
     private int attackRange;
+    
+    // The inventory is the list of all of the items the LivingGameEntity is
+    // carrying.
     public ArrayList<Item> inventory;
     
+    // Stores the previous location of the GameEntity. This is needed so that
+    // movement can be reverted in cases of unit collision or wall collision.
     private int lastXLocation;
     private int lastYLocation;
 
@@ -26,7 +30,7 @@ public class LivingGameEntity extends GameEntity {
         yLocation = yLoc;
         inventory = new ArrayList<Item>();
     }
-
+    
     // ------- METHODS -------
     
     // Moves the Entity one unit in the specified direction
@@ -34,39 +38,47 @@ public class LivingGameEntity extends GameEntity {
     // 2 is right
     // 3 is down
     // 4 is left
+    // True is returned to signify the movement has been successful, and
+    // false is returned to signify the movement has failed.
     public boolean move(int direction) {
     	lastXLocation = getXLoc();
     	lastYLocation = getYLoc();
     	
-    	// down
+    	// Moves down.
         if (direction == 1) {
             setYLoc(getYLoc() - 1);
-        // right
+        // Moves right.
         } else if (direction == 2) {
             setXLoc(getXLoc() + 1);
-        // up
+        // Moves down.
         } else if (direction == 3) {
             setYLoc(getYLoc() + 1);
-        // left
+        // Moves left.
         } else if (direction == 4) {
             setXLoc(getXLoc() - 1);
+        // Throws an error if the direction is invalid.
         } else {
             throw new IllegalArgumentException(
                     "Invalid direction for LGE movement");
         }
 
+        //If the LivingGameEntity has moved outside of the map, revert movement.
         if (!isInMap()) {
         	revertMovement();
         	return false;
         }
+        
+        // If the unit has moved to an illegal location, revert movement.
         if (!curFloor.unitHasMoved(this, xLocation, yLocation)) {
         	revertMovement();
         	return false;
         }
         
+        // Return true to indicate the movement was successful.
         return true;
     }
 
+    // Takes a certain amount away from the LivingGameEntity's current health.
     public void takeDamage(int dmg) {
         curHealth -= dmg;
         if (curHealth <= 0) {
@@ -74,12 +86,16 @@ public class LivingGameEntity extends GameEntity {
         }
     }
 
+    // Returns true if this LivingGameEntity is in range to attack
+    // LivingGameEntity other.
     public boolean canAttack(LivingGameEntity other) {
 
+    	// Calculates the distance between the two LivingGameEntities.
         int xDistance = xLocation - other.getXLoc();
         int yDistance = yLocation - other.getYLoc();
         double distance = Math.sqrt(xDistance*xDistance + yDistance*yDistance);
 
+        // If in range, return true.
         if (1.0 * attackRange >= distance) {
             return true;
         }
@@ -87,15 +103,14 @@ public class LivingGameEntity extends GameEntity {
         return false;
     }
 
+    // Adds Item item to the LivingGameEntity's inventory.
     public boolean addItem(Item item) {
         inventory.add(item);
         return true;
     }
-    
-    public boolean addCookie(CookieRecipe cookieRecipe) {
-    	return false;
-    }
 
+    // If two LivingGameEntities try to occupy the same tile, the one who
+    // has moved damages this one.
     public void dealWithCollision(LivingGameEntity other) {
     	takeDamage(calculateDamage(this, other));
     	if (curHealth > 0) {
@@ -103,21 +118,24 @@ public class LivingGameEntity extends GameEntity {
     	}
     }
 
+    // Drops the LivingGameEntity's inventory onto the ground, as well as
+    // removes it from the current floor.
     public void remove() {
         super.remove();
         for (int i = 0; i < inventory.size(); i++) {
             getCurFloor().addGameEntity(new ItemEntity(
                     xLocation, yLocation, inventory.get(i).getItemID()
             ));
-            inventory.remove(i);
         }
     }
     
+    // Moves the LivingGameEntity back to its previous locatoin.
     public void revertMovement() {
     	setXLoc(lastXLocation);
     	setYLoc(lastYLocation);
     }
     
+    // Updates the LivingGameEntity's stats based off of its equipped items.
     public void update() {
         if (inventory.size() > 0) {
         	int bonusAttack = 0;
@@ -136,10 +154,12 @@ public class LivingGameEntity extends GameEntity {
     
     // ------- STATIC METHODS -------
 
+    // Returns damage based off of two LivingGameEntity's stats.
     public static int calculateDamage(
-            LivingGameEntity attacker, LivingGameEntity defender
-    ) {
-        return attacker.getBaseAttack() + attacker.getAttack() - defender.getDefense();
+    		LivingGameEntity attacker, LivingGameEntity defender) {
+        return attacker.getBaseAttack() + 
+        		attacker.getAttack() - 
+        		defender.getDefense();
     }
 
     // ------- SET AND GET METHODS -------

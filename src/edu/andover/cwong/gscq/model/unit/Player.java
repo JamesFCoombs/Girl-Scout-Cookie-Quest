@@ -4,46 +4,46 @@ import java.util.ArrayList;
 
 import edu.andover.cwong.gscq.model.items.CookieRecipe;
 import edu.andover.cwong.gscq.model.items.Item;
-import edu.andover.cwong.gscq.model.items.Mascara;
 import edu.andover.cwong.gscq.model.items.PlainCookie;
 
 public class Player extends LivingGameEntity {
 	
+	// cookieCount keeps track of how many cookies the player has.
 	public int cookieCount = 0;
+	
+	// The list of cookieRecipes the player has.
 	private ArrayList<CookieRecipe> cookieList;
 	
-	
     public Player(int xLoc, int yLoc) {
+    	
         super(xLoc, yLoc);
-        initializeMaxHealth(10); //SHOULD BE TEN
+        
+        // The inital stats for the player.
+        initializeMaxHealth(10);
         setDefense(0);
         setAttack(0);
         setBaseAttack(6);
         
+        // The player starts with the CookieRecipe plainCookie.
         cookieList = new ArrayList<CookieRecipe>();
         addCookie(new PlainCookie());
-        inventory = new ArrayList<Item>();
-        addItem1(new Mascara());
-        //System.out.println(inventory);
         
+        // Sets this player as the player all other classes refer to.
         GameEntity.player = this;
     }
     
+    // Adds Item item to the player's inventory. If the item is a cookieRecipe,
+    // it is also added to the cookieList.
     public boolean addItem(Item item) {
-    	//if (item is a cookieRecipe) {
-    	//		addCookie(item)
-    	//}
+    	if (item instanceof CookieRecipe) {
+    		addCookie((CookieRecipe) (item));
+    	}
     	return super.addItem(item);
     }
     
+    // Ads a cookieRecipe to the cookieList.
     public boolean addCookie(CookieRecipe cookieRecipe) {
     	cookieList.add(cookieRecipe);
-    	return true;
-    }
-    
-    
-    public boolean addItem1(Item item) {
-    	inventory.add(item);
     	return true;
     }
     
@@ -53,23 +53,22 @@ public class Player extends LivingGameEntity {
     	super.remove();
     }
     
-    // This makes the number of cookies a player has
-    // increase every time the player moves.
+    // Moves the player. If the player moved, increments cookieCount.
     public boolean move(int direction) {
     	boolean moved = super.move(direction);
     	if (moved) {
 			int bonusCookies = 0;
     		for (int i = 0; i < cookieList.size(); i++) {
-            	bonusCookies += cookieList.get(i).cookieIncrease();
+            	bonusCookies += cookieList.get(i).incrementCount();
     		}
-            setCookiesCount(bonusCookies);
+            increaseCookiesCount(bonusCookies);
             return true;
     	}
     	return false;
     }
     
-    // This makes the number of cookies a player has
-    // increase every time the player moves.
+    // TODO FIX THIS
+    // Equips the first item in the inventory.
     public boolean openInventory(int input) {
         if (input == 5) {
         	System.out.println(inventory.get(0));
@@ -82,27 +81,9 @@ public class Player extends LivingGameEntity {
         }
         return true;
     }
-/*
-    public boolean selectItem(int itemEntry) {
-    	if (itemEntry == 6) {
-    		Item firstItem = inventory.get(0);
-            firstItem.toggleEquip();
-    	} else if (itemEntry == 7) {
-    		Item secondItem = inventory.get(1);
-    		secondItem.toggleEquip();
-    	} else if (itemEntry == 8) {
-    		Item thirdItem = inventory.get(2);
-    		thirdItem.toggleEquip();
-    	} else {
-    		throw new IllegalArgumentException(
-    			"Invalid item selection");
-    	}
-    	return true;
-    }
-*/    
-    // This resets the number of cookies the player has every
-    // time the player should gain a cookie by movement. 
-    public void setCookiesCount(int cookies) {
+
+    // Increases cookieCount by a specified amount.
+    public void increaseCookiesCount(int cookies) {
     	cookieCount += cookies;
     }
     
@@ -115,6 +96,7 @@ public class Player extends LivingGameEntity {
     	return cookieList;
     }
     
+    // Removes all cookieRecipes from cookieList
     public void removeCookies() {super.remove();
         for (int i = 0; i < cookieList.size(); i++) {
             getCurFloor().addGameEntity(new ItemEntity(
