@@ -26,6 +26,7 @@ public class GSCQRunner extends Application {
     // Controller/coordination things
     private GameViewer viewer;
     private KeyController ctrlr;
+    private boolean over = false;
     
     // model things
     private Game state;
@@ -133,7 +134,7 @@ public class GSCQRunner extends Application {
             // Now that we're all set up, we can show our window.
             GameViewer gv = loader.getController();
             gv.setOwner(state);
-            gv.refreshCanvas();
+            gv.setupFloorView();
             layoutRoot.setCenter(gameContainer);
             this.primaryStage.show();
         } catch (IOException e) {
@@ -143,26 +144,32 @@ public class GSCQRunner extends Application {
         }
     }
     
+    public void displayGameOver() {
+        if (over) { return; }
+        try {
+            FXMLLoader loader = new FXMLLoader(GSCQRunner.class.getResource(
+                    "view/EndContainer.fxml"
+            ));
+            AnchorPane endContainer = loader.load();
+            this.primaryStage.setScene(new Scene(endContainer));
+            this.primaryStage.setResizable(false);
+            this.primaryStage.sizeToScene();
+            over = true;
+        }
+        catch (IOException e) {
+            System.err.println("Couldn't load gameover layout. Aborting.");
+            System.exit(-3);
+        }
+    }
+    
     // Updates all sprites onscreen to their current frames and positions.
     private void update() {
         if (state.gameOver) {
-            try {
-                FXMLLoader loader = new FXMLLoader(GSCQRunner.class.getResource(
-                        "view/EndContainer.fxml"
-                ));
-                AnchorPane endContainer = loader.load();
-                this.primaryStage.setScene(new Scene(endContainer));
-                this.primaryStage.setResizable(false);
-                this.primaryStage.sizeToScene();
-            }
-            catch (IOException e) {
-                System.err.println("Couldn't load gameover layout. Aborting.");
-                System.exit(-3);
-            }
+            displayGameOver();
         }
         else {
             viewer.refreshHUD();
-            viewer.refreshCanvas();
+            viewer.refreshMapview();
         }
     }
 
