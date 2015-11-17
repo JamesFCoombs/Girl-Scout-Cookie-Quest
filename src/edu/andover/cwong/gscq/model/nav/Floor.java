@@ -65,9 +65,6 @@ public class Floor {
     // Control what happens for a single "turn" (or "step") of the game. Only
     // called when the player takes an action.
     public void step() {
-    	
-    	
-    	
         for (GameEntity[] row : units) {
             for (GameEntity unit : row) {
             	if (unit != null) { unit.update(); }
