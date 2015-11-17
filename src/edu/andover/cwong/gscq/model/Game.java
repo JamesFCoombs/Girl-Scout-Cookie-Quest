@@ -7,6 +7,7 @@ import edu.andover.cwong.gscq.model.unit.GameEntity;
 import edu.andover.cwong.gscq.model.unit.ItemEntity;
 import edu.andover.cwong.gscq.model.unit.Player;
 import edu.andover.cwong.gscq.model.nav.Floor;
+import edu.andover.cwong.gscq.model.nav.Room;
 import edu.andover.cwong.gscq.model.nav.Tile;
 import edu.andover.cwong.gscq.model.items.CookieRecipe;
 import edu.andover.cwong.gscq.model.items.Item;
@@ -16,21 +17,41 @@ import edu.andover.cwong.gscq.model.items.Item;
 public class Game {
     // Holds all of the relevant data for navigation
     private Floor currFloor;
+    private static int currentLevel;
     private Player pc;
     public boolean gameOver = false;
+<<<<<<< HEAD
     // This is a homebrewed implementation of the Observer pattern. This isn't
     // quite a threaded application so we don't need to really implement the
     // observer pattern 
     public boolean updated = false;
+=======
+    public boolean showShop = true;
+>>>>>>> origin/master
     
     // Updates the game state based on input from the player
     // This method should only be called when the player takes some action
     public void update(int input) {
         if (pc.move(input)) {
+        	
+        	if (currFloor.floorTiles[GameEntity.player.getYLoc()]
+        			[GameEntity.player.getXLoc()].getID() == 4) {
+        		nextFloor();
+        	}
+        	
             currFloor.step();
+            if (currFloor.getTile(
+                    GameEntity.player.getXLoc(),GameEntity.player.getYLoc()).
+                    getID()==3){
+                showShop = true;
+            }
             if (pc.getCurHealth() <= 0) { gameOver = true; }
         }
         this.updated = true;
+    }
+    
+    public void seeInventory(int input) {
+    	pc.openInventory(input);
     }
     
     // This returns which tile a game entity (an item is on.
@@ -79,41 +100,74 @@ public class Game {
     
     // This gets the player's inventory.
     public ArrayList<Item> getInventory() { 
+    //	System.out.println(pc.getInventory());
     	return pc.getInventory(); 
     }
 
     // This gets the player's list of cookies.
     public ArrayList<CookieRecipe> getCookieList() { 
+    	System.out.println(pc.getCookieList());
     	return pc.getCookieList(); 
    	} 
 
+    private void nextFloor() {
+    	currentLevel += 1;
+    	int x = 30 + currentLevel * 10;
+    	currFloor.generateFloor(x, x);
+    	setupFloor();
+    }
+
+    private void setupFloor() {
+    	int i = 0;
+    	boolean isItem;
+    	while (i < currFloor.getRoomsOnFloor().size()) {
+    		isItem = (Math.random() > .5);
+    		Room room = currFloor.getRoomsOnFloor().get(i);
+    		int spawnX = room.getTLTX() + 
+        			((int) (Math.random() * room.getWidth()));
+        	int spawnY = room.getTLTY() +
+        			((int) (Math.random() * room.getHeight()));
+        	
+        	if (!isItem && currFloor.addGameEntity(new Enemy(spawnX, spawnY))) {
+        		i++;
+        	} else if (isItem && currFloor.addGameEntity(
+        			randomGenerateItem(spawnX, spawnY))) {
+        		i++;
+        	}
+    	}
+    }
+    
+    private ItemEntity randomGenerateItem(int spawnX, int spawnY) {
+    	return new ItemEntity(spawnX, spawnY, "Sash");
+    }
+    
     // Initialize the first floor
     public static Game init(boolean genFloor) {
+    	
+    	new Player(0,0);
+    	
+    	currentLevel = 1;
+    	
         if (genFloor) {
-            throw new UnsupportedOperationException(
-                    "Floor generation is hard");
+           return new Game(new Floor(40, 40));
+        } 
+        else {
+        	return new Game(new Floor (40, 40));
         }
-        return new Game(FloorLoader.loadFloor("res/floor.txt"));
+        
     }
     
     // creates entities for us to test
     // This sets up the floor.
     private Game(Floor f) {
-        this.pc = Player.init();
+    	this.pc = GameEntity.player;
         pc.setFloor(f);
         this.currFloor = f;
-        Enemy enemy1=new Enemy(3,3);
-        enemy1.setPlayer(pc);
-        this.currFloor.addGameEntity(enemy1);
-        enemy1.setFloor(this.currFloor);
-        ItemEntity sash = new ItemEntity(8, 9, "Sash");
-        this.currFloor.addGameEntity(sash);
-        ItemEntity mascara = new ItemEntity(3, 9, "Mascara");
-        this.currFloor.addGameEntity(mascara);
-        ItemEntity plainCookie = new ItemEntity(5, 10, "PlainCookie");
-        this.currFloor.addGameEntity(plainCookie);
-        mascara.setFloor(this.currFloor);
-        sash.setFloor(this.currFloor);
-        plainCookie.setFloor(this.currFloor);
+    }
+
+    public void exitShop() {
+        pc.move(3);
+        showShop=false;
+        setupFloor();
     }
 }
