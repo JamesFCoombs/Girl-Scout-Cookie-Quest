@@ -106,10 +106,10 @@ public class Game {
     } 
 
     private void nextFloor() {
-        currentLevel += 1;
-        int x = 30 + currentLevel * 10;
+        int x = 40 + currentLevel * 10;
         currFloor.generateFloor(x, x);
         setupFloor();
+        currentLevel += 1;
     }
 
     private void setupFloor() {
@@ -123,8 +123,13 @@ public class Game {
             int spawnY = room.getTLTY() +
                     ((int) (Math.random() * room.getHeight()));
             
-            if (!isItem && currFloor.addGameEntity(new Enemy(spawnX, spawnY))) {
-                i++;
+            if (!isItem) {
+            	Enemy enemy = new Enemy(spawnX, spawnY);
+            	if (currFloor.addGameEntity(enemy)) {
+            		enemy.setRoom(room);
+            		i++;
+            }
+                
             } else if (isItem && currFloor.addGameEntity(
                     randomGenerateItem(spawnX, spawnY))) {
                 i++;

@@ -47,12 +47,6 @@ public class Player extends LivingGameEntity {
     	return true;
     }
     
-    // This removes the player from the game.
-    public void remove() {
-    	System.out.println("End the game.");
-    	super.remove();
-    }
-    
     // Moves the player. If the player moved, increments cookieCount.
     public boolean move(int direction) {
     	boolean moved = super.move(direction);

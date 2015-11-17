@@ -4,6 +4,8 @@ public class Enemy extends LivingGameEntity{
 	
 	// All enemy's have a base attack of 3.
 	private static final int BASE_ATTACK = 3;
+	
+	private int dirMoving = 1;
 
 	public Enemy(int xLoc, int yLoc) {
 		super(xLoc, yLoc);
@@ -51,7 +53,24 @@ public class Enemy extends LivingGameEntity{
 	private void calculatePathing() {
 		// If the enemy is in a hallway, continues moving down the hall.
 		if (room == null) {
-			// TODO Continue pathing.
+			if (dirMoving == 1) {
+				if (move(1)) {
+					return;
+				}
+			} else if (dirMoving == 2) {
+				if (move(2)) {
+					return;
+				}
+			} else if (dirMoving == 3) {
+				if (move(3)) {
+					return;
+				}
+			} else if (dirMoving == 4) {
+				if (move(4)) {
+					return;
+				}
+			}
+			dirMoving = (int) (Math.random() * 4 + 1);
 		// If the enemy and the player are in the same room, moves towards the
 		// player.
 		} else if (room.isInRoom(player)) {
@@ -67,7 +86,31 @@ public class Enemy extends LivingGameEntity{
 			}
 		// If in a room other than the player's, moves out of it.
 		} else {
-			// TODO Move to a new room.
+			if (dirMoving == 1 || dirMoving == 3) {
+				if (floorTiles[yLocation][xLocation + 1].getID() == 1) {
+					dirMoving = 2;
+					move(2);
+					return;
+				} else if (floorTiles[yLocation][xLocation - 1].getID() == 1) {
+					dirMoving = 4;
+					move(4);
+					return;
+				} else {
+					move(dirMoving);
+				}
+			} else {
+				if (floorTiles[yLocation + 1][xLocation].getID() == 1) {
+					dirMoving = 1;
+					move(1);
+					return;
+				} else if (floorTiles[yLocation - 1][xLocation].getID() == 1) {
+					dirMoving = 3;
+					move(3);
+					return;
+				} else {
+					move(dirMoving);
+				}
+			}
 		}
 	}
 	
