@@ -1,15 +1,10 @@
 package edu.andover.cwong.gscq.model.unit;
 
-import edu.andover.cwong.gscq.model.nav.Room;
-
 public class Enemy extends LivingGameEntity{
 	
 	// All enemy's have a base attack of 3.
 	private static final int BASE_ATTACK = 3;
-	
-	// The room the Enemy is in. Used to track the player.
-	private Room room;
-	
+
 	public Enemy(int xLoc, int yLoc) {
 		super(xLoc, yLoc);
 		
@@ -78,8 +73,6 @@ public class Enemy extends LivingGameEntity{
 	
 	// ------- GET AND SET METHODS -------
 	
-	public void setRoom(Room room) {
-		this.room = room;
-	}
+
 
 }
