@@ -19,12 +19,18 @@ public class Game {
     private Floor currFloor;
     private Player pc;
     public boolean gameOver = false;
+    public boolean showShop = true;
     
     // Updates the game state based on input from the player
     // This method should only be called when the player takes some action
     public void update(int input) {
         if (pc.move(input)) {
             currFloor.step();
+            if (currFloor.getTile(
+                    GameEntity.player.getXLoc(),GameEntity.player.getYLoc()).
+                    getID()==3){
+                showShop = true;
+            }
             //if (pc.getCurHealth() <= 0) { gameOver = true; }
         }
     }
@@ -114,19 +120,11 @@ public class Game {
     	this.pc = GameEntity.player;
         pc.setFloor(f);
         this.currFloor = f;
-        
-        Enemy enemy1=new Enemy(3,3);
-        //enemy1.setPlayer(pc);
-        this.currFloor.addGameEntity(enemy1);
-        enemy1.setFloor(this.currFloor);
-        ItemEntity sash = new ItemEntity(4, 5, "Sash");
-        this.currFloor.addGameEntity(sash);
-        ItemEntity mascara = new ItemEntity(3, 9, "Mascara");
-        this.currFloor.addGameEntity(mascara);
-        ItemEntity plainCookie = new ItemEntity(5, 10, "PlainCookie");
-        this.currFloor.addGameEntity(plainCookie);
-        mascara.setFloor(this.currFloor);
-        sash.setFloor(this.currFloor);
-        plainCookie.setFloor(this.currFloor); 
+    }
+
+    public void exitShop() {
+        pc.move(3);
+        showShop=false;
+        System.out.println("set to false");
     }
 }
