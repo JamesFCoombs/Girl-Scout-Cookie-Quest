@@ -100,6 +100,8 @@ public class Floor {
             throw new IllegalArgumentException("This unit doesn't exist!");
         }
         units[ge.getYLoc()][ge.getXLoc()] = null;
+        ge.setXLoc(-1);
+        ge.setYLoc(-1);
     }
 
     public boolean addGameEntity(GameEntity ge) {
