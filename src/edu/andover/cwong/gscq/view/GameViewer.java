@@ -12,7 +12,6 @@ import javafx.geometry.Rectangle2D;
 
 import edu.andover.cwong.gscq.GSCQRunner;
 import edu.andover.cwong.gscq.view.FloorViewBuilder;
-import edu.andover.cwong.gscq.view.Sprite;
 import edu.andover.cwong.gscq.model.Game;
 import edu.andover.cwong.gscq.model.items.Item;
 import edu.andover.cwong.gscq.model.unit.GameEntity;
