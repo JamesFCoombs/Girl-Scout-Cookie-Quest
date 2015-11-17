@@ -134,7 +134,7 @@ public class Game {
     }
     
     private ItemEntity randomGenerateItem(int spawnX, int spawnY) {
-        return new ItemEntity(spawnX, spawnY, "Sash");
+    	return new ItemEntity(spawnX, spawnY, "PlainCookie");
     }
     
     // Initialize the first floor
@@ -147,7 +147,6 @@ public class Game {
         else {
             return new Game(new Floor (40, 40));
         }
-        
     }
     
     // creates entities for us to test
@@ -156,6 +155,7 @@ public class Game {
         this.pc = GameEntity.player;
         pc.setFloor(f);
         this.currFloor = f;
+        setupFloor();
     }
 
     public void exitShop() {

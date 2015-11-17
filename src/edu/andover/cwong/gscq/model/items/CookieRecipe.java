@@ -40,8 +40,4 @@ public abstract class CookieRecipe extends Item {
 	public void setNumCookiesToAdd(int NCTA) {
 		numCookiesToAdd = NCTA;
 	}
-	
-	public int cookieIncrease () {
-		return 1;
-	}
 }
