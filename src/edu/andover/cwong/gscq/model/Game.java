@@ -16,7 +16,7 @@ import edu.andover.cwong.gscq.model.items.Item;
 public class Game {
     // Holds all of the relevant data for navigation
     private Floor currFloor;
-    private static int currentLevel;
+    private int currentLevel;
     private Player pc;
     public boolean gameOver = false;
     
@@ -94,6 +94,10 @@ public class Game {
     public String formatCookieCount() {
         return String.format("%s", pc.getCookieCount());
     }
+
+    public String formatCurrentFloor() {
+        return String.format("%s", this.currentLevel);
+    }
     
     // This gets the player's inventory.
     public ArrayList<Item> getInventory() { 
@@ -141,7 +145,6 @@ public class Game {
     // Initialize the first floor
     public static Game init(boolean genFloor) {
         new Player(0,0);
-        currentLevel = 1;
         if (genFloor) {
            return new Game(new Floor(40, 40));
         } 
@@ -156,6 +159,7 @@ public class Game {
         this.pc = GameEntity.player;
         pc.setFloor(f);
         this.currFloor = f;
+        this.currentLevel = 1;
         setupFloor();
     }
 
