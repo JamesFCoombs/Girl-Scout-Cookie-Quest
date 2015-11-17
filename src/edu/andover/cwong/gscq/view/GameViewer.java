@@ -105,7 +105,6 @@ public class GameViewer {
             if (a == null) { continue; }
             inventory += a.getItemID()+"\n";
         }
-        System.out.println(owner.getInventory());
         ivtLabel.setText(inventory);
     }
     

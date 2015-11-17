@@ -8,8 +8,8 @@ public class LivingGameEntity extends GameEntity {
 	// The LivingGameEntity's stats.
     private int curHealth;
     private int maxHealth;
-    private int defense;
-    private int attack;
+    protected int defense;
+    protected int attack;
     private int baseAttack;
     private int attackRange;
     

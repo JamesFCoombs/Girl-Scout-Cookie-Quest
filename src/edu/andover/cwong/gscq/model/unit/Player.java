@@ -47,6 +47,15 @@ public class Player extends LivingGameEntity {
     	return true;
     }
     
+    public void updateStats(){
+        this.attack=0;
+        this.defense=0;
+        for (Item a: inventory){
+            attack+=a.attackIncrease();
+            defense+=a.defenseIncrease();
+        }
+    }
+    
     // This removes the player from the game.
     public void remove() {
     	System.out.println("End the game.");
@@ -69,6 +78,7 @@ public class Player extends LivingGameEntity {
     
     // TODO FIX THIS
     // Equips the first item in the inventory.
+    @Deprecated
     public boolean openInventory(int input) {
         if (input == 5) {
         	System.out.println(inventory.get(0));
