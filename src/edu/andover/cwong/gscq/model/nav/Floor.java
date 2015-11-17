@@ -2,7 +2,6 @@ package edu.andover.cwong.gscq.model.nav;
 
 import java.util.ArrayList;
 
-import edu.andover.cwong.gscq.model.Game;
 import edu.andover.cwong.gscq.model.unit.*;
 
 // Represents a "grid" of terrain types and units on the floor.
@@ -16,11 +15,11 @@ public class Floor {
     public static final Tile EXIT = new Tile(4);
     
     // The grid that represents the map.
-    public Tile[][] floorTiles;
+    private Tile[][] floorTiles;
     
     // A grid that represents each GameEntity's location
     // on the map.
-    public GameEntity[][] units;
+    private GameEntity[][] units;
 
     
     public Floor(int x, int y) {
@@ -28,6 +27,9 @@ public class Floor {
         units = new GameEntity[y][x];
         generateFloor(x, y);
     }
+    
+    public Tile[][] getGrid() { return floorTiles; }
+    public GameEntity[][] getUnits() { return units; }
 
     // if not inside the floor, return a wall tile
     public Tile getTile(int x, int y) {
@@ -60,12 +62,12 @@ public class Floor {
     	return roomsOnFloor;
     }
     
+    public Tile[][] floorTiles() { return this.floorTiles; }
+    public GameEntity[][] entities() { return this.units; }
+    
     // Control what happens for a single "turn" (or "step") of the game. Only
     // called when the player takes an action.
     public void step() {
-    	
-    	
-    	
         for (GameEntity[] row : units) {
             for (GameEntity unit : row) {
             	if (unit != null) { unit.update(); }
@@ -177,7 +179,6 @@ public class Floor {
     	
     	
     }
-    
     // ----------- FLOOR GENERATION -----------
     
     
