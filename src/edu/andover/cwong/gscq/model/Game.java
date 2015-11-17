@@ -18,6 +18,10 @@ public class Game {
     private Floor currFloor;
     private Player pc;
     public boolean gameOver = false;
+    // This is a homebrewed implementation of the Observer pattern. This isn't
+    // quite a threaded application so we don't need to really implement the
+    // observer pattern 
+    public boolean updated = false;
     
     // Updates the game state based on input from the player
     // This method should only be called when the player takes some action
@@ -26,9 +30,8 @@ public class Game {
             currFloor.step();
             if (pc.getCurHealth() <= 0) { gameOver = true; }
         }
+        this.updated = true;
     }
-    
-    public Floor currentFloor() { return currFloor; }
     
     // This returns which tile a game entity (an item is on.
     // getters and setters
@@ -44,18 +47,11 @@ public class Game {
         return currFloor.getEntity(x, y);
     }
     
-    public int getPlayerXLoc(){
-    	return pc.getXLoc();
-    }
-    
-    public int getPlayerYLoc(){
-    	return pc.getYLoc();
-    }
-    
+    public int getPlayerXLoc() { return pc.getXLoc(); }
+    public int getPlayerYLoc() { return pc.getYLoc(); }
+    public Floor currentFloor() { return currFloor; }
     // This gets all the game entities on the floor.
-    public GameEntity[][] getEntities(){
-    	return currFloor.getUnits();
-    }
+    public GameEntity[][] getEntities(){ return currFloor.getUnits(); }
     
     // This displays both the current health of the player
     // and the maximum health that the player can have.

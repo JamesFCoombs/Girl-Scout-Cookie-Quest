@@ -1,5 +1,6 @@
 package edu.andover.cwong.gscq.view;
 
+import java.util.ArrayList;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
@@ -9,6 +10,7 @@ import javafx.geometry.Rectangle2D;
 
 import edu.andover.cwong.gscq.GSCQRunner;
 import edu.andover.cwong.gscq.view.FloorViewBuilder;
+import edu.andover.cwong.gscq.view.Sprite;
 import edu.andover.cwong.gscq.model.Game;
 import edu.andover.cwong.gscq.model.items.Item;
 import edu.andover.cwong.gscq.model.unit.Enemy;
@@ -21,11 +23,16 @@ public class GameViewer {
     public static final int MAPVIEW_WIDTH = 400;
     public static final int MAPVIEW_HEIGHT = 400;
     
-    // holds reference to the runner and the Game
+    // Holds reference to the runner and the Game
+    // We need a reference to the runner because the runner handles all of the
+    // nasty I/O operations involving loading FXML files.
     private GSCQRunner runner;
     private Game owner;
     
-    // all of the FXML things
+    // The list of sprites currently needed on the floor
+    private ArrayList<Sprite> sprites = new ArrayList<>();
+    
+    // All of the FXML things
     @FXML
     private Label hpLabel;
     @FXML
@@ -66,7 +73,7 @@ public class GameViewer {
     }
     
     public void updateFrame() {
-        
+        for (Sprite s : this.sprites) { s.refresh(); }
     }
     
     public void refreshHUD() {
@@ -78,7 +85,7 @@ public class GameViewer {
         String inventory="Inventory: \n";
         for (Item a : owner.getInventory()){
             if (a == null) { continue; }
-            inventory+=a.getItemID()+"\n";
+            inventory += a.getItemID()+"\n";
         }
         ivtLabel.setText(inventory);
     }

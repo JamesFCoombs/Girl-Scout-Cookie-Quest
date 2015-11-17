@@ -127,7 +127,7 @@ public class GSCQRunner extends Application {
             // of the MVC architecture altogether. The update() method just
             // calls the respective update() methods of all sprites onscreen.
             Timeline tl = new Timeline(new KeyFrame(
-                    Duration.millis(150), (e) -> { this.update(); }
+                    Duration.millis(150), (e) -> { this.refresh(); }
             ));
             tl.setCycleCount(Timeline.INDEFINITE);
             tl.play();
@@ -162,8 +162,14 @@ public class GSCQRunner extends Application {
         }
     }
     
+    // Refresh the screen framecounter
+    private void refresh() {
+        
+        viewer.updateFrame();
+    }
+    
     // Updates all sprites onscreen to their current frames and positions.
-    private void update() {
+    public void step() {
         if (state.gameOver) {
             displayGameOver();
         }
