@@ -9,13 +9,13 @@ import edu.andover.cwong.gscq.model.unit.ItemEntity;
 
 public class EntitySprite extends Sprite {
     public static final Sprite PLAYER_SPRITE = new Sprite(
-            new Image("file:res/char.png"), 0, 0
+            new Image("file:res/char.png"), 60, 70
     );
     public static final Sprite ENEMY_SPRITE = new Sprite(
-            new Image("file:res/enemy.png"), 0, 0
+            new Image("file:res/enemy.png"), 60, 70
     );
     public static final Sprite ITEM_SPRITE = new Sprite(
-            new Image("file:res/0.png"), 0, 0
+            new Image("file:res/0.png"), 64, 64
     );
     
     private static Sprite determineSprite(GameEntity ge) {

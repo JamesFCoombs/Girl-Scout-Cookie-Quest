@@ -19,11 +19,12 @@ public class Game {
     private static int currentLevel;
     private Player pc;
     public boolean gameOver = false;
-    public boolean showShop = false;
+    
     // This is a homebrewed implementation of the Observer pattern. This isn't
     // quite a threaded application so we don't need to really implement the
     // observer pattern 
     public boolean updated = false;
+    public boolean showShop = false;
     
     // Updates the game state based on input from the player
     // This method should only be called when the player takes some action
@@ -147,7 +148,7 @@ public class Game {
         }
     }
     
-    // creates entities for us to test
+    // Creates entities for us to test
     // This sets up the floor.
     private Game(Floor f) {
         this.pc = GameEntity.player;
