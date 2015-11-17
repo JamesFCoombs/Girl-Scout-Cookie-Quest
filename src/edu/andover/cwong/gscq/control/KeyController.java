@@ -8,6 +8,7 @@ import edu.andover.cwong.gscq.model.Game;
 public class KeyController {
     private Game owner;
     
+    // TODO: Make it an enum
     @SuppressWarnings("incomplete-switch")
     public void handleKeyInput(KeyEvent e) {
         // turns the input into usable int

@@ -2,6 +2,8 @@ package edu.andover.cwong.gscq.model.nav;
 
 // Represents a single tile
 public class Tile {
+    public static final int NUM_TYPES = 5;
+    
     private final int id;
 
     public Tile(int x) {

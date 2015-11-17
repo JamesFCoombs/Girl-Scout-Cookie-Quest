@@ -43,10 +43,18 @@ public abstract class GameEntity {
     
     // Moves the GameEntity back to where it was previously.
     public abstract void revertMovement();
+
+    // ------- CONVENIENCE METHODS -------
     
+    public int distToPlayerX() {
+        return this.xLocation - GameEntity.player.xLocation;
+    }
+    
+    public int distToPlayerY() {
+        return this.yLocation - GameEntity.player.yLocation;
+    }
     
     // ------- GET AND SET METHODS -------
-
     public void setXLoc(int xLoc) {
         xLocation = xLoc;
     }
