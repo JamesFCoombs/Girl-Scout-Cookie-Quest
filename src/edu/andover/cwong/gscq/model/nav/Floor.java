@@ -62,6 +62,9 @@ public class Floor {
     	return roomsOnFloor;
     }
     
+    public Tile[][] floorTiles() { return this.floorTiles; }
+    public GameEntity[][] entities() { return this.units; }
+    
     // Control what happens for a single "turn" (or "step") of the game. Only
     // called when the player takes an action.
     public void step() {
@@ -176,7 +179,6 @@ public class Floor {
     	
     	
     }
-    
     // ----------- FLOOR GENERATION -----------
     
     

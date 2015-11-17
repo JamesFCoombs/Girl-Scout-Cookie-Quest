@@ -30,11 +30,10 @@ public class Game {
     // This method should only be called when the player takes some action
     public void update(int input) {
         if (pc.move(input)) {
-            if (currFloor.floorTiles()[GameEntity.player.getYLoc()]
-                    [GameEntity.player.getXLoc()].getID() == 4) {
-                nextFloor();
-            }
-            
+        	if (currFloor.floorTiles()[GameEntity.player.getYLoc()]
+        			[GameEntity.player.getXLoc()].getID() == 4) {
+        		nextFloor();
+        	}
             currFloor.step();
             if (currFloor.getTile(
                     GameEntity.player.getXLoc(),GameEntity.player.getYLoc()).
@@ -141,7 +140,6 @@ public class Game {
     public static Game init(boolean genFloor) {
         new Player(0,0);
         currentLevel = 1;
-        
         if (genFloor) {
            return new Game(new Floor(40, 40));
         } 
