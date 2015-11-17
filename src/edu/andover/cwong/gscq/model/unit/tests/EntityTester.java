@@ -20,8 +20,6 @@ public class EntityTester {
 		Enemy enemy2 = new Enemy(8, 7);
 		ItemEntity badge = new ItemEntity(8, 9, "Sash");
 		
-		enemy1.setPlayer(player);
-		enemy2.setPlayer(player);
 		
 		floor.addGameEntity(player);
 		floor.addGameEntity(enemy1);

@@ -20,21 +20,17 @@ public class Game {
     private static int currentLevel;
     private Player pc;
     public boolean gameOver = false;
-<<<<<<< HEAD
     // This is a homebrewed implementation of the Observer pattern. This isn't
     // quite a threaded application so we don't need to really implement the
     // observer pattern 
     public boolean updated = false;
-=======
     public boolean showShop = true;
->>>>>>> origin/master
     
     // Updates the game state based on input from the player
     // This method should only be called when the player takes some action
     public void update(int input) {
         if (pc.move(input)) {
-        	
-        	if (currFloor.floorTiles[GameEntity.player.getYLoc()]
+        	if (currFloor.floorTiles()[GameEntity.player.getYLoc()]
         			[GameEntity.player.getXLoc()].getID() == 4) {
         		nextFloor();
         	}
@@ -143,9 +139,7 @@ public class Game {
     
     // Initialize the first floor
     public static Game init(boolean genFloor) {
-    	
     	new Player(0,0);
-    	
     	currentLevel = 1;
     	
         if (genFloor) {

@@ -27,14 +27,11 @@ public class GSCQRunner extends Application {
     // Controller/coordination things
     private GameViewer viewer;
     private KeyController ctrlr;
-<<<<<<< HEAD
     private boolean over = false;
-=======
-    private Timeline tl;
->>>>>>> origin/master
     
     // model things
     private Game state;
+    private Timeline tl;
     
     @Override
     public void start(Stage s) throws Exception {
@@ -156,23 +153,15 @@ public class GSCQRunner extends Application {
             // the timeline the model, so I'd rather put the timeline outside
             // of the MVC architecture altogether. The update() method just
             // calls the respective update() methods of all sprites onscreen.
-<<<<<<< HEAD
-            Timeline tl = new Timeline(new KeyFrame(
-                    Duration.millis(150), (e) -> { this.refresh(); }
-=======
             tl = new Timeline(new KeyFrame(
-                    Duration.millis(150), (e) -> { this.update(); }
->>>>>>> origin/master
+                    Duration.millis(150), (e) -> { this.refresh(); }
             ));
             tl.setCycleCount(Timeline.INDEFINITE);
             tl.play();
             // Now that we're all set up, we can show our window.
-<<<<<<< HEAD
             GameViewer gv = loader.getController();
             gv.setOwner(state);
             gv.setupFloorView();
-=======
->>>>>>> origin/master
             layoutRoot.setCenter(gameContainer);
             this.primaryStage.show();
 
@@ -203,37 +192,24 @@ public class GSCQRunner extends Application {
     
     // Refresh the screen framecounter
     private void refresh() {
-        
+        if (state.updated) {
+            this.step();
+            state.updated = false;
+        }
         viewer.updateFrame();
     }
     
     // Updates all sprites onscreen to their current frames and positions.
     public void step() {
         if (state.gameOver) {
-<<<<<<< HEAD
             displayGameOver();
-=======
-            try {
-                FXMLLoader loader = new FXMLLoader(GSCQRunner.class.getResource(
-                        "view/EndContainer.fxml"
-                ));
-                AnchorPane endContainer = loader.load();
-                this.primaryStage.setScene(new Scene(endContainer));
-                this.primaryStage.setResizable(false);
-                this.primaryStage.sizeToScene();
-                tl.pause();
-            }
-            catch (IOException e) {
-                System.err.println("Couldn't load gameover layout. Aborting.");
-                System.exit(-3);
-            }
->>>>>>> origin/master
         }
         else {
             if (state.showShop){
                 displayShop();
                 tl.pause();
             }
+            else { tl.play(); }
             viewer.refreshHUD();
             viewer.refreshMapview();
         }

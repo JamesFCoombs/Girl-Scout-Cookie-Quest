@@ -18,10 +18,6 @@ import edu.andover.cwong.gscq.model.nav.Tile;
 // XXX - This entire class is rather janky in that we combine awt and fx core
 // classes to provide a service that javafx doesn't.
 public class FloorViewBuilder extends ImageView {
-    public static final int TILE_DIMENSIONS = 68;
-    public static final int TOP_LEFT_BLANKS = 3;
-    public static final int BOT_RIGHT_BLANKS = 2;
-    public static final int EDGE_BLANKS = TOP_LEFT_BLANKS + BOT_RIGHT_BLANKS;
     // There doesn't appear to be a way to tile together images in memory
     // without having it display the entire thing in javafx, so we instead
     // draw our "master floor image" onto an awt BufferedImage and show
@@ -39,10 +35,12 @@ public class FloorViewBuilder extends ImageView {
             System.err.println("Unable to load tile images. Aborting.");
             System.exit(1);
         }
-        // XXX - Properly this should be in the try-catch block
+        // XXX - Properly this should be inside the try-catch block
         BufferedImage result = new BufferedImage(
-                (f.getWidth()+EDGE_BLANKS) * TILE_DIMENSIONS,
-                (f.getHeight()+EDGE_BLANKS) * TILE_DIMENSIONS,
+                (f.getWidth()+ViewConstants.EDGE_BLANKS)
+                    * ViewConstants.TILE_DIMENSIONS,
+                (f.getHeight()+ViewConstants.EDGE_BLANKS)
+                    * ViewConstants.TILE_DIMENSIONS,
                 BufferedImage.TYPE_INT_ARGB
         );
         Graphics2D g = result.createGraphics();
@@ -52,8 +50,10 @@ public class FloorViewBuilder extends ImageView {
             for (int j = 0 ; j < f.getWidth() ; j++) {
                 g.drawImage(
                         tileImages[f.getTile(i, j).getID()], null,
-                        (i+TOP_LEFT_BLANKS)*TILE_DIMENSIONS,
-                        (j+BOT_RIGHT_BLANKS)*TILE_DIMENSIONS
+                        (i+ViewConstants.TOP_LEFT_BLANKS)
+                            * ViewConstants.TILE_DIMENSIONS,
+                        (j+ViewConstants.BOT_RIGHT_BLANKS)
+                            * ViewConstants.TILE_DIMENSIONS
                 );
             }
         }

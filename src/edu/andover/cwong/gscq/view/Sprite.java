@@ -25,7 +25,12 @@ public class Sprite extends ImageView {
         );
     }
     
-    // Clone constructor: Would be private but it needs to be used by
+    public void setTileLocation(int x, int y) {
+        this.setX(x * ViewConstants.TILE_DIMENSIONS);
+        this.setY(y * ViewConstants.TILE_DIMENSIONS);
+    }
+    
+    // Clone constructor: should be private but it needs to be visible to
     // subclasses.
     protected Sprite(Sprite s) {
         this(s.getImage(), s.frameWidth, s.frameHeight);
