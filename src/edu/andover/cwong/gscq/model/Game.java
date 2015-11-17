@@ -21,7 +21,7 @@ public class Game {
     private static int currentLevel;
     private Player pc;
     public boolean gameOver = false;
-    public boolean showShop = true;
+    public boolean showShop = false;
     
     // Updates the game state based on input from the player
     // This method should only be called when the player takes some action
@@ -168,6 +168,5 @@ public class Game {
     public void exitShop() {
         pc.move(3);
         showShop=false;
-        setupFloor();
     }
 }
