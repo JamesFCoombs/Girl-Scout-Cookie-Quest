@@ -159,6 +159,9 @@ public class GSCQRunner extends Application {
             tl.setCycleCount(Timeline.INDEFINITE);
             tl.play();
             // Now that we're all set up, we can show our window.
+            GameViewer gv = loader.getController();
+            gv.setOwner(state);
+            gv.setupFloorView();
             layoutRoot.setCenter(gameContainer);
             this.primaryStage.show();
 
@@ -199,7 +202,7 @@ public class GSCQRunner extends Application {
                 tl.pause();
             }
             viewer.refreshHUD();
-            viewer.refreshCanvas();
+            viewer.refreshMapview();
         }
     }
 

@@ -45,9 +45,9 @@ public class Game {
     public void seeInventory(int input) {
     	pc.openInventory(input);
     }
-    
+    public Floor currentFloor() { return currFloor; }
     // This returns which tile a game entity (an item is on.
-    //getters and setters
+    // getters and setters
     public Tile getTile(int x, int y){
     	// This detects if the game entity is within walls.
         if (x < 0 || y < 0) { return Floor.WALL; }
@@ -94,7 +94,7 @@ public class Game {
     // This displays the number of cookies that the player has
     // on the screen.
     public String formatCookieCount() {
-    	return String.format("Cookies: %s", pc.getCookieCount());
+    	return String.format("%s", pc.getCookieCount());
     }
     
     // This gets the player's inventory.

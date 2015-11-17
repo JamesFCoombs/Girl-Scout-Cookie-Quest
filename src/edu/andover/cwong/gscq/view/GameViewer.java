@@ -4,7 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.AnchorPane;
+import javafx.geometry.Rectangle2D;
 
 import edu.andover.cwong.gscq.GSCQRunner;
 import edu.andover.cwong.gscq.view.FloorViewBuilder;
@@ -17,13 +18,14 @@ import edu.andover.cwong.gscq.model.unit.Player;
 // What JFX calls a "controller" for the game panel. Handles refreshing of
 // view elements (etc)
 public class GameViewer {
+    public static final int MAPVIEW_WIDTH = 400;
+    public static final int MAPVIEW_HEIGHT = 400;
     
-    //holds reference to the runner and the Game
+    // holds reference to the runner and the Game
     private GSCQRunner runner;
     private Game owner;
     
-    
-    //all of the FXML things
+    // all of the FXML things
     @FXML
     private Label hpLabel;
     @FXML
@@ -35,102 +37,38 @@ public class GameViewer {
     @FXML
     private Label ivtLabel;
 	@FXML
-	private GridPane gameGrid;
-	@FXML
-	private GridPane entityGrid;
-	@FXML
 	private ImageView mapView;
-
-    private ImageView[] visibleTiles;
+	@FXML
+	private AnchorPane spriteView;
     
     @FXML
     public void displayMinimap() { runner.displayMinimap(); }
     @FXML
     public void displayControls() { runner.displayControls(); }
     
-    private final int tiles = 36;
-    private final int tilesPerRow = 6;
-    
-    // FIXME: Change this to just make it better in general
-    public void refreshCanvas(){
-        entityGrid.getChildren().clear();
-    	visibleTiles = new ImageView[tiles];
-	    for (int i=0; i<tiles; i++) {
-	        // get entities
-	        GameEntity e = owner.getEntity(
-                    i%tilesPerRow-(tilesPerRow/2)+owner.getPlayerXLoc(),
-                    i/tilesPerRow-(tilesPerRow/2)+owner.getPlayerYLoc()
-            );
-	        // Display the entities on each tile
-            if (e!=null){
-                ImageView entityImage = new ImageView(
-                        new Image("file:res/0.png")
-                );
-                if(e instanceof Player){
-                    entityImage = new ImageView(
-                            new Image("file:res/char.png")
-                    );
-                }
-                else if(e instanceof Enemy){
-                    entityImage = new ImageView(
-                            new Image("file:res/enemy.png")
-                    );
-                }
-                entityGrid.add(entityImage, 
-                        3+e.getXLoc()-owner.getPlayerXLoc(), 
-                        3+e.getYLoc()-owner.getPlayerYLoc()
-                );
-            }
-            // Display the tile image (N.png for tile ID N)
-	    	if (visibleTiles[i]==null){
-		        ImageView tileImage = new ImageView(
-		                new Image(String.format("file:res/%d.png",owner.getTile(
-		                    i%tilesPerRow-(tilesPerRow/2)+owner.getPlayerXLoc(),
-		                    i/tilesPerRow-(tilesPerRow/2)+owner.getPlayerYLoc()
-		                ).getID()))
-		        );
-	        visibleTiles[i] = tileImage;
-	    	}
-	        gameGrid.add(visibleTiles[i], i%tilesPerRow, i/tilesPerRow);
-	    }
+    public void setupFloorView() {
+        Image floorView = FloorViewBuilder.constructImage(owner.currentFloor());
+        mapView.setImage(floorView);
+        refreshMapview();
+        refreshEntities();
     }
     
-    public void refreshEntities(){
-        // for each entity, refresh its position on the screen
-    	for (GameEntity[] e:owner.getEntities()){
-    		if (e!=null){
-	    		for (GameEntity entity:e){
-		        	if (entity!=null){
-                        ImageView entityImage = new ImageView(
-                                new Image("file:res/0.png")
-                        );
-                        if(entity instanceof Player){
-                            entityImage = new ImageView(
-                                    new Image("file:res/char.png")
-                            );
-                        }
-                        else if(entity instanceof Enemy){
-                            entityImage = new ImageView(
-                                    new Image("file:res/enemy.png")
-                            );
-                        }
-		    	        entityGrid.add(entityImage, 
-		    	                3+entity.getXLoc()-owner.getPlayerXLoc(), 
-		    	                3+entity.getYLoc()-owner.getPlayerYLoc()
-		    	        );
-	        		}
-	    		}
-    		}
-    	}
+    public void refreshMapview() {
+        int tlX = owner.getPlayerXLoc() * FloorViewBuilder.TILE_DIMENSIONS;
+        int tlY = owner.getPlayerYLoc() * FloorViewBuilder.TILE_DIMENSIONS;
+        mapView.setViewport(new Rectangle2D(
+                tlX, tlY, MAPVIEW_WIDTH, MAPVIEW_HEIGHT
+        ));
     }
     
-    // XXX - why is this here?
-    public void toggleEquip(){
-        for (Item a: owner.getInventory()){
-            a.toggleEquip();
-        }
+    public void refreshEntities() {
+        
     }
-
+    
+    public void updateFrame() {
+        
+    }
+    
     public void refreshHUD() {
         hpLabel.setText(owner.formatPlayerHP());
         atkLabel.setText(owner.formatPlayerAtk());
