@@ -8,6 +8,7 @@ import edu.andover.cwong.gscq.model.unit.GameEntity;
 import edu.andover.cwong.gscq.model.unit.ItemEntity;
 import edu.andover.cwong.gscq.model.unit.Player;
 import edu.andover.cwong.gscq.model.nav.Floor;
+import edu.andover.cwong.gscq.model.nav.Room;
 import edu.andover.cwong.gscq.model.nav.Tile;
 import edu.andover.cwong.gscq.model.items.CookieRecipe;
 import edu.andover.cwong.gscq.model.items.Item;
@@ -17,6 +18,7 @@ import edu.andover.cwong.gscq.model.items.Item;
 public class Game {
     // Holds all of the relevant data for navigation
     private Floor currFloor;
+    private static int currentLevel;
     private Player pc;
     public boolean gameOver = false;
     public boolean showShop = true;
@@ -25,20 +27,24 @@ public class Game {
     // This method should only be called when the player takes some action
     public void update(int input) {
         if (pc.move(input)) {
+        	
+        	if (currFloor.floorTiles[GameEntity.player.getYLoc()]
+        			[GameEntity.player.getXLoc()].getID() == 4) {
+        		nextFloor();
+        	}
+        	
             currFloor.step();
             if (currFloor.getTile(
                     GameEntity.player.getXLoc(),GameEntity.player.getYLoc()).
                     getID()==3){
                 showShop = true;
             }
-            //if (pc.getCurHealth() <= 0) { gameOver = true; }
+            if (pc.getCurHealth() <= 0) { gameOver = true; }
         }
     }
     
-    public void seeInventory(int input, int item) {
-    	if (pc.openInventory(input, item)) {
-    		pc.selectItem(item);
-    	}
+    public void seeInventory(int input) {
+    	pc.openInventory(input);
     }
     
     // This returns which tile a game entity (an item is on.
@@ -94,17 +100,54 @@ public class Game {
     
     // This gets the player's inventory.
     public ArrayList<Item> getInventory() { 
+    //	System.out.println(pc.getInventory());
     	return pc.getInventory(); 
     }
 
     // This gets the player's list of cookies.
     public ArrayList<CookieRecipe> getCookieList() { 
+    	System.out.println(pc.getCookieList());
     	return pc.getCookieList(); 
    	} 
 
+    private void nextFloor() {
+    	currentLevel += 1;
+    	int x = 30 + currentLevel * 10;
+    	currFloor.generateFloor(x, x);
+    	setupFloor();
+    }
+
+    private void setupFloor() {
+    	int i = 0;
+    	boolean isItem;
+    	while (i < currFloor.getRoomsOnFloor().size()) {
+    		isItem = (Math.random() > .5);
+    		Room room = currFloor.getRoomsOnFloor().get(i);
+    		int spawnX = room.getTLTX() + 
+        			((int) (Math.random() * room.getWidth()));
+        	int spawnY = room.getTLTY() +
+        			((int) (Math.random() * room.getHeight()));
+        	
+        	if (!isItem && currFloor.addGameEntity(new Enemy(spawnX, spawnY))) {
+        		i++;
+        	} else if (isItem && currFloor.addGameEntity(
+        			randomGenerateItem(spawnX, spawnY))) {
+        		i++;
+        	}
+    	}
+    }
+    
+    private ItemEntity randomGenerateItem(int spawnX, int spawnY) {
+    	return new ItemEntity(spawnX, spawnY, "Sash");
+    }
+    
     // Initialize the first floor
     public static Game init(boolean genFloor) {
+    	
     	new Player(0,0);
+    	
+    	currentLevel = 1;
+    	
         if (genFloor) {
            return new Game(new Floor(40, 40));
         } 
@@ -125,6 +168,6 @@ public class Game {
     public void exitShop() {
         pc.move(3);
         showShop=false;
-        System.out.println("set to false");
+        setupFloor();
     }
 }

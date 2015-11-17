@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import edu.andover.cwong.gscq.model.items.CookieRecipe;
 import edu.andover.cwong.gscq.model.items.Item;
+import edu.andover.cwong.gscq.model.items.Mascara;
 import edu.andover.cwong.gscq.model.items.PlainCookie;
 
 public class Player extends LivingGameEntity {
@@ -21,8 +22,11 @@ public class Player extends LivingGameEntity {
         
         cookieList = new ArrayList<CookieRecipe>();
         addCookie(new PlainCookie());
+        inventory = new ArrayList<Item>();
+        addItem1(new Mascara());
+        //System.out.println(inventory);
         
-        player = this;
+        GameEntity.player = this;
     }
     
     public boolean addItem(Item item) {
@@ -31,8 +35,15 @@ public class Player extends LivingGameEntity {
     	//}
     	return super.addItem(item);
     }
+    
     public boolean addCookie(CookieRecipe cookieRecipe) {
     	cookieList.add(cookieRecipe);
+    	return true;
+    }
+    
+    
+    public boolean addItem1(Item item) {
+    	inventory.add(item);
     	return true;
     }
     
@@ -59,16 +70,19 @@ public class Player extends LivingGameEntity {
     
     // This makes the number of cookies a player has
     // increase every time the player moves.
-    public boolean openInventory(int input, int item) {
+    public boolean openInventory(int input) {
         if (input == 5) {
-            selectItem(item);
+        	System.out.println(inventory.get(0));
+        	inventory.get(0).toggleEquip();
+            setAttack(inventory.get(0).attackIncrease());
+            setDefense(inventory.get(0).defenseIncrease());
         } else {
             throw new IllegalArgumentException(
                 "Invalid direction for LGE movement");
-            }
+        }
         return true;
     }
-         
+/*
     public boolean selectItem(int itemEntry) {
     	if (itemEntry == 6) {
     		Item firstItem = inventory.get(0);
@@ -85,7 +99,7 @@ public class Player extends LivingGameEntity {
     	}
     	return true;
     }
-    
+*/    
     // This resets the number of cookies the player has every
     // time the player should gain a cookie by movement. 
     public void setCookiesCount(int cookies) {
