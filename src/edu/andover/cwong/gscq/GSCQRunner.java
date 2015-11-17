@@ -28,6 +28,7 @@ public class GSCQRunner extends Application {
     private GameViewer viewer;
     private KeyController ctrlr;
     private Timeline tl;
+    private boolean over = false;
     
     // model things
     private Game state;
@@ -168,23 +169,29 @@ public class GSCQRunner extends Application {
         }
     }
     
+    private void displayGameOver() {
+        if (this.over) { return; }
+        try {
+            FXMLLoader loader = new FXMLLoader(GSCQRunner.class.getResource(
+                    "view/EndContainer.fxml"
+            ));
+            AnchorPane endContainer = loader.load();
+            this.primaryStage.setScene(new Scene(endContainer));
+            this.primaryStage.setResizable(false);
+            this.primaryStage.sizeToScene();
+            tl.pause();
+            this.over = true;
+        }
+        catch (IOException e) {
+            System.err.println("Couldn't load gameover layout. Aborting.");
+            System.exit(-3);
+        }
+    }
+    
     // Updates all sprites onscreen to their current frames and positions.
     private void update() {
         if (state.gameOver) {
-            try {
-                FXMLLoader loader = new FXMLLoader(GSCQRunner.class.getResource(
-                        "view/EndContainer.fxml"
-                ));
-                AnchorPane endContainer = loader.load();
-                this.primaryStage.setScene(new Scene(endContainer));
-                this.primaryStage.setResizable(false);
-                this.primaryStage.sizeToScene();
-                tl.pause();
-            }
-            catch (IOException e) {
-                System.err.println("Couldn't load gameover layout. Aborting.");
-                System.exit(-3);
-            }
+            displayGameOver();
         }
         else {
             if (state.showShop){
