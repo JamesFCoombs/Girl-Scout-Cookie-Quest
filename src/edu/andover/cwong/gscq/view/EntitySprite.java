@@ -48,10 +48,12 @@ public class EntitySprite extends Sprite {
         else {
             int xDist = entity.distToPlayerX();
             int yDist = entity.distToPlayerY();
-            if (xDist > -ViewConstants.BOT_RIGHT_BLANKS &&
-                xDist < ViewConstants.TOP_LEFT_BLANKS &&
-                yDist > -ViewConstants.TOP_LEFT_BLANKS &&
-                yDist < ViewConstants.BOT_RIGHT_BLANKS
+            // The +-1 is because TOP_LEFT_BLANKS are for a 1-origin coordinate
+            // system, but the map uses a 0-origin coordinate system
+            if (xDist > -ViewConstants.TOP_LEFT_BLANKS-1 &&
+                xDist < ViewConstants.BOT_RIGHT_BLANKS+1 &&
+                yDist > -ViewConstants.TOP_LEFT_BLANKS-1 &&
+                yDist < ViewConstants.BOT_RIGHT_BLANKS+1
             ) {
                 int mapX = ViewConstants.TOP_LEFT_BLANKS + xDist;
                 int mapY = ViewConstants.TOP_LEFT_BLANKS + yDist;
