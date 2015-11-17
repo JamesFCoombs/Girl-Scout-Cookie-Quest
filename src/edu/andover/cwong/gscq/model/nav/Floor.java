@@ -2,7 +2,6 @@ package edu.andover.cwong.gscq.model.nav;
 
 import java.util.ArrayList;
 
-import edu.andover.cwong.gscq.model.Game;
 import edu.andover.cwong.gscq.model.unit.*;
 
 // Represents a "grid" of terrain types and units on the floor.
