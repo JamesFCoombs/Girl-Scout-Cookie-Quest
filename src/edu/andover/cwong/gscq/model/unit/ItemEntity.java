@@ -60,4 +60,10 @@ public class ItemEntity extends GameEntity {
     	}
     	
     }
+
+	@Override
+	public void dealWithCollision(LivingGameEntity other) {
+		// TODO Auto-generated method stub
+		
+	}
 }

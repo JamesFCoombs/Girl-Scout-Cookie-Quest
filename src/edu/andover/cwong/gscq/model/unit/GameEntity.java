@@ -8,6 +8,7 @@ public abstract class GameEntity {
     int xLocation;
     int yLocation;
     int radius;
+    public static Player player;
 
     protected Floor curFloor;
 
@@ -26,8 +27,9 @@ public abstract class GameEntity {
     }
     // ------- ABSTRACT -------
 
-    // GameEntity other is the thing that moved into this GameEntity.
-    public abstract void dealWithCollision(GameEntity other);
+    // LivingGameEntity other is the thing that moved into this GameEntity.
+    // ((Only LivingGameEntities can move so this is fine))
+    public abstract void dealWithCollision(LivingGameEntity other);
 
     public abstract boolean addItem(Item item);
     

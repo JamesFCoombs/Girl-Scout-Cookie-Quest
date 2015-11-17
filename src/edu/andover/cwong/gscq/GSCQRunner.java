@@ -13,6 +13,7 @@ import javafx.util.Duration;
 import java.io.IOException;
 
 import edu.andover.cwong.gscq.view.GameViewer;
+import edu.andover.cwong.gscq.view.ShopViewer;
 import edu.andover.cwong.gscq.control.KeyController;
 import edu.andover.cwong.gscq.model.Game;
 
@@ -26,6 +27,7 @@ public class GSCQRunner extends Application {
     // Controller/coordination things
     private GameViewer viewer;
     private KeyController ctrlr;
+    private Timeline tl;
     
     // model things
     private Game state;
@@ -43,7 +45,7 @@ public class GSCQRunner extends Application {
     // and enemies loaded. Also sets up our KeyListener to interface with
     // this state object.
     public void startGame() {
-        state = Game.init(false);
+        state = Game.init(true);
         ctrlr = new KeyController(state);
     }
     
@@ -102,6 +104,31 @@ public class GSCQRunner extends Application {
         }
     }
     
+    public void displayShop(){
+        try {
+            // Load end layout from fxml file.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(GSCQRunner.class.getResource(
+                    "view/ShopFrame.fxml"
+            ));
+            AnchorPane shopLayout = (AnchorPane) loader.load();
+
+            ShopViewer v = loader.getController();
+            v.setOwner(state);
+            v.setRunner(this);
+
+            // Show the scene containing the end layout.
+            Scene scene = new Scene(shopLayout);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+    }
+    
+
     // Loads and initializes the "container" - the "meat" of the scene. Places
     // the container in the middle of the BorderPane and attaches relevant
     // key and mouse listeners.
@@ -125,17 +152,15 @@ public class GSCQRunner extends Application {
             // the timeline the model, so I'd rather put the timeline outside
             // of the MVC architecture altogether. The update() method just
             // calls the respective update() methods of all sprites onscreen.
-            Timeline tl = new Timeline(new KeyFrame(
+            tl = new Timeline(new KeyFrame(
                     Duration.millis(150), (e) -> { this.update(); }
             ));
             tl.setCycleCount(Timeline.INDEFINITE);
             tl.play();
             // Now that we're all set up, we can show our window.
-            GameViewer gv = loader.getController();
-            gv.setOwner(state);
-            gv.refreshCanvas();
             layoutRoot.setCenter(gameContainer);
             this.primaryStage.show();
+
         } catch (IOException e) {
             System.err.println("Unable to load game layout. Aborting");
             e.printStackTrace();
@@ -154,6 +179,7 @@ public class GSCQRunner extends Application {
                 this.primaryStage.setScene(new Scene(endContainer));
                 this.primaryStage.setResizable(false);
                 this.primaryStage.sizeToScene();
+                tl.pause();
             }
             catch (IOException e) {
                 System.err.println("Couldn't load gameover layout. Aborting.");
@@ -161,6 +187,10 @@ public class GSCQRunner extends Application {
             }
         }
         else {
+            if (state.showShop){
+                displayShop();
+                tl.pause();
+            }
             viewer.refreshHUD();
             viewer.refreshCanvas();
         }
