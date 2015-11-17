@@ -27,6 +27,8 @@ public class GameViewer {
     private GSCQRunner runner;
     private Game owner;
     
+    private int displayedFloor = 1;
+    
     // The list of sprites currently needed on the floor
     private ArrayList<EntitySprite> sprites = new ArrayList<>();
     
@@ -92,7 +94,8 @@ public class GameViewer {
     
     public void updateFrame() {
         for (EntitySprite s : this.sprites) { s.refresh(); }
-        if (!this.floorLabel.getText().equals(owner.formatCurrentFloor())) {
+        if (this.displayedFloor != owner.getCurrentLevel()) {
+            this.displayedFloor = owner.getCurrentLevel();
             this.setupFloorView();
         }
     }
@@ -102,7 +105,9 @@ public class GameViewer {
         atkLabel.setText(owner.formatPlayerAtk());
         defLabel.setText(owner.formatPlayerDef());
         cookieLabel.setText(owner.formatCookieCount());
-        floorLabel.setText(owner.formatCurrentFloor());
+        // It's kind of abusing type coersion, but it looks cleaner than any
+        // alternative I could think of.
+        floorLabel.setText("" + this.displayedFloor);
     }
     
     public void setRunner(GSCQRunner r) {

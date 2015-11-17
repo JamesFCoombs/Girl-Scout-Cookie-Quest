@@ -95,8 +95,8 @@ public class Game {
         return String.format("%s", pc.getCookieCount());
     }
 
-    public String formatCurrentFloor() {
-        return String.format("%s", this.currentLevel);
+    public int getCurrentLevel() {
+        return currentLevel;
     }
     
     // This gets the player's inventory.
