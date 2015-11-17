@@ -20,18 +20,21 @@ public class Game {
     private static int currentLevel;
     private Player pc;
     public boolean gameOver = false;
+    // This is a homebrewed implementation of the Observer pattern. This isn't
+    // quite a threaded application so we don't need to really implement the
+    // observer pattern 
+    public boolean updated = false;
     public boolean showShop = true;
     
     // Updates the game state based on input from the player
     // This method should only be called when the player takes some action
     public void update(int input) {
         if (pc.move(input)) {
-        	
-        	if (currFloor.getGrid()[GameEntity.player.getYLoc()]
-        			[GameEntity.player.getXLoc()].getID() == 4) {
-        		nextFloor();
-        	}
-        	
+            if (currFloor.floorTiles()[GameEntity.player.getYLoc()]
+                    [GameEntity.player.getXLoc()].getID() == 4) {
+                nextFloor();
+            }
+            
             currFloor.step();
             if (currFloor.getTile(
                     GameEntity.player.getXLoc(),GameEntity.player.getYLoc()).
@@ -40,18 +43,19 @@ public class Game {
             }
             if (pc.getCurHealth() <= 0) { gameOver = true; }
         }
+        this.updated = true;
     }
     
     public void seeInventory(int input) {
-    	pc.openInventory(input);
+        pc.openInventory(input);
     }
-    public Floor currentFloor() { return currFloor; }
+    
     // This returns which tile a game entity (an item is on.
     // getters and setters
     public Tile getTile(int x, int y){
-    	// This detects if the game entity is within walls.
+        // This detects if the game entity is within walls.
         if (x < 0 || y < 0) { return Floor.WALL; }
-    	return currFloor.getTile(x, y);
+        return currFloor.getTile(x, y);
     }
     
     // This returns which entity is on a specific tile.
@@ -60,18 +64,11 @@ public class Game {
         return currFloor.getEntity(x, y);
     }
     
-    public int getPlayerXLoc(){
-    	return pc.getXLoc();
-    }
-    
-    public int getPlayerYLoc(){
-    	return pc.getYLoc();
-    }
-    
+    public int getPlayerXLoc() { return pc.getXLoc(); }
+    public int getPlayerYLoc() { return pc.getYLoc(); }
+    public Floor currentFloor() { return currFloor; }
     // This gets all the game entities on the floor.
-    public GameEntity[][] getEntities(){
-    	return currFloor.getUnits();
-    }
+    public GameEntity[][] getEntities(){ return currFloor.getUnits(); }
     
     // This displays both the current health of the player
     // and the maximum health that the player can have.
@@ -94,64 +91,62 @@ public class Game {
     // This displays the number of cookies that the player has
     // on the screen.
     public String formatCookieCount() {
-    	return String.format("%s", pc.getCookieCount());
+        return String.format("%s", pc.getCookieCount());
     }
     
     // This gets the player's inventory.
     public ArrayList<Item> getInventory() { 
-    //	System.out.println(pc.getInventory());
-    	return pc.getInventory(); 
+    //  System.out.println(pc.getInventory());
+        return pc.getInventory(); 
     }
 
     // This gets the player's list of cookies.
     public ArrayList<CookieRecipe> getCookieList() { 
-    	System.out.println(pc.getCookieList());
-    	return pc.getCookieList(); 
-   	} 
+        System.out.println(pc.getCookieList());
+        return pc.getCookieList(); 
+    } 
 
     private void nextFloor() {
-    	currentLevel += 1;
-    	int x = 30 + currentLevel * 10;
-    	currFloor.generateFloor(x, x);
-    	setupFloor();
+        currentLevel += 1;
+        int x = 30 + currentLevel * 10;
+        currFloor.generateFloor(x, x);
+        setupFloor();
     }
 
     private void setupFloor() {
-    	int i = 0;
-    	boolean isItem;
-    	while (i < currFloor.getRoomsOnFloor().size()) {
-    		isItem = (Math.random() > .5);
-    		Room room = currFloor.getRoomsOnFloor().get(i);
-    		int spawnX = room.getTLTX() + 
-        			((int) (Math.random() * room.getWidth()));
-        	int spawnY = room.getTLTY() +
-        			((int) (Math.random() * room.getHeight()));
-        	
-        	if (!isItem && currFloor.addGameEntity(new Enemy(spawnX, spawnY))) {
-        		i++;
-        	} else if (isItem && currFloor.addGameEntity(
-        			randomGenerateItem(spawnX, spawnY))) {
-        		i++;
-        	}
-    	}
+        int i = 0;
+        boolean isItem;
+        while (i < currFloor.getRoomsOnFloor().size()) {
+            isItem = (Math.random() > .5);
+            Room room = currFloor.getRoomsOnFloor().get(i);
+            int spawnX = room.getTLTX() + 
+                    ((int) (Math.random() * room.getWidth()));
+            int spawnY = room.getTLTY() +
+                    ((int) (Math.random() * room.getHeight()));
+            
+            if (!isItem && currFloor.addGameEntity(new Enemy(spawnX, spawnY))) {
+                i++;
+            } else if (isItem && currFloor.addGameEntity(
+                    randomGenerateItem(spawnX, spawnY))) {
+                i++;
+            }
+        }
     }
     
     private ItemEntity randomGenerateItem(int spawnX, int spawnY) {
-    	return new ItemEntity(spawnX, spawnY, "Sash");
+        return new ItemEntity(spawnX, spawnY, "Sash");
     }
     
     // Initialize the first floor
     public static Game init(boolean genFloor) {
-    	
-    	new Player(0,0);
-    	
-    	currentLevel = 1;
-    	
+        new Player(0,0);
+        currentLevel = 1;
+        
         if (genFloor) {
            return new Game(new Floor(40, 40));
         } 
         else {
-        	return new Game(new Floor (40, 40));
+            return new Game(new Floor (40, 40));
         }
         
     }
@@ -159,7 +154,7 @@ public class Game {
     // creates entities for us to test
     // This sets up the floor.
     private Game(Floor f) {
-    	this.pc = GameEntity.player;
+        this.pc = GameEntity.player;
         pc.setFloor(f);
         this.currFloor = f;
     }
