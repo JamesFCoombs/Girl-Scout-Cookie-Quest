@@ -1,7 +1,6 @@
 package edu.andover.cwong.gscq.model;
 
 import java.util.ArrayList;
-
 import edu.andover.cwong.gscq.model.unit.Enemy;
 import edu.andover.cwong.gscq.model.unit.GameEntity;
 import edu.andover.cwong.gscq.model.unit.ItemEntity;
