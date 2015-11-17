@@ -92,6 +92,9 @@ public class GameViewer {
     
     public void updateFrame() {
         for (EntitySprite s : this.sprites) { s.refresh(); }
+        if (!this.floorLabel.getText().equals(owner.formatCurrentFloor())) {
+            this.setupFloorView();
+        }
     }
     
     public void refreshHUD() {
