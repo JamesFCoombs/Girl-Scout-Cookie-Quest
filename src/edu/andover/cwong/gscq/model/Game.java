@@ -149,7 +149,7 @@ public class Game {
         
     }
     
-    // creates entities for us to test
+    // Creates entities for us to test
     // This sets up the floor.
     private Game(Floor f) {
         this.pc = GameEntity.player;
