@@ -4,34 +4,42 @@ import edu.andover.cwong.gscq.model.items.*;
 
 public class ItemEntity extends GameEntity {
 
+	// The identifier for this item.
     private String itemName;
+    
+    // The item this entity represents.
     private Item thisItem;
 
+    // Generates the item entity.
     public ItemEntity(int xLoc, int yLoc, String name) {
         xLocation = xLoc;
         yLocation = yLoc;
         itemName = name;
+        
+        // Determines what item this entity represents.
         setThisItem();
     }
 
-    public void dealWithCollision(GameEntity other) {
+    // If something moves onto this ItemEntity, adds the appropriate item
+    // to the LivingGameEntity's inventory.
+    public void dealWithCollision(LivingGameEntity other) {
         if (other.addItem(thisItem)) {
             remove();
         }
     }
 
+    // Allows for two items to share space on the map.
     public boolean addItem(Item item) {
         return false;
     }
     
-    public boolean addCookie(CookieRecipe cookieRecipe) {
-    	return false;
-    }
-    
+    // Does not need to revert movement, as movement is impossible!
     public void revertMovement() {}
 
+    // Does nothing when updated, other than look pretty.
     public void update() {}
     
+    // Sets this ItemEntity's item based off of its itemName.
     private void setThisItem() {
     	if (itemName.equals("Badge")) {
     		thisItem = new Badge();
@@ -61,9 +69,4 @@ public class ItemEntity extends GameEntity {
     	
     }
 
-	@Override
-	public void dealWithCollision(LivingGameEntity other) {
-		// TODO Auto-generated method stub
-		
-	}
 }

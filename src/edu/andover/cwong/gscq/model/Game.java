@@ -21,7 +21,7 @@ public class Game {
     private static int currentLevel;
     private Player pc;
     public boolean gameOver = false;
-    public boolean showShop = true;
+    public boolean showShop = false;
     
     // Updates the game state based on input from the player
     // This method should only be called when the player takes some action
@@ -138,7 +138,7 @@ public class Game {
     }
     
     private ItemEntity randomGenerateItem(int spawnX, int spawnY) {
-    	return new ItemEntity(spawnX, spawnY, "Sash");
+    	return new ItemEntity(spawnX, spawnY, "PlainCookie");
     }
     
     // Initialize the first floor
@@ -154,7 +154,6 @@ public class Game {
         else {
         	return new Game(new Floor (40, 40));
         }
-        
     }
     
     // creates entities for us to test
@@ -163,11 +162,11 @@ public class Game {
     	this.pc = GameEntity.player;
         pc.setFloor(f);
         this.currFloor = f;
+        setupFloor();
     }
 
     public void exitShop() {
         pc.move(3);
         showShop=false;
-        setupFloor();
     }
 }
