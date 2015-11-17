@@ -15,7 +15,6 @@ public class Player extends LivingGameEntity {
 	private ArrayList<CookieRecipe> cookieList;
 	
     public Player(int xLoc, int yLoc) {
-    	
         super(xLoc, yLoc);
         
         // The inital stats for the player.
@@ -49,7 +48,6 @@ public class Player extends LivingGameEntity {
     
     // This removes the player from the game.
     public void remove() {
-    	System.out.println("End the game.");
     	super.remove();
     }
     
