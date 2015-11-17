@@ -88,6 +88,9 @@ public class Floor {
     	if (units[yLoc][xLoc] == null) {
     		units[lge.getLastYLocation()][lge.getLastXLocation()] = null;
     		units[yLoc][xLoc] = lge;
+    		if (floorTiles[yLoc][xLoc] == ROOM) {
+    			lge.setRoom(determineRoom(xLoc, yLoc));
+    		}
     	}
     	return true;
     }
@@ -178,8 +181,17 @@ public class Floor {
     	spawnY = shopRoom.getTLTY();
     	
     	floorTiles[spawnY][spawnX] = SHOP;
-    	
-    	
+    }
+    
+    private Room determineRoom(int x, int y) {
+    	for (int i = 0; i < roomsOnFloor.size(); i++) {
+    		Room room = roomsOnFloor.get(i);
+    		if (x > room.getTLTX() && x < room.getTRTX() &&
+    				y > room.getTRTY() && y < room.getBRTY()) {
+    			return room;
+    		}
+    	}
+    	return null;
     }
     // ----------- FLOOR GENERATION -----------
     

@@ -1,18 +1,23 @@
 package edu.andover.cwong.gscq.model.unit;
 
 import java.util.ArrayList;
+
 import edu.andover.cwong.gscq.model.items.Item;
+import edu.andover.cwong.gscq.model.nav.Room;
 
 public class LivingGameEntity extends GameEntity {
 	
 	// The LivingGameEntity's stats.
     private int curHealth;
     private int maxHealth;
-    private int defense;
-    private int attack;
+    protected int defense;
+    protected int attack;
     private int baseAttack;
     private int attackRange;
     
+ // The room the Enemy is in. Used to track the player.
+ 	protected Room room;
+ 	
     // The inventory is the list of all of the items the LivingGameEntity is
     // carrying.
     public ArrayList<Item> inventory;
@@ -229,5 +234,9 @@ public class LivingGameEntity extends GameEntity {
     public int getLastYLocation() {
     	return lastYLocation;
     }
+    
+	public void setRoom(Room room) {
+		this.room = room;
+	}
 
 }

@@ -42,9 +42,11 @@ public class Game {
             }
             if (pc.getCurHealth() <= 0) { gameOver = true; }
         }
+        pc.updateStats();
         this.updated = true;
     }
     
+    @Deprecated
     public void seeInventory(int input) {
         pc.openInventory(input);
     }
@@ -133,7 +135,7 @@ public class Game {
     }
     
     private ItemEntity randomGenerateItem(int spawnX, int spawnY) {
-    	return new ItemEntity(spawnX, spawnY, "PlainCookie");
+    	return new ItemEntity(spawnX, spawnY, "Mascara");
     }
     
     // Initialize the first floor
