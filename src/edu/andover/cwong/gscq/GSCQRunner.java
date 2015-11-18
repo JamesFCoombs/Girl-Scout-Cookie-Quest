@@ -2,13 +2,16 @@ package edu.andover.cwong.gscq;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
 import javafx.util.Duration;
 import java.io.IOException;
 
@@ -86,12 +89,19 @@ public class GSCQRunner extends Application {
         }
     }
     
-    public void displayMinimap() {
+    public void displayMinimap(ImageView map) {
+        Image mapImage = map.getImage();
+        ImageView minimapView = new ImageView(mapImage);
+        minimapView.setPreserveRatio(true);
+        minimapView.setFitWidth(300);
         try {
             FXMLLoader loader = new FXMLLoader(GSCQRunner.class.getResource(
                     "view/MinimapDialog.fxml"
             ));
-            AnchorPane dialog = loader.load();
+            BorderPane dialog = loader.load();
+            ScrollPane sp = new ScrollPane();
+            sp.setContent(minimapView);
+            dialog.setCenter(sp);
             Stage s = new Stage();
             s.setTitle("map");
             s.initModality(Modality.WINDOW_MODAL);
@@ -100,20 +110,20 @@ public class GSCQRunner extends Application {
             s.showAndWait();
         }
         catch(IOException e) {
-            System.err.println("Unable to load controls display. Skipping.");
+            System.err.println("Unable to load minimap display. Skipping.");
             return;
         }
     }
     
     public void displayShop(){
         try {
-            // Load end layout from fxml file.
+            // Load layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(GSCQRunner.class.getResource(
                     "view/ShopFrame.fxml"
             ));
             AnchorPane shopLayout = (AnchorPane) loader.load();
-
+            
             ShopViewer v = loader.getController();
             v.setOwner(state);
             v.setRunner(this);
