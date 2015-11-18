@@ -49,7 +49,7 @@ public class EntityTester {
         for (int i = 0; i < floor.getHeight(); i++) {
             for (int j = 0; j < floor.getWidth(); j++) {
                 
-                    System.out.print(Floor.floorTilesCreator[i][j] + "\t");
+                    //System.out.print(Floor.floorTilesCreator[i][j] + "\t");
                 
             }
             System.out.println();            

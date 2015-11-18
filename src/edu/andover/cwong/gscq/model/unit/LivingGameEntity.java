@@ -1,10 +1,11 @@
 package edu.andover.cwong.gscq.model.unit;
 
 import java.util.ArrayList;
-
 import edu.andover.cwong.gscq.model.items.Item;
 import edu.andover.cwong.gscq.model.nav.Room;
 
+// LivingGameEntity is the representation of an Enemy or a Player. Each LGE has
+// combat statistics and methods specific to movement.
 public class LivingGameEntity extends GameEntity {
     
     // The LivingGameEntity's stats.
@@ -236,13 +237,11 @@ public class LivingGameEntity extends GameEntity {
         return lastYLocation;
     }
     
-    public void setRoom(Room room) {
-        this.room = room;
-    }
-    
-    // This is here to make the abstract method stop complaining.
-    public Item getItem() {
-        return null;
-    }
-
+	public void setRoom(Room room) {
+		this.room = room;
+	}
+	// This is here to make the abstract method stop complaining.
+	public Item getItem() {
+	    return null;
+	}
 }

@@ -1,5 +1,6 @@
 package edu.andover.cwong.gscq.model.unit;
 
+// Enemy is designed to attack the player.
 public class Enemy extends LivingGameEntity{
     
     // All enemy's have a base attack of 3.
