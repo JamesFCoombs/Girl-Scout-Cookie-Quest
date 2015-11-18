@@ -6,10 +6,11 @@ import javafx.geometry.Rectangle2D;
 
 public class Sprite extends ImageView {
     private final int frameWidth, frameHeight;
+    private int frameX = 0, frameY = 0;
     
     public void refresh() {
-        int frameX = (int) this.getX() + this.frameWidth;
-        int frameY = (int) this.getY();
+        frameX += this.frameWidth;
+        frameY += this.frameHeight;
         // If our next frame viewport goes past the last frame on the row, take
         // the next row.
         if (frameX + this.frameWidth > this.getImage().getWidth()) {

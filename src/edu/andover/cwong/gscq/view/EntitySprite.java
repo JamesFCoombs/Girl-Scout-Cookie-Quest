@@ -27,6 +27,10 @@ public class EntitySprite extends Sprite {
     
     private GameEntity entity;
     
+    public void refresh() {
+        super.refresh();
+    }
+    
     public EntitySprite(GameEntity ge) {
         super(determineSprite(ge));
         this.entity = ge;
