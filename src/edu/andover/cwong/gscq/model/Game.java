@@ -34,12 +34,12 @@ public class Game {
         			[GameEntity.player.getXLoc()].getID() == 4) {
         		nextFloor();
         	}
-            currFloor.step();
             if (currFloor.getTile(
                     GameEntity.player.getXLoc(),GameEntity.player.getYLoc()).
-                    getID()==3){
+                    getID()==3) {
                 showShop = true;
             }
+            currFloor.step();
             if (pc.getCurHealth() <= 0) { gameOver = true; }
         }
         this.updated = true;
@@ -129,7 +129,8 @@ public class Game {
                     ((int) (Math.random() * room.getHeight()));
             
             if (!isItem) {
-            	Enemy enemy = new Enemy(spawnX, spawnY);
+            	Enemy enemy = new Enemy(spawnX, spawnY, 4 + currentLevel,
+            			2 * currentLevel - 2, 2 * currentLevel - 2, 1);
             	if (currFloor.addGameEntity(enemy)) {
             		enemy.setRoom(room);
             		i++;
@@ -143,7 +144,7 @@ public class Game {
     }
     
     private ItemEntity randomGenerateItem(int spawnX, int spawnY) {
-    	return new ItemEntity(spawnX, spawnY, "Mascara");
+    	return new ItemEntity(spawnX, spawnY, (int) (Math.random() * 11));
     }
     
     // Initialize the first floor
@@ -170,5 +171,22 @@ public class Game {
     public void exitShop() {
         pc.move(3);
         showShop=false;
+    }
+
+    public void addAttack(int i) {
+        pc.incBaseAttack(i);
+    }
+    public void addDefense(int i){
+        pc.incBaseDefense(i);
+    }
+    public void addHealth(int i){
+        pc.incHealthStat(i);
+    }
+    public void spendCookies(int i){
+        pc.decreaseCookieCount(i);
+    }
+    public boolean canBuy(int i){
+        if (pc.getCookieCount()>i){ return true; }
+        return false;
     }
 }

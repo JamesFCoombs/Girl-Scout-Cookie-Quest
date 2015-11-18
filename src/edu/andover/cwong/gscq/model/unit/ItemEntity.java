@@ -19,6 +19,14 @@ public class ItemEntity extends GameEntity {
         // Determines what item this entity represents.
         setThisItem();
     }
+    
+    public ItemEntity(int xLoc, int yLoc, int id) {
+    	xLocation = xLoc;
+    	yLocation = yLoc;
+    	itemName = randomItem(id);
+    	
+    	setThisItem();
+    }
 
     // If something moves onto this ItemEntity, adds the appropriate item
     // to the LivingGameEntity's inventory.
@@ -67,6 +75,33 @@ public class ItemEntity extends GameEntity {
     		thisItem = new PlainCookie();
     	}
     	
+    }
+    private String randomItem(int id) {
+    	if (id == 1) {
+    		return "Badge";
+    	} else if (id == 2) {
+    		return "Baton";
+    	}else if (id == 3) {
+    		return "CookiePan";
+    	}else if (id == 4) {
+    		return "Doll";
+    	}else if (id == 5) {
+    		return "Hairbrush";
+    	}else if (id == 6) {
+    		return "Heel";
+    	}else if (id == 7) {
+    		return "Lipstick";
+    	}else if (id == 8) {
+    		return "Mascara";
+    	}else if (id == 9) {
+    		return "Purse";
+    	}else if (id == 10) {
+    		return "Sash";
+    	} else if (id == 0) {
+    		return "PlainCookie";
+    	} else {
+    		return "";
+    	}
     }
 
 }

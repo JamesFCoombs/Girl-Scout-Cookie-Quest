@@ -153,6 +153,7 @@ public class GSCQRunner extends Application {
             Scene scene = new Scene(shopLayout);
             primaryStage.setScene(scene);
             primaryStage.show();
+            v.refresh();
         } catch (IOException e) {
             System.err.println("Unable to load shop screen. Aborting.");
             System.exit(-8);

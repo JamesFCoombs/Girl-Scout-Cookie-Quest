@@ -13,8 +13,7 @@ public class Enemy extends LivingGameEntity{
 		// Sets default stats for the enemy.
 		initializeMaxHealth(5);
 		setDefense(0);
-		setAttack(0);
-		setBaseAttack(BASE_ATTACK);
+		incBaseAttack(BASE_ATTACK);
 		setAttackRange(1);
 	}
 	
@@ -24,7 +23,7 @@ public class Enemy extends LivingGameEntity{
 		initializeMaxHealth(hp);
 		setDefense(def);
 		setAttack(att);
-		setBaseAttack(BASE_ATTACK);
+		incBaseAttack(BASE_ATTACK);
 		setAttackRange(attRange);
 	}
 	
@@ -39,7 +38,7 @@ public class Enemy extends LivingGameEntity{
 			return;
 		}
 		
-		calculatePathing();
+		//calculatePathing();
 	}
 	
 	//  ------- PRIVATE METHODS -------
@@ -50,6 +49,7 @@ public class Enemy extends LivingGameEntity{
 	}
 	
 	// Searches for the player.
+	@Deprecated
 	private void calculatePathing() {
 		// If the enemy is in a hallway, continues moving down the hall.
 		if (room == null) {
@@ -75,6 +75,7 @@ public class Enemy extends LivingGameEntity{
 		// player.
 		} else if (room.isInRoom(player)) {
 			// Moves towards the player.
+			System.out.println(xLocation + ", " + yLocation);
 			if (player.getXLoc() > xLocation) {
 				move(2);
 			} else if (player.getXLoc() < xLocation) {
@@ -100,12 +101,12 @@ public class Enemy extends LivingGameEntity{
 				}
 			} else {
 				if (floorTiles[yLocation + 1][xLocation].getID() == 1) {
-					dirMoving = 1;
-					move(1);
-					return;
-				} else if (floorTiles[yLocation - 1][xLocation].getID() == 1) {
 					dirMoving = 3;
 					move(3);
+					return;
+				} else if (floorTiles[yLocation - 1][xLocation].getID() == 1) {
+					dirMoving = 1;
+					move(1);
 					return;
 				} else {
 					move(dirMoving);

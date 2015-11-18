@@ -7,15 +7,20 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.andover.cwong.gscq.view.ShopViewer">
    <children>
-      <Label layoutX="300.0" layoutY="78.0" text="Cookies:" />
       <ImageView fitHeight="432.0" fitWidth="448.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../../../../Pictures/shop.png" />
          </image>
       </ImageView>
-      <Label layoutX="300.0" layoutY="119.0" text="Label" />
+      <Label layoutX="231.0" layoutY="52.0" text="Cookies to Spend:" />
+      <Label fx:id="cookies" layoutX="357.0" layoutY="52.0" text="Label" />
       <Button layoutX="524.0" layoutY="360.0" mnemonicParsing="false" onAction="#handleExit" text="Exit" />
-      <Label layoutX="300.0" layoutY="200.0" text="Current $$:" />
-      <Label layoutX="300.0" layoutY="230.0" text="Label" />
+      <Button layoutX="216.0" layoutY="200.0" mnemonicParsing="false" onAction="#buyHealth" text="3 Health" />
+      <Button layoutX="344.0" layoutY="200.0" mnemonicParsing="false" onAction="#buyAttack" text="1 Attack" />
+      <Button layoutX="462.0" layoutY="200.0" mnemonicParsing="false" onAction="#buyDefense" text="1 Defense" />
+      <Label layoutX="229.0" layoutY="125.0" prefHeight="49.0" prefWidth="347.0" text="&quot;In return for these cookies, I'll give you:&quot;" />
+      <Label layoutX="242.0" layoutY="254.0" text="For" />
+      <Label fx:id="price" layoutX="282.0" layoutY="254.0" text="Label" />
+      <Label layoutX="363.0" layoutY="254.0" text="cookies" />
    </children>
 </AnchorPane>

@@ -21,7 +21,7 @@ public class Player extends LivingGameEntity {
         initializeMaxHealth(10);
         setDefense(0);
         setAttack(0);
-        setBaseAttack(6);
+        incBaseAttack(6);
         
         // The player starts with the CookieRecipe plainCookie.
         cookieList = new ArrayList<CookieRecipe>();
@@ -45,7 +45,6 @@ public class Player extends LivingGameEntity {
     	cookieList.add(cookieRecipe);
     	return true;
     }
- 
     // This removes the player from the game.
     public void remove() {
     	super.remove();
@@ -84,6 +83,10 @@ public class Player extends LivingGameEntity {
     // Increases cookieCount by a specified amount.
     public void increaseCookiesCount(int cookies) {
     	cookieCount += cookies;
+    }
+    
+    public void decreaseCookieCount(int cookies) {
+        cookieCount-=cookies;
     }
     
     public int getCookieCount() {
