@@ -62,7 +62,6 @@ public class ShopViewer {
     }
     
     public void refresh(){
-        System.out.println(owner);
         cookies.setText(owner.formatCookieCount());
     }
     
