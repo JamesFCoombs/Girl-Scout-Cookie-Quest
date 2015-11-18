@@ -53,11 +53,6 @@ public class Game {
     public boolean isGameOver() {
     	return gameOver;
     }
-    
-    @Deprecated
-    public void seeInventory(int input) {
-        pc.openInventory(input);
-    }
     // This returns which tile a game entity (an item is on.
     // getters and setters
     public Tile getTile(int x, int y){
@@ -153,7 +148,7 @@ public class Game {
     }
     
     private ItemEntity randomGenerateItem(int spawnX, int spawnY) {
-        return new ItemEntity(spawnX, spawnY, (int) (Math.random() * 11));
+    	return new ItemEntity(spawnX, spawnY, (int) (Math.random() * 86));
     }
     
     // Initialize the first floor
