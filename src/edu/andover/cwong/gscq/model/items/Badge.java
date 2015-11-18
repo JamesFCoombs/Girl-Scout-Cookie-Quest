@@ -7,7 +7,7 @@ public class Badge extends Item {
 	}
 	
 	public String getDescription() {
-		return "Badge of honor.\n+2 defense.";
+		return "Badge of honor. +2 defense.";
 	}
 
 	public int attackIncrease() {

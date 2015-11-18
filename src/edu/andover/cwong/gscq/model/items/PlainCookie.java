@@ -10,7 +10,7 @@ public class PlainCookie extends CookieRecipe{
 	}
 	
 	public String getDescription() {
-		return "The default recipe,\nprovides one cookie per step.";
+		return "The default recipe, provides one cookie per step.";
 	}
 	
 

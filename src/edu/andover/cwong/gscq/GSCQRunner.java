@@ -84,7 +84,9 @@ public class GSCQRunner extends Application {
                         i.getItemID(), i.getDescription()
                 )
         );
-        ObservableList<String> ol = FXCollections.observableList(strings.collect(Collectors.toList()));
+        ObservableList<String> ol = FXCollections.observableList(
+                strings.collect(Collectors.toList())
+        );
         ListView<String> lv = new ListView<>(ol);
         try {
             FXMLLoader loader = new FXMLLoader(GSCQRunner.class.getResource(

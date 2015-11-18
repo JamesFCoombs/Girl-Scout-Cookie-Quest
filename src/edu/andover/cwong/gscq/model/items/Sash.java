@@ -7,7 +7,7 @@ public class Sash extends Item{
 	}
 	
 	public String getDescription() {
-		return "Gain 1 defense\nwhen equipped.";
+		return "Gain 1 defense when equipped.";
 	}
 
 	public int attackIncrease() {

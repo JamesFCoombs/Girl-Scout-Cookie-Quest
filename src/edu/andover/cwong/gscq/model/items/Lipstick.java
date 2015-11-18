@@ -7,7 +7,7 @@ public class Lipstick extends Item {
 	}
 	
 	public String getDescription() {
-		return "Boys go crazy\n at your red lips.\n+6 defense";
+		return "Boys go crazy at your red lips. +6 defense";
 	}
 
 	public int attackIncrease() {

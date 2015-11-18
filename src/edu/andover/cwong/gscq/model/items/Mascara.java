@@ -7,7 +7,7 @@ public class Mascara extends Item {
 	}
 	
 	public String getDescription() {
-		return "Your attactiveness\n increase makes Boy Scouts\n swoon +4 defense.";
+		return "Your attactiveness increase makes Boy Scouts swoon. +4 defense.";
 	}
 
 	public int attackIncrease() {
