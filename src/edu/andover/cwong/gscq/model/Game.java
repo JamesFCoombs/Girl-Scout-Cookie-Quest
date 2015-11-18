@@ -34,12 +34,12 @@ public class Game {
         			[GameEntity.player.getXLoc()].getID() == 4) {
         		nextFloor();
         	}
-            currFloor.step();
             if (currFloor.getTile(
                     GameEntity.player.getXLoc(),GameEntity.player.getYLoc()).
-                    getID()==3){
+                    getID()==3) {
                 showShop = true;
             }
+            currFloor.step();
             if (pc.getCurHealth() <= 0) { gameOver = true; }
         }
         this.updated = true;
@@ -129,7 +129,8 @@ public class Game {
                     ((int) (Math.random() * room.getHeight()));
             
             if (!isItem) {
-            	Enemy enemy = new Enemy(spawnX, spawnY);
+            	Enemy enemy = new Enemy(spawnX, spawnY, 4 + currentLevel,
+            			2 * currentLevel - 2, 2 * currentLevel - 2, 1);
             	if (currFloor.addGameEntity(enemy)) {
             		enemy.setRoom(room);
             		i++;
@@ -143,7 +144,7 @@ public class Game {
     }
     
     private ItemEntity randomGenerateItem(int spawnX, int spawnY) {
-    	return new ItemEntity(spawnX, spawnY, "Mascara");
+    	return new ItemEntity(spawnX, spawnY, (int) (Math.random() * 11));
     }
     
     // Initialize the first floor

@@ -26,8 +26,10 @@ public class Room {
 	
 	public boolean isInRoom(GameEntity ge) {
 		
-		if (ge.getXLoc() >= topLeftTileX && ge.getXLoc() < topLeftTileX + width
-				&& ge.getYLoc() >= topLeftTileY && ge.getYLoc() < topLeftTileY + height) {
+		if (ge.getXLoc() >= topLeftTileX 
+				&& ge.getXLoc() < topLeftTileX + width
+				&& ge.getYLoc() >= topLeftTileY
+				&& ge.getYLoc() < topLeftTileY + height) {
 			return true;
 		}
 		return false;
