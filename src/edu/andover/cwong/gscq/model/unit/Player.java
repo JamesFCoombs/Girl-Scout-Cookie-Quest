@@ -45,16 +45,7 @@ public class Player extends LivingGameEntity {
     	cookieList.add(cookieRecipe);
     	return true;
     }
-    
-    public void updateStats(){
-        this.attack=0;
-        this.defense=0;
-        for (Item a: inventory){
-            attack+=a.attackIncrease();
-            defense+=a.defenseIncrease();
-        }
-    }
-    
+ 
     // This removes the player from the game.
     public void remove() {
     	super.remove();

@@ -2,6 +2,7 @@ package edu.andover.cwong.gscq.model.unit;
 
 import edu.andover.cwong.gscq.model.items.Item;
 import edu.andover.cwong.gscq.model.nav.Floor;
+import edu.andover.cwong.gscq.model.nav.Tile;
 
 public abstract class GameEntity {
 	
@@ -14,6 +15,7 @@ public abstract class GameEntity {
 
     // The floor this GameEntity is curretnly on.
     protected Floor curFloor;
+    protected Tile[][] floorTiles;
 
     // Tells the currentFloor to remove this GameEntity, making it incapable
     // of acting in the game.
@@ -65,6 +67,7 @@ public abstract class GameEntity {
 
     public void setFloor(Floor newFloor) {
         curFloor = newFloor;
+        floorTiles = curFloor.getGrid();
     }
 
     public int getXLoc() {

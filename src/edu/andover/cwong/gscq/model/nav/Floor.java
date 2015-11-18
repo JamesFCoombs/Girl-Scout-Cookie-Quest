@@ -90,6 +90,8 @@ public class Floor {
     		units[yLoc][xLoc] = lge;
     		if (floorTiles[yLoc][xLoc] == ROOM) {
     			lge.setRoom(determineRoom(xLoc, yLoc));
+    		} else if (floorTiles[yLoc][xLoc] == PATH) {
+    			lge.setRoom(null);
     		}
     	}
     	return true;
