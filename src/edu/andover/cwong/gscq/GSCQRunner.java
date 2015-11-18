@@ -2,6 +2,8 @@ package edu.andover.cwong.gscq;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Stream;
+import java.util.stream.Collectors;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -24,6 +26,7 @@ import edu.andover.cwong.gscq.view.GameViewer;
 import edu.andover.cwong.gscq.view.ShopViewer;
 import edu.andover.cwong.gscq.control.KeyController;
 import edu.andover.cwong.gscq.model.Game;
+import edu.andover.cwong.gscq.model.items.Item;
 
 // The "master" class - exists outside of MVC. Coordinates the three and handles
 // file IO for the various FXML (view) files.
@@ -74,14 +77,20 @@ public class GSCQRunner extends Application {
         }
     }
     
-    public void displayInventory(List<String> items) {
+    public void displayInventory(List<Item> items) {
+        Stream<String> strings = items.stream().map(
+                i -> String.format(
+                        "%s\t\t%s",
+                        i.getItemID(), i.getDescription()
+                )
+        );
+        ObservableList<String> ol = FXCollections.observableList(strings.collect(Collectors.toList()));
+        ListView<String> lv = new ListView<>(ol);
         try {
             FXMLLoader loader = new FXMLLoader(GSCQRunner.class.getResource(
                     "view/InventoryFrame.fxml"
             ));
             BorderPane dialog = loader.load();
-            ObservableList<String> ol = FXCollections.observableList(items);
-            ListView<String> lv = new ListView<>(ol);
             dialog.setCenter(lv);
             Stage s = new Stage();
             s.setTitle("Inventory");
