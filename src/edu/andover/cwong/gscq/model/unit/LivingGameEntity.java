@@ -240,4 +240,10 @@ public class LivingGameEntity extends GameEntity {
 		this.room = room;
 	}
 
+	@Override
+	public Item getItem() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

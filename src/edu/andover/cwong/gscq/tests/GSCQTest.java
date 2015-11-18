@@ -3,20 +3,31 @@ package edu.andover.cwong.gscq.tests;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
+import edu.andover.cwong.gscq.model.Game;
+import edu.andover.cwong.gscq.model.unit.Player;
+
 public class GSCQTest {
-	@Test 
+	
+	private Player pc;
+	private Game g;
+	private int xPlayerLocation;
+    private int yPlayerLocation;
+    private boolean gameState;
+	
+//So all of these tests are for things you guys coded/rewrote, 
+//(for example I think you totally changed item equipment?), 
+//but there's really only six different tests here since there are 
+//so many duplicated things we need to test 
+//(different cases of the same functionality).
+	
+    @Test 
 	public void everyTileConnectsToAtLeastOneOtherTile() {
 		//To-do: I don't know how floor generation works
 	}
-	
-	@Test
-	public void playerDiesWhenHealthIsZero() {
-		//To-do
-	}
-	
+    
 	@Test
 	public void playerCannotGoThroughWall() {
-		//To-do
+		//To-do: I don't know how you guys did this either
 	}
 	
 	@Test
@@ -80,29 +91,11 @@ public class GSCQTest {
 	}
 	
 	@Test
-	public void playerAttackCannotBeNegative () {
-		//To-do
+	public void itemCannotRaisePlayerHealthHigherThanTen() {
+		pc.setCurHealth(10);
+		//I don't know how you're using items right now, but probably just use a cootie shot here
 	}
 	
-	@Test
-	public void playerDefenseCannotBeNegative () {
-		//To-do
-	}
-	
-	@Test
-	public void playerHealthCannotBeNegative () {
-		//To-do
-	}
-	
-	@Test
-	public void playerGainsCookieIfMovementReverts () {
-		//To-do
-	}
-	
-	@Test
-	public void playerHealthCannotBeEleven() {
-		//To-do
-	}
 	
 	@Test
 	public void everyLevelHasAnExit() {
@@ -205,17 +198,12 @@ public class GSCQTest {
 	}
 	
 	@Test
-	public void itemDisappearsAfterPlayerStepsOnItsTile() {
-		//To-do
-	}
-	
-	@Test
-	public void mascaraDoesNotAffectAttack() {
-		//To-do
-	}
-	
-	@Test
 	public void itemDisappearsFromInventoryOnceEquipped() {
+		//To-do
+	}
+	
+	@Test
+	public void itemDisappearsAfterPlayerStepsOnItsTile() {
 		//To-do
 	}
 	
@@ -224,6 +212,68 @@ public class GSCQTest {
 		//To-do
 	}
 	
+	@Test
+	public void mascaraDoesNotAffectAttack() {
+		//To-do
+	}
+	
+	
+	
+	
+//Took care of these
+    
+	@Test
+	public void playerDiesWhenHealthIsZero() {
+		pc.setCurHealth(0);
+		gameState = g.gameOver;
+		assertTrue(gameState);
+	}
+	
+	@Test
+	public void playerDiesWhenHealthIsNegativeOne() {
+		pc.setCurHealth(-1);
+		gameState = g.gameOver;
+		assertTrue(gameState);
+	}
+	
+	@Test
+	public void playerIsAliveWhenHealthIsPositiveOne() {
+		pc.setCurHealth(1);
+		gameState = g.gameOver;
+		assertFalse(gameState);
+	}
+	
+	
+	@Test
+	public void playerAttackCannotBeNegativeOne () {
+		try {
+			pc.setAttack(-1);
+			fail("Player attack cannot be negative");
+		} catch (IllegalArgumentException e) {
+			// :)
+		}
+	}
+	
+	@Test
+	public void playerDefenseCannotBeNegativeOne () {
+		try {
+			pc.setDefense(-1);
+			fail("Player defense cannot be negative");
+		} catch (IllegalArgumentException e) {
+			// :)
+		}
+	}
+	
+	@Test
+	public void playerHealthCannotBeEleven() {
+		try {
+			pc.setCurHealth(11);
+			fail("Player health can only be ten");
+		} catch (IllegalArgumentException e) {
+			//:)
+		}
+	}
+
 }
 
 
