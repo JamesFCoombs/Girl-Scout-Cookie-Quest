@@ -1,5 +1,8 @@
 package edu.andover.cwong.gscq;
 
+import java.io.IOException;
+import java.util.List;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.animation.KeyFrame;
@@ -14,8 +17,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import javafx.util.Duration;
-import java.io.IOException;
-import java.util.ArrayList;
+import javafx.collections.ObservableList;
+import javafx.collections.FXCollections;
 
 import edu.andover.cwong.gscq.view.GameViewer;
 import edu.andover.cwong.gscq.view.ShopViewer;
@@ -71,15 +74,17 @@ public class GSCQRunner extends Application {
         }
     }
     
-    public void displayInventory(ArrayList<String> items) {
+    public void displayInventory(List<String> items) {
         try {
             FXMLLoader loader = new FXMLLoader(GSCQRunner.class.getResource(
                     "view/InventoryFrame.fxml"
             ));
             BorderPane dialog = loader.load();
-            
+            ObservableList<String> ol = FXCollections.observableList(items);
+            ListView<String> lv = new ListView<>(ol);
+            dialog.setCenter(lv);
             Stage s = new Stage();
-            s.setTitle("Controls");
+            s.setTitle("Inventory");
             s.initModality(Modality.WINDOW_MODAL);
             s.initOwner(primaryStage);
             s.setScene(new Scene(dialog));
@@ -124,7 +129,7 @@ public class GSCQRunner extends Application {
             sp.setContent(minimapView);
             dialog.setCenter(sp);
             Stage s = new Stage();
-            s.setTitle("map");
+            s.setTitle("Map");
             s.initModality(Modality.WINDOW_MODAL);
             s.initOwner(primaryStage);
             s.setScene(new Scene(dialog));

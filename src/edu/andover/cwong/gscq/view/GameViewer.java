@@ -2,6 +2,8 @@ package edu.andover.cwong.gscq.view;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.stream.Stream;
+import java.util.stream.Collectors;
 
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
@@ -13,6 +15,7 @@ import javafx.geometry.Rectangle2D;
 import edu.andover.cwong.gscq.GSCQRunner;
 import edu.andover.cwong.gscq.view.FloorViewBuilder;
 import edu.andover.cwong.gscq.model.Game;
+import edu.andover.cwong.gscq.model.items.Item;
 import edu.andover.cwong.gscq.model.unit.GameEntity;
 
 // What JFX calls a "controller" for the game panel. Handles refreshing of
@@ -56,7 +59,11 @@ public class GameViewer {
     public void displayControls() { runner.displayControls(); }
     @FXML
     public void displayInventory() {
-        //runner.displayInventory(owner.getInventory());
+        // For each item, get the name
+        Stream<String> inventory = owner.getInventory().stream().map(
+                i -> i.getItemID()
+        );
+        runner.displayInventory(inventory.collect(Collectors.toList()));
     }
     
     public void setupFloorView() {

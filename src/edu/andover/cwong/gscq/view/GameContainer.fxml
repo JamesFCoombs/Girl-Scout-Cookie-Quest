@@ -47,7 +47,7 @@
             </GridPane>
             <Button layoutX="14.0" layoutY="360.0" mnemonicParsing="false" onAction="#displayMinimap" text="minimap" />
             <Button layoutX="116.0" layoutY="360.0" mnemonicParsing="false" onAction="#displayControls" text="help me!" />
-            <Button layoutX="60.0" layoutY="322.0" mnemonicParsing="false" text="Inventory" />
+            <Button layoutX="60.0" layoutY="322.0" mnemonicParsing="false" onAction="#displayInventory" text="inventory" />
          </children></AnchorPane>
    </children>
 </AnchorPane>
