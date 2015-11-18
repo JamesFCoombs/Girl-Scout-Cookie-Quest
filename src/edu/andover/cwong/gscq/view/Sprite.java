@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
 import javafx.geometry.Rectangle2D;
 
 public class Sprite extends ImageView {
-    private int frameWidth, frameHeight;
+    private final int frameWidth, frameHeight;
     
     public void refresh() {
         int frameX = (int) this.getX() + this.frameWidth;

@@ -94,7 +94,6 @@ public class LivingGameEntity extends GameEntity {
     // Returns true if this LivingGameEntity is in range to attack
     // LivingGameEntity other.
     public boolean canAttack(LivingGameEntity other) {
-
     	// Calculates the distance between the two LivingGameEntities.
         int xDistance = xLocation - other.getXLoc();
         int yDistance = yLocation - other.getYLoc();
