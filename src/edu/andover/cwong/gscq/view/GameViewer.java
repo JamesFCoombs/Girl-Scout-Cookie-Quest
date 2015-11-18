@@ -49,10 +49,11 @@ public class GameViewer {
     private AnchorPane spriteView;
     
     @FXML
-    public void displayMinimap() { runner.displayMinimap(); }
+    public void displayMinimap() {
+        runner.displayMinimap(this.mapView);
+    }
     @FXML
     public void displayControls() { runner.displayControls(); }
-    
     @FXML
     public void displayInventory() {
         
