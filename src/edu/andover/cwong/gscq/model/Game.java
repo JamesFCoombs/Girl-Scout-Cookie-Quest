@@ -46,11 +46,6 @@ public class Game {
         this.updated = true;
     }
     
-    @Deprecated
-    public void seeInventory(int input) {
-        pc.openInventory(input);
-    }
-    
     // This returns which tile a game entity (an item is on.
     // getters and setters
     public Tile getTile(int x, int y){
@@ -108,14 +103,17 @@ public class Game {
     public ArrayList<CookieRecipe> getCookieList() { 
         return pc.getCookieList(); 
     } 
-
+    
+    // Move to the next floor
     private void nextFloor() {
         int x = 40 + currentLevel * 10;
         currFloor.generateFloor(x, x);
         setupFloor();
         currentLevel += 1;
     }
-
+    
+    // Sets up the current floor, generating it and figuring out the spawn point
+    // of the player. Also sets up initial enemy and item spawns.
     private void setupFloor() {
         int i = 0;
         boolean isItem;
