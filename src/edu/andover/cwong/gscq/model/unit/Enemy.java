@@ -11,8 +11,7 @@ public class Enemy extends LivingGameEntity{
 		// Sets default stats for the enemy.
 		initializeMaxHealth(5);
 		setDefense(0);
-		setAttack(0);
-		setBaseAttack(BASE_ATTACK);
+		incBaseAttack(BASE_ATTACK);
 		setAttackRange(1);
 	}
 	
@@ -22,7 +21,7 @@ public class Enemy extends LivingGameEntity{
 		initializeMaxHealth(hp);
 		setDefense(def);
 		setAttack(att);
-		setBaseAttack(BASE_ATTACK);
+		incBaseAttack(BASE_ATTACK);
 		setAttackRange(attRange);
 	}
 	

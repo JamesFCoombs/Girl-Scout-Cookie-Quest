@@ -12,7 +12,8 @@ public class LivingGameEntity extends GameEntity {
     private int maxHealth;
     protected int defense;
     protected int attack;
-    private int baseAttack;
+    private int baseAttack=0;
+    private int baseDefense=0;
     private int attackRange;
     
  // The room the Enemy is in. Used to track the player.
@@ -142,19 +143,19 @@ public class LivingGameEntity extends GameEntity {
     
     // Updates the LivingGameEntity's stats based off of its equipped items.
     public void update() {
-        if (inventory.size() > 0) {
+//        if (inventory.size() > 0) {
         	int bonusAttack = 0;
         	int bonusDefense = 0;
         	for (int i = 0; i < inventory.size(); i++) {
         	    if (inventory.get(i) == null) { continue; }
-        		if (inventory.get(i).isEquipped()) {
+//        		if (inventory.get(i).isEquipped()) {
         			bonusAttack += inventory.get(i).attackIncrease();
         			bonusDefense += inventory.get(i).defenseIncrease();
-        		}
+//        		}
         	}
-        	setAttack(bonusAttack);
-        	setDefense(bonusDefense);
-        }
+        	setAttack(bonusAttack+baseAttack);
+        	setDefense(bonusDefense+baseDefense);
+//        }
     }
     
     // ------- STATIC METHODS -------
@@ -174,6 +175,19 @@ public class LivingGameEntity extends GameEntity {
         maxHealth = hp;
         setCurHealth(hp);
     }
+    
+    public void incHealthStat(int i){
+        maxHealth+=i;
+        curHealth+=i;
+    }
+    
+    public void heal(int i){
+        for (int k=0;k<i;k++){
+            if (curHealth<maxHealth){
+                curHealth++;
+            }
+        }
+    }
 
     public void setMaxHealth(int hp) {
         maxHealth = hp;
@@ -190,9 +204,13 @@ public class LivingGameEntity extends GameEntity {
     public void setAttack(int att) {
         attack = att;
     }
-    
-    public void setBaseAttack(int att) {
-    	baseAttack = att;
+
+    public void incBaseAttack(int att) {
+        baseAttack+= att;
+    }
+
+    public void incBaseDefense(int def) {
+        baseDefense+= def;
     }
 
     public void setAttackRange(int attRange) {

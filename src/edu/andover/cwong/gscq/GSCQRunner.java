@@ -122,6 +122,7 @@ public class GSCQRunner extends Application {
             Scene scene = new Scene(shopLayout);
             primaryStage.setScene(scene);
             primaryStage.show();
+            v.refresh();
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

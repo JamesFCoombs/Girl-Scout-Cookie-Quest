@@ -42,7 +42,7 @@ public class Game {
             }
             if (pc.getCurHealth() <= 0) { gameOver = true; }
         }
-        pc.updateStats();
+//        pc.updateStats();
         this.updated = true;
     }
     
@@ -162,5 +162,22 @@ public class Game {
     public void exitShop() {
         pc.move(3);
         showShop=false;
+    }
+
+    public void addAttack(int i) {
+        pc.incBaseAttack(i);
+    }
+    public void addDefense(int i){
+        pc.incBaseDefense(i);
+    }
+    public void addHealth(int i){
+        pc.incHealthStat(i);
+    }
+    public void spendCookies(int i){
+        pc.decreaseCookieCount(i);
+    }
+    public boolean canBuy(int i){
+        if (pc.getCookieCount()>i){ return true; }
+        return false;
     }
 }
