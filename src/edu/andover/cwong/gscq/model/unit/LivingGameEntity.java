@@ -123,17 +123,6 @@ public class LivingGameEntity extends GameEntity {
     		other.revertMovement();
     	}
     }
-
-    // Drops the LivingGameEntity's inventory onto the ground, as well as
-    // removes it from the current floor.
-    public void remove() {
-        super.remove();
-        for (int i = 0; i < inventory.size(); i++) {
-            getCurFloor().addGameEntity(new ItemEntity(
-                    xLocation, yLocation, inventory.get(i).getItemID()
-            ));
-        }
-    }
     
     // Moves the LivingGameEntity back to its previous locatoin.
     public void revertMovement() {
