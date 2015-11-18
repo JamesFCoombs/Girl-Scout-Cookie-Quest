@@ -22,8 +22,7 @@ public class Enemy extends LivingGameEntity{
 		super(xLoc, yLoc);
 		initializeMaxHealth(hp);
 		setDefense(def);
-		setAttack(att);
-		incBaseAttack(BASE_ATTACK);
+		incBaseAttack(BASE_ATTACK + att);
 		setAttackRange(attRange);
 	}
 	
