@@ -56,7 +56,7 @@ public class GameViewer {
     public void displayControls() { runner.displayControls(); }
     @FXML
     public void displayInventory() {
-        
+        //runner.displayInventory(owner.getInventory());
     }
     
     public void setupFloorView() {

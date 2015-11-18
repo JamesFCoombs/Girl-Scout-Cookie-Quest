@@ -10,10 +10,12 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import javafx.util.Duration;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import edu.andover.cwong.gscq.view.GameViewer;
 import edu.andover.cwong.gscq.view.ShopViewer;
@@ -69,6 +71,25 @@ public class GSCQRunner extends Application {
         }
     }
     
+    public void displayInventory(ArrayList<String> items) {
+        try {
+            FXMLLoader loader = new FXMLLoader(GSCQRunner.class.getResource(
+                    "view/InventoryFrame.fxml"
+            ));
+            BorderPane dialog = loader.load();
+            
+            Stage s = new Stage();
+            s.setTitle("Controls");
+            s.initModality(Modality.WINDOW_MODAL);
+            s.initOwner(primaryStage);
+            s.setScene(new Scene(dialog));
+            s.showAndWait();
+        }
+        catch(IOException e) {
+            System.err.println("Unable to load inventory display. Skipping.");
+            return;
+        }
+    }
     
     public void displayControls() {
         try {
@@ -133,8 +154,8 @@ public class GSCQRunner extends Application {
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            System.err.println("Unable to load shop screen. Aborting.");
+            System.exit(-8);
         }
 
     }
