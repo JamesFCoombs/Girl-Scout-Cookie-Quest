@@ -237,11 +237,11 @@ public class LivingGameEntity extends GameEntity {
         return lastYLocation;
     }
     
-	public void setRoom(Room room) {
-		this.room = room;
-	}
-	// This is here to make the abstract method stop complaining.
-	public Item getItem() {
-	    return null;
-	}
+    public void setRoom(Room room) {
+        this.room = room;
+    }
+    // This is here to make the abstract method stop complaining.
+    public Item getItem() {
+        return null;
+    }
 }

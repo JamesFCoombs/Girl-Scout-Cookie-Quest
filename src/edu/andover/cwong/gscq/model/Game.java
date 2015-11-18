@@ -51,7 +51,7 @@ public class Game {
     }
     
     public boolean isGameOver() {
-    	return gameOver;
+        return gameOver;
     }
     // This returns which tile a game entity (an item is on.
     // getters and setters
@@ -148,7 +148,7 @@ public class Game {
     }
     
     private ItemEntity randomGenerateItem(int spawnX, int spawnY) {
-    	return new ItemEntity(spawnX, spawnY, (int) (Math.random() * 86));
+        return new ItemEntity(spawnX, spawnY, (int) (Math.random() * 86));
     }
     
     // Initialize the first floor

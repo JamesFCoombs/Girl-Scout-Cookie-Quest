@@ -48,66 +48,90 @@ public class ItemEntity extends GameEntity {
     }
     
     // Does not need to revert movement, as movement is impossible!
-    public void revertMovement() {}
+    public void revertMovement() { }
 
     // Does nothing when updated, other than look pretty.
-    public void update() {}
+    public void update() { }
     
     // Sets this ItemEntity's item based off of its itemName.
     private void setThisItem() {
+        // Probably should have used a switch here.
         if (itemName.equals("Badge")) {
             thisItem = new Badge();
-        } else if (itemName.equals("Baton")) {
+        }
+        else if (itemName.equals("Baton")) {
             thisItem = new Baton();
-        }else if (itemName.equals("CookiePan")) {
+        }
+        else if (itemName.equals("CookiePan")) {
             thisItem = new CookiePan();
-        }else if (itemName.equals("Doll")) {
+        }
+        else if (itemName.equals("Doll")) {
             thisItem = new Doll();
-        }else if (itemName.equals("Hairbrush")) {
+        }
+        else if (itemName.equals("Hairbrush")) {
             thisItem = new Hairbrush();
-        }else if (itemName.equals("Heel")) {
+        }
+        else if (itemName.equals("Heel")) {
             thisItem = new Heel();
-        }else if (itemName.equals("Lipstick")) {
+        }
+        else if (itemName.equals("Lipstick")) {
             thisItem = new Lipstick();
-        }else if (itemName.equals("Mascara")) {
+        }
+        else if (itemName.equals("Mascara")) {
             thisItem = new Mascara();
-        }else if (itemName.equals("Purse")) {
+        }
+        else if (itemName.equals("Purse")) {
             thisItem = new Purse();
-        }else if (itemName.equals("Sash")) {
+        }
+        else if (itemName.equals("Sash")) {
             thisItem = new Sash();
-        }else if (itemName.equals("CootieShot")) {
+        }
+        else if (itemName.equals("CootieShot")) {
             thisItem = new CootieShot();
-        }else if (itemName.equals("PlainCookie")) {
+        }
+        else if (itemName.equals("PlainCookie")) {
             thisItem = new PlainCookie();
         }
         
     }
     private String randomItem(int id) {
-    	if (id <= 10) {
-    		return "Badge";
-    	} else if (id <= 12) {
-    		return "Baton";
-    	}else if (id <= 16) {
-    		return "CookiePan";
-    	}else if (id <= 18) {
-    		return "Doll";
-    	}else if (id <= 28) {
-    		return "Hairbrush";
-    	}else if (id <= 34) {
-    		return "Heel";
-    	}else if (id <= 38) {
-    		return "Lipstick";
-    	}else if (id <= 46) {
-    		return "Mascara";
-    	}else if (id <= 60) {
-    		return "Purse";
-    	}else if (id <= 75) {
-    		return "Sash";
-    	} else if (id <= 85) {
-    		return "PlainCookie";
-    	} else {
-    		return "";
-    	}
+        // We use less thans here so we can set probability ranges.
+        if (id <= 10) {
+            return "Badge";
+        }
+        else if (id <= 12) {
+            return "Baton";
+        }
+        else if (id <= 16) {
+            return "CookiePan";
+        }
+        else if (id <= 18) {
+            return "Doll";
+        }
+        else if (id <= 28) {
+            return "Hairbrush";
+        }
+        else if (id <= 34) {
+            return "Heel";
+        }
+        else if (id <= 38) {
+            return "Lipstick";
+        }
+        else if (id <= 46) {
+            return "Mascara";
+        }
+        else if (id <= 60) {
+            return "Purse";
+        }
+        else if (id <= 75) {
+            return "Sash";
+        }
+        else if (id <= 85) {
+            return "PlainCookie";
+        }
+        else {
+            return "";
+        }
     }
 
 }
