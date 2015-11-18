@@ -69,7 +69,6 @@ public class Player extends LivingGameEntity {
     @Deprecated
     public boolean openInventory(int input) {
         if (input == 5) {
-        	System.out.println(inventory.get(0));
         	inventory.get(0).toggleEquip();
             setAttack(inventory.get(0).attackIncrease());
             setDefense(inventory.get(0).defenseIncrease());

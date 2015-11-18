@@ -19,7 +19,7 @@ public class EntitySprite extends Sprite {
             new Image("file:res/enemy.png"), 60, 70
     );
     public static final Sprite ITEM_SPRITE = new Sprite(
-            new Image("file:res/item.png"), 64, 64
+            new Image("file:res/item.png"), 70, 70
     );
     public static final Sprite RECIPE_SPRITE = new Sprite(
             new Image("file:res/recipe.png"), 64, 64
@@ -38,16 +38,17 @@ public class EntitySprite extends Sprite {
         if (ge instanceof Player) { return PLAYER_SPRITE; }
         if (ge instanceof Enemy) { return ENEMY_SPRITE; }
         if (ge instanceof ItemEntity) { 
-            if (ge.getItem() instanceof CookieRecipe){
+            ItemEntity ie= (ItemEntity) ge;
+            if (ie.getItem() instanceof CookieRecipe){
                 return RECIPE_SPRITE;
             } 
-            if (ge.getItem() instanceof Mascara){
+            if (ie.getItem() instanceof Mascara){
                 return MASCARA_SPRITE;
             } 
-            if (ge.getItem() instanceof Lipstick){
+            if (ie.getItem() instanceof Lipstick){
                 return LIPSTICK_SPRITE;
             } 
-            if (ge.getItem() instanceof Badge){
+            if (ie.getItem() instanceof Badge){
                 return BADGE_SPRITE;
             }
             return ITEM_SPRITE; 
