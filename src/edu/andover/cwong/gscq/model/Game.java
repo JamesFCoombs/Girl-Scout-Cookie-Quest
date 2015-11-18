@@ -30,13 +30,17 @@ public class Game {
     // This method should only be called when the player takes some action
     public void update(int input) {
         if (pc.move(input)) {
-        	if (currFloor.getGrid()[GameEntity.player.getYLoc()]
-        			[GameEntity.player.getXLoc()].getID() == 4) {
-        		nextFloor();
-        	}
+            if (currFloor.getGrid()
+                    [GameEntity.player.getYLoc()]
+                    [GameEntity.player.getXLoc()].getID() == 4
+            ) {
+                nextFloor();
+            }
             if (currFloor.getTile(
-                    GameEntity.player.getXLoc(),GameEntity.player.getYLoc()).
-                    getID()==3) {
+                    GameEntity.player.getXLoc(),
+                    GameEntity.player.getYLoc()
+                ).getID()==3
+            ) {
                 showShop = true;
             }
             currFloor.step();
@@ -126,11 +130,11 @@ public class Game {
                     ((int) (Math.random() * room.getHeight()));
             
             if (!isItem) {
-            	Enemy enemy = new Enemy(spawnX, spawnY, 4 + currentLevel,
-            			2 * currentLevel - 2, 2 * currentLevel - 2, 1);
-            	if (currFloor.addGameEntity(enemy)) {
-            		enemy.setRoom(room);
-            		i++;
+                Enemy enemy = new Enemy(spawnX, spawnY, 4 + currentLevel,
+                        2 * currentLevel - 2, 2 * currentLevel - 2, 1);
+                if (currFloor.addGameEntity(enemy)) {
+                    enemy.setRoom(room);
+                    i++;
             }
                 
             } else if (isItem && currFloor.addGameEntity(
@@ -141,7 +145,7 @@ public class Game {
     }
     
     private ItemEntity randomGenerateItem(int spawnX, int spawnY) {
-    	return new ItemEntity(spawnX, spawnY, (int) (Math.random() * 11));
+        return new ItemEntity(spawnX, spawnY, (int) (Math.random() * 11));
     }
     
     // Initialize the first floor
@@ -165,15 +169,11 @@ public class Game {
         setupFloor();
     }
 
-    // to exit shop, move down so you're not in the shop anymore and don't keep
-    // showing shop
     public void exitShop() {
         pc.move(3);
         showShop=false;
     }
-    
-    
-    // Used to interact with Shop
+
     public void addAttack(int i) {
         pc.incBaseAttack(i);
     }

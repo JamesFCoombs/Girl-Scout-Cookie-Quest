@@ -5,8 +5,8 @@ import edu.andover.cwong.gscq.model.nav.Floor;
 import edu.andover.cwong.gscq.model.nav.Tile;
 
 public abstract class GameEntity {
-	
-	// The x and y location of this GameEntity.
+    
+    // The x and y location of this GameEntity.
     int xLocation;
     int yLocation;
     

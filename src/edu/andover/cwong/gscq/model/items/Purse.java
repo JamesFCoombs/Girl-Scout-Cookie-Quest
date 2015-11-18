@@ -1,25 +1,25 @@
 package edu.andover.cwong.gscq.model.items;
 
 public class Purse extends Item {
-	
-	public Purse() {
-		ItemID = "Purse";
-	}
-	
-	public String getDescription() {
-		return "Gain 1 attack when equipped.";
-	}
+    
+    public Purse() {
+        ItemID = "Purse";
+    }
+    
+    public String getDescription() {
+        return "Gain 1 attack when equipped.";
+    }
 
-	public int attackIncrease() {
-		return 1;
-	}
+    public int attackIncrease() {
+        return 1;
+    }
 
-	public int defenseIncrease() {
-		return 0;
-	}
-	
-	public int healthIncrease () {
-		return 0;
-	}
+    public int defenseIncrease() {
+        return 0;
+    }
+    
+    public int healthIncrease () {
+        return 0;
+    }
 
 }

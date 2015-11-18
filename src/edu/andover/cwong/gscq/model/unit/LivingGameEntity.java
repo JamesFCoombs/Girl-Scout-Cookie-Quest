@@ -6,8 +6,8 @@ import edu.andover.cwong.gscq.model.items.Item;
 import edu.andover.cwong.gscq.model.nav.Room;
 
 public class LivingGameEntity extends GameEntity {
-	
-	// The LivingGameEntity's stats.
+    
+    // The LivingGameEntity's stats.
     private int curHealth;
     private int maxHealth;
     protected int defense;
@@ -17,8 +17,8 @@ public class LivingGameEntity extends GameEntity {
     private int attackRange;
     
  // The room the Enemy is in. Used to track the player.
- 	protected Room room;
- 	
+     protected Room room;
+     
     // The inventory is the list of all of the items the LivingGameEntity is
     // carrying.
     public ArrayList<Item> inventory;
@@ -47,10 +47,10 @@ public class LivingGameEntity extends GameEntity {
     // True is returned to signify the movement has been successful, and
     // false is returned to signify the movement has failed.
     public boolean move(int direction) {
-    	lastXLocation = getXLoc();
-    	lastYLocation = getYLoc();
-    	
-    	// Moves down.
+        lastXLocation = getXLoc();
+        lastYLocation = getYLoc();
+        
+        // Moves down.
         if (direction == 1) {
             setYLoc(getYLoc() - 1);
         // Moves right.
@@ -70,14 +70,14 @@ public class LivingGameEntity extends GameEntity {
 
         //If the LivingGameEntity has moved outside of the map, revert movement.
         if (!isInMap()) {
-        	revertMovement();
-        	return false;
+            revertMovement();
+            return false;
         }
         
         // If the unit has moved to an illegal location, revert movement.
         if (!curFloor.unitHasMoved(this, xLocation, yLocation)) {
-        	revertMovement();
-        	return false;
+            revertMovement();
+            return false;
         }
         
         // Return true to indicate the movement was successful.
@@ -94,7 +94,7 @@ public class LivingGameEntity extends GameEntity {
     // Returns true if this LivingGameEntity is in range to attack
     // LivingGameEntity other.
     public boolean canAttack(LivingGameEntity other) {
-    	// Calculates the distance between the two LivingGameEntities.
+        // Calculates the distance between the two LivingGameEntities.
         int xDistance = xLocation - other.getXLoc();
         int yDistance = yLocation - other.getYLoc();
         double distance = Math.sqrt(xDistance*xDistance + yDistance*yDistance);
@@ -116,39 +116,39 @@ public class LivingGameEntity extends GameEntity {
     // If two LivingGameEntities try to occupy the same tile, the one who
     // has moved damages this one.
     public void dealWithCollision(LivingGameEntity other) {
-    	takeDamage(calculateDamage(other, this));
-    	if (curHealth > 0) {
-    		other.revertMovement();
-    	}
+        takeDamage(calculateDamage(other, this));
+        if (curHealth > 0) {
+            other.revertMovement();
+        }
     }
     
     // Moves the LivingGameEntity back to its previous locatoin.
     public void revertMovement() {
-    	setXLoc(lastXLocation);
-    	setYLoc(lastYLocation);
+        setXLoc(lastXLocation);
+        setYLoc(lastYLocation);
     }
     
     // Updates the LivingGameEntity's stats based off of its equipped items.
     public void update() {
-        	int bonusAttack = 0;
-        	int bonusDefense = 0;
-        	for (int i = 0; i < inventory.size(); i++) {
-        	    if (inventory.get(i) == null) { continue; }
-        			bonusAttack += inventory.get(i).attackIncrease();
-        			bonusDefense += inventory.get(i).defenseIncrease();
-        	}
-        	setAttack(bonusAttack+baseAttack);
-        	setDefense(bonusDefense+baseDefense);
+            int bonusAttack = 0;
+            int bonusDefense = 0;
+            for (int i = 0; i < inventory.size(); i++) {
+                if (inventory.get(i) == null) { continue; }
+                    bonusAttack += inventory.get(i).attackIncrease();
+                    bonusDefense += inventory.get(i).defenseIncrease();
+            }
+            setAttack(bonusAttack+baseAttack);
+            setDefense(bonusDefense+baseDefense);
     }
     
     // ------- STATIC METHODS -------
 
     // Returns damage based off of two LivingGameEntity's stats.
     public static int calculateDamage(
-    		LivingGameEntity attacker, LivingGameEntity defender) {
+            LivingGameEntity attacker, LivingGameEntity defender) {
         return attacker.getBaseAttack() + 
-        		attacker.getAttack() - 
-        		defender.getDefense();
+                attacker.getAttack() - 
+                defender.getDefense();
     }
 
     // ------- SET AND GET METHODS -------
@@ -217,7 +217,7 @@ public class LivingGameEntity extends GameEntity {
     }
     
     public int getBaseAttack() {
-    	return baseAttack;
+        return baseAttack;
     }
 
     public int getAttackRange() {
@@ -225,24 +225,24 @@ public class LivingGameEntity extends GameEntity {
     }
     
     public ArrayList<Item> getInventory() {
-    	return inventory;
+        return inventory;
     }
     
     public int getLastXLocation() {
-    	return lastXLocation;
+        return lastXLocation;
     }
     
     public int getLastYLocation() {
-    	return lastYLocation;
+        return lastYLocation;
     }
     
-	public void setRoom(Room room) {
-		this.room = room;
-	}
-	
-	// This is here to make the abstract method stop complaining.
-	public Item getItem() {
-	    return null;
-	}
+    public void setRoom(Room room) {
+        this.room = room;
+    }
+    
+    // This is here to make the abstract method stop complaining.
+    public Item getItem() {
+        return null;
+    }
 
 }

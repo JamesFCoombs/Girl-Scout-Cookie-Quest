@@ -7,13 +7,13 @@ import edu.andover.cwong.gscq.model.items.Item;
 import edu.andover.cwong.gscq.model.items.PlainCookie;
 
 public class Player extends LivingGameEntity {
-	
-	// cookieCount keeps track of how many cookies the player has.
-	public int cookieCount = 0;
-	
-	// The list of cookieRecipes the player has.
-	private ArrayList<CookieRecipe> cookieList;
-	
+    
+    // cookieCount keeps track of how many cookies the player has.
+    public int cookieCount = 0;
+    
+    // The list of cookieRecipes the player has.
+    private ArrayList<CookieRecipe> cookieList;
+    
     public Player(int xLoc, int yLoc) {
         super(xLoc, yLoc);
         
@@ -34,34 +34,34 @@ public class Player extends LivingGameEntity {
     // Adds Item item to the player's inventory. If the item is a cookieRecipe,
     // it is also added to the cookieList.
     public boolean addItem(Item item) {
-    	if (item instanceof CookieRecipe) {
-    		addCookie((CookieRecipe) (item));
-    	}
-    	return super.addItem(item);
+        if (item instanceof CookieRecipe) {
+            addCookie((CookieRecipe) (item));
+        }
+        return super.addItem(item);
     }
     
     // Ads a cookieRecipe to the cookieList.
     public boolean addCookie(CookieRecipe cookieRecipe) {
-    	cookieList.add(cookieRecipe);
-    	return true;
+        cookieList.add(cookieRecipe);
+        return true;
     }
     // This removes the player from the game.
     public void remove() {
-    	super.remove();
+        super.remove();
     }
     
     // Moves the player. If the player moved, increments cookieCount.
     public boolean move(int direction) {
-    	boolean moved = super.move(direction);
-    	if (moved) {
-			int bonusCookies = 0;
-    		for (int i = 0; i < cookieList.size(); i++) {
-            	bonusCookies += cookieList.get(i).incrementCount();
-    		}
+        boolean moved = super.move(direction);
+        if (moved) {
+            int bonusCookies = 0;
+            for (int i = 0; i < cookieList.size(); i++) {
+                bonusCookies += cookieList.get(i).incrementCount();
+            }
             increaseCookiesCount(bonusCookies);
             return true;
-    	}
-    	return false;
+        }
+        return false;
     }
     
     // TODO FIX THIS
@@ -69,7 +69,7 @@ public class Player extends LivingGameEntity {
     @Deprecated
     public boolean openInventory(int input) {
         if (input == 5) {
-        	inventory.get(0).toggleEquip();
+            inventory.get(0).toggleEquip();
             setAttack(inventory.get(0).attackIncrease());
             setDefense(inventory.get(0).defenseIncrease());
         } else {
@@ -81,7 +81,7 @@ public class Player extends LivingGameEntity {
 
     // Increases cookieCount by a specified amount.
     public void increaseCookiesCount(int cookies) {
-    	cookieCount += cookies;
+        cookieCount += cookies;
     }
     
     public void decreaseCookieCount(int cookies) {
@@ -89,12 +89,12 @@ public class Player extends LivingGameEntity {
     }
     
     public int getCookieCount() {
-    	return cookieCount;
+        return cookieCount;
     }
     
     // The cookieList has all the cookies that the player currently has.
     public ArrayList<CookieRecipe> getCookieList() {
-    	return cookieList;
+        return cookieList;
     }
     
     // Removes all cookieRecipes from cookieList.

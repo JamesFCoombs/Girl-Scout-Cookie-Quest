@@ -4,7 +4,7 @@ import edu.andover.cwong.gscq.model.items.*;
 
 public class ItemEntity extends GameEntity {
 
-	// The identifier for this item.
+    // The identifier for this item.
     private String itemName;
     
     // The item this entity represents.
@@ -26,11 +26,11 @@ public class ItemEntity extends GameEntity {
     }
     
     public ItemEntity(int xLoc, int yLoc, int id) {
-    	xLocation = xLoc;
-    	yLocation = yLoc;
-    	itemName = randomItem(id);
-    	
-    	setThisItem();
+        xLocation = xLoc;
+        yLocation = yLoc;
+        itemName = randomItem(id);
+        
+        setThisItem();
     }
 
     // If something moves onto this ItemEntity, adds the appropriate item
@@ -54,59 +54,59 @@ public class ItemEntity extends GameEntity {
     
     // Sets this ItemEntity's item based off of its itemName.
     private void setThisItem() {
-    	if (itemName.equals("Badge")) {
-    		thisItem = new Badge();
-    	} else if (itemName.equals("Baton")) {
-    		thisItem = new Baton();
-    	}else if (itemName.equals("CookiePan")) {
-    		thisItem = new CookiePan();
-    	}else if (itemName.equals("Doll")) {
-    		thisItem = new Doll();
-    	}else if (itemName.equals("Hairbrush")) {
-    		thisItem = new Hairbrush();
-    	}else if (itemName.equals("Heel")) {
-    		thisItem = new Heel();
-    	}else if (itemName.equals("Lipstick")) {
-    		thisItem = new Lipstick();
-    	}else if (itemName.equals("Mascara")) {
-    		thisItem = new Mascara();
-    	}else if (itemName.equals("Purse")) {
-    		thisItem = new Purse();
-    	}else if (itemName.equals("Sash")) {
-    		thisItem = new Sash();
-    	}else if (itemName.equals("CootieShot")) {
-    		thisItem = new CootieShot();
-    	}else if (itemName.equals("PlainCookie")) {
-    		thisItem = new PlainCookie();
-    	}
-    	
+        if (itemName.equals("Badge")) {
+            thisItem = new Badge();
+        } else if (itemName.equals("Baton")) {
+            thisItem = new Baton();
+        }else if (itemName.equals("CookiePan")) {
+            thisItem = new CookiePan();
+        }else if (itemName.equals("Doll")) {
+            thisItem = new Doll();
+        }else if (itemName.equals("Hairbrush")) {
+            thisItem = new Hairbrush();
+        }else if (itemName.equals("Heel")) {
+            thisItem = new Heel();
+        }else if (itemName.equals("Lipstick")) {
+            thisItem = new Lipstick();
+        }else if (itemName.equals("Mascara")) {
+            thisItem = new Mascara();
+        }else if (itemName.equals("Purse")) {
+            thisItem = new Purse();
+        }else if (itemName.equals("Sash")) {
+            thisItem = new Sash();
+        }else if (itemName.equals("CootieShot")) {
+            thisItem = new CootieShot();
+        }else if (itemName.equals("PlainCookie")) {
+            thisItem = new PlainCookie();
+        }
+        
     }
     private String randomItem(int id) {
-    	if (id == 1) {
-    		return "Badge";
-    	} else if (id == 2) {
-    		return "Baton";
-    	}else if (id == 3) {
-    		return "CookiePan";
-    	}else if (id == 4) {
-    		return "Doll";
-    	}else if (id == 5) {
-    		return "Hairbrush";
-    	}else if (id == 6) {
-    		return "Heel";
-    	}else if (id == 7) {
-    		return "Lipstick";
-    	}else if (id == 8) {
-    		return "Mascara";
-    	}else if (id == 9) {
-    		return "Purse";
-    	}else if (id == 10) {
-    		return "Sash";
-    	} else if (id == 0) {
-    		return "PlainCookie";
-    	} else {
-    		return "";
-    	}
+        if (id == 1) {
+            return "Badge";
+        } else if (id == 2) {
+            return "Baton";
+        }else if (id == 3) {
+            return "CookiePan";
+        }else if (id == 4) {
+            return "Doll";
+        }else if (id == 5) {
+            return "Hairbrush";
+        }else if (id == 6) {
+            return "Heel";
+        }else if (id == 7) {
+            return "Lipstick";
+        }else if (id == 8) {
+            return "Mascara";
+        }else if (id == 9) {
+            return "Purse";
+        }else if (id == 10) {
+            return "Sash";
+        } else if (id == 0) {
+            return "PlainCookie";
+        } else {
+            return "";
+        }
     }
 
 }
