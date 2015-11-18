@@ -46,18 +46,10 @@ public class Game {
         this.updated = true;
     }
     
-<<<<<<< HEAD
     public boolean isGameOver() {
     	return gameOver;
     }
     
-    @Deprecated
-    public void seeInventory(int input) {
-        pc.openInventory(input);
-    }
-    
-=======
->>>>>>> 6e8f9a5d11a0c3c3c548cabdd086d2e239023716
     // This returns which tile a game entity (an item is on.
     // getters and setters
     public Tile getTile(int x, int y){
