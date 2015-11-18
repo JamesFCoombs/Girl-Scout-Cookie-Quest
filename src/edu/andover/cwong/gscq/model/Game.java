@@ -167,11 +167,15 @@ public class Game {
         setupFloor();
     }
 
+    // to exit shop, move down so you're not in the shop anymore and don't keep
+    // showing shop
     public void exitShop() {
         pc.move(3);
         showShop=false;
     }
-
+    
+    
+    // Used to interact with Shop
     public void addAttack(int i) {
         pc.incBaseAttack(i);
     }
