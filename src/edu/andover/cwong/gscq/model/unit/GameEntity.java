@@ -48,7 +48,6 @@ public abstract class GameEntity {
     // Moves the GameEntity back to where it was previously.
     public abstract void revertMovement();
     
-    public abstract Item getItem();
 
     // ------- CONVENIENCE METHODS -------
     

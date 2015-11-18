@@ -65,6 +65,7 @@ public class Player extends LivingGameEntity {
     	}
     	return false;
     }
+    
 
     // Increases cookieCount by a specified amount.
     public void increaseCookiesCount(int cookies) {
@@ -79,7 +80,7 @@ public class Player extends LivingGameEntity {
     	return cookieCount;
     }
     
-    //The cookieList has all the cookies that the player currently has.
+    // The cookieList has all the cookies that the player currently has.
     public ArrayList<CookieRecipe> getCookieList() {
     	return cookieList;
     }

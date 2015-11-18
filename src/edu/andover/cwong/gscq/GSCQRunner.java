@@ -30,6 +30,8 @@ import edu.andover.cwong.gscq.model.items.Item;
 
 // The "master" class - exists outside of MVC. Coordinates the three and handles
 // file IO for the various FXML (view) files.
+// Cam: I put a lot of things that involve spawning windows (etc) in this file
+// because I would prefer to keep all the IO in one place
 public class GSCQRunner extends Application {
     // JFX-related stage/scene things
     private Stage primaryStage;
@@ -77,13 +79,18 @@ public class GSCQRunner extends Application {
         }
     }
     
+    // Sets up the inventory display that shows everything you're holding.
     public void displayInventory(List<Item> items) {
+        // This is where java's supposed new "functional programming" stuff gets
+        // pretty nasty. This entire block of code is essentially map();
         Stream<String> strings = items.stream().map(
                 i -> String.format(
                         "%s\t\t%s",
                         i.getItemID(), i.getDescription()
                 )
         );
+        // This is because JFX requires you to use their own janky list format
+        // to get listview to display them properly.
         ObservableList<String> ol = FXCollections.observableList(
                 strings.collect(Collectors.toList())
         );
@@ -107,6 +114,7 @@ public class GSCQRunner extends Application {
         }
     }
     
+    // Display the control dialog
     public void displayControls() {
         try {
             FXMLLoader loader = new FXMLLoader(GSCQRunner.class.getResource(
@@ -126,7 +134,10 @@ public class GSCQRunner extends Application {
         }
     }
     
+    // Create and display the minimap dialog.
     public void displayMinimap(ImageView map) {
+        // This block of code basically just takes the map image that our
+        // GameViewer instance uses, shrinks it, and uses it as a minimap.
         Image mapImage = map.getImage();
         ImageView minimapView = new ImageView(mapImage);
         minimapView.setPreserveRatio(true);
@@ -152,6 +163,7 @@ public class GSCQRunner extends Application {
         }
     }
     
+    // Display the shop dialog.
     public void displayShop(){
         try {
             // Load layout from fxml file.
@@ -165,7 +177,7 @@ public class GSCQRunner extends Application {
             v.setOwner(state);
             v.setRunner(this);
 
-            // Show the scene containing the end layout.
+            // Show the scene containing the shop layout.
             Scene scene = new Scene(shopLayout);
             primaryStage.setScene(scene);
             primaryStage.show();
@@ -220,7 +232,9 @@ public class GSCQRunner extends Application {
         }
     }
     
+    // Change the scene to display a game over
     public void displayGameOver() {
+        // This prevents the issue with the endlayout getting loaded 60 times/s
         if (over) { return; }
         try {
             FXMLLoader loader = new FXMLLoader(GSCQRunner.class.getResource(

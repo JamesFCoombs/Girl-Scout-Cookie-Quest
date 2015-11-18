@@ -21,6 +21,7 @@ public class ItemEntity extends GameEntity {
         setThisItem();
     }
     
+    // returns the item. used in view to check item type
     public Item getItem(){
         return thisItem;
     }

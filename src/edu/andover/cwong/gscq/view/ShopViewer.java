@@ -5,19 +5,23 @@ import edu.andover.cwong.gscq.model.Game;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
+// javafx controller for shop view
 public class ShopViewer {
     
-    //holds reference to the runner and the Game
+    // holds reference to the runner and the Game
+    // sets price for items in the store
     private GSCQRunner runner;
     private Game owner;
     private static final int PRICE=50;
     
+    // Labels. price: price of the stats, cookies: your money/how many cookies
+    // you have to spend.
     @FXML
     private Label price;
-    
     @FXML
     private Label cookies;
 
+    // the exit shop button
     @FXML
     private void handleExit(){
         owner.exitShop();
@@ -25,6 +29,7 @@ public class ShopViewer {
         runner.initContainer();
     }
 
+    // purchase attack stat (tied to a button)
     @FXML 
     private void buyAttack(){
         if (owner.canBuy(PRICE)){
@@ -34,6 +39,7 @@ public class ShopViewer {
         }
     }
 
+    // purchase defense stat (tied to a button)
     @FXML 
     private void buyDefense(){
         if (owner.canBuy(PRICE)){
@@ -43,6 +49,7 @@ public class ShopViewer {
         }
     }
 
+    // purchase health stat (tied to a button)
     @FXML 
     private void buyHealth(){
         if (owner.canBuy(PRICE)){
@@ -52,19 +59,23 @@ public class ShopViewer {
         }
     }
     
+    // initialize changes the price label
     @FXML
     private void initialize(){
         price.setText(Integer.toString(PRICE));
     }
     
+    // used in the exit to set scene back to the game
     public void setRunner(GSCQRunner r) {
         this.runner = r;
     }
     
+    // refreshes the number fo cookies (called after purchase)
     public void refresh(){
         cookies.setText(owner.formatCookieCount());
     }
     
+    // used to change number of cookies player has
     public void setOwner(Game g) {
         this.owner = g;
     }

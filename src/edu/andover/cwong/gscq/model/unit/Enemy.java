@@ -78,7 +78,6 @@ public class Enemy extends LivingGameEntity{
 		// player.
 		} else if (room.isInRoom(player)) {
 			// Moves towards the player.
-			System.out.println(xLocation + ", " + yLocation);
 			if (player.getXLoc() > xLocation) {
 				move(2);
 			} else if (player.getXLoc() < xLocation) {

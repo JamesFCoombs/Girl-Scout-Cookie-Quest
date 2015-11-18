@@ -3,6 +3,7 @@ package edu.andover.cwong.gscq.tests;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
+// unit tests
 public class GSCQTest {
 	@Test 
 	public void everyTileConnectsToAtLeastOneOtherTile() {

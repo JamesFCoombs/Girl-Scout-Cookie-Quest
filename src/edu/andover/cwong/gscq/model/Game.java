@@ -96,23 +96,24 @@ public class Game {
     
     // This gets the player's inventory.
     public ArrayList<Item> getInventory() { 
-    //  System.out.println(pc.getInventory());
         return pc.getInventory(); 
     }
 
     // This gets the player's list of cookies.
     public ArrayList<CookieRecipe> getCookieList() { 
-        System.out.println(pc.getCookieList());
         return pc.getCookieList(); 
     } 
-
+    
+    // Move to the next floor
     private void nextFloor() {
         int x = 40 + currentLevel * 10;
         currFloor.generateFloor(x, x);
         setupFloor();
         currentLevel += 1;
     }
-
+    
+    // Sets up the current floor, generating it and figuring out the spawn point
+    // of the player. Also sets up initial enemy and item spawns.
     private void setupFloor() {
         int i = 0;
         boolean isItem;
@@ -164,11 +165,15 @@ public class Game {
         setupFloor();
     }
 
+    // to exit shop, move down so you're not in the shop anymore and don't keep
+    // showing shop
     public void exitShop() {
         pc.move(3);
         showShop=false;
     }
-
+    
+    
+    // Used to interact with Shop
     public void addAttack(int i) {
         pc.incBaseAttack(i);
     }
