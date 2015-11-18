@@ -53,6 +53,11 @@ public class GameViewer {
     @FXML
     public void displayControls() { runner.displayControls(); }
     
+    @FXML
+    public void displayInventory() {
+        
+    }
+    
     public void setupFloorView() {
         Image floorView = FloorViewBuilder.constructImage(owner.currentFloor());
         for (GameEntity[] row : owner.getEntities()) {
