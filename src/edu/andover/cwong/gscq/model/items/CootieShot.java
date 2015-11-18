@@ -7,7 +7,7 @@ public class CootieShot extends Item {
 	}
 	
 	public String getDescription() {
-		return "Protects against cooties!\n+2 health.";
+		return "Protects against cooties! +2 health.";
 	}
 
 	public int attackIncrease() {

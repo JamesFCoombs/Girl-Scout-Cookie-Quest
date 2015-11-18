@@ -13,7 +13,7 @@ public abstract class GameEntity {
     // A reference to the Player for all other classes to refer to.
     public static Player player;
 
-    // The floor this GameEntity is curretnly on.
+    // The floor this GameEntity is currently on.
     protected Floor curFloor;
     protected Tile[][] floorTiles;
 

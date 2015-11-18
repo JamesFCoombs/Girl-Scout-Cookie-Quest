@@ -7,7 +7,7 @@ public class Doll extends Item{
 	}
 
 	public String getDescription() {
-		return "The aura of the doll\n protects you./n+10 defense";
+		return "The aura of the doll protects you. +10 defense";
 	}
 
 	public int attackIncrease() {

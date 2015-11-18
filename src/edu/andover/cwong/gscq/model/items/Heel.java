@@ -7,7 +7,7 @@ public class Heel extends Item{
 	}
 	
 	public String getDescription() {
-		return "Gains 8 extra attack\nwhen equipped.";
+		return "Gains 8 extra attack when equipped.";
 	}
 
 	public int attackIncrease() {

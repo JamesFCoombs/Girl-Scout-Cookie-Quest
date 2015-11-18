@@ -22,8 +22,7 @@ public class Enemy extends LivingGameEntity{
 		super(xLoc, yLoc);
 		initializeMaxHealth(hp);
 		setDefense(def);
-		setAttack(att);
-		incBaseAttack(BASE_ATTACK);
+		incBaseAttack(BASE_ATTACK + att);
 		setAttackRange(attRange);
 	}
 	
@@ -49,7 +48,10 @@ public class Enemy extends LivingGameEntity{
 	}
 	
 	// Searches for the player.
-	@Deprecated
+	@Deprecated //Deprecated because it was causing errors where the enemies
+	// would teleport across a room, and move multiple times in a single
+	// update. CalculatePathing() was originally designed for the enemies
+	// to move towards the player.
 	private void calculatePathing() {
 		// If the enemy is in a hallway, continues moving down the hall.
 		if (room == null) {

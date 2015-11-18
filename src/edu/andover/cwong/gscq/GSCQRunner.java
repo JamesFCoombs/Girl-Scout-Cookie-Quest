@@ -1,5 +1,10 @@
 package edu.andover.cwong.gscq;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.stream.Stream;
+import java.util.stream.Collectors;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.animation.KeyFrame;
@@ -10,15 +15,18 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import javafx.util.Duration;
-import java.io.IOException;
+import javafx.collections.ObservableList;
+import javafx.collections.FXCollections;
 
 import edu.andover.cwong.gscq.view.GameViewer;
 import edu.andover.cwong.gscq.view.ShopViewer;
 import edu.andover.cwong.gscq.control.KeyController;
 import edu.andover.cwong.gscq.model.Game;
+import edu.andover.cwong.gscq.model.items.Item;
 
 // The "master" class - exists outside of MVC. Coordinates the three and handles
 // file IO for the various FXML (view) files.
@@ -69,6 +77,35 @@ public class GSCQRunner extends Application {
         }
     }
     
+    public void displayInventory(List<Item> items) {
+        Stream<String> strings = items.stream().map(
+                i -> String.format(
+                        "%s\t\t%s",
+                        i.getItemID(), i.getDescription()
+                )
+        );
+        ObservableList<String> ol = FXCollections.observableList(
+                strings.collect(Collectors.toList())
+        );
+        ListView<String> lv = new ListView<>(ol);
+        try {
+            FXMLLoader loader = new FXMLLoader(GSCQRunner.class.getResource(
+                    "view/InventoryFrame.fxml"
+            ));
+            BorderPane dialog = loader.load();
+            dialog.setCenter(lv);
+            Stage s = new Stage();
+            s.setTitle("Inventory");
+            s.initModality(Modality.WINDOW_MODAL);
+            s.initOwner(primaryStage);
+            s.setScene(new Scene(dialog));
+            s.showAndWait();
+        }
+        catch(IOException e) {
+            System.err.println("Unable to load inventory display. Skipping.");
+            return;
+        }
+    }
     
     public void displayControls() {
         try {
@@ -103,7 +140,7 @@ public class GSCQRunner extends Application {
             sp.setContent(minimapView);
             dialog.setCenter(sp);
             Stage s = new Stage();
-            s.setTitle("map");
+            s.setTitle("Map");
             s.initModality(Modality.WINDOW_MODAL);
             s.initOwner(primaryStage);
             s.setScene(new Scene(dialog));
@@ -134,8 +171,8 @@ public class GSCQRunner extends Application {
             primaryStage.show();
             v.refresh();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            System.err.println("Unable to load shop screen. Aborting.");
+            System.exit(-8);
         }
 
     }

@@ -7,7 +7,7 @@ public class Purse extends Item {
 	}
 	
 	public String getDescription() {
-		return "Gain 1 attack\nwhen equipped.";
+		return "Gain 1 attack when equipped.";
 	}
 
 	public int attackIncrease() {

@@ -7,7 +7,7 @@ public class Baton extends Item {
 	}
 
 	public String getDescription() {
-		return "Whack them across\nthe head!\n+9 attack.";
+		return "Whack them across the head! +9 attack.";
 	}
 
 	public int attackIncrease() {

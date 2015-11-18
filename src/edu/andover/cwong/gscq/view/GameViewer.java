@@ -56,11 +56,13 @@ public class GameViewer {
     public void displayControls() { runner.displayControls(); }
     @FXML
     public void displayInventory() {
-        
+        runner.displayInventory(owner.getInventory());
     }
     
     public void setupFloorView() {
         Image floorView = FloorViewBuilder.constructImage(owner.currentFloor());
+        sprites = new ArrayList<EntitySprite>();
+        spriteView.getChildren().clear();
         for (GameEntity[] row : owner.getEntities()) {
             for (GameEntity ge : row) {
                 if (ge != null) {

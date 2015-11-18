@@ -7,7 +7,7 @@ public class CookiePan extends Item{
 	}
 	
 	public String getDescription() {
-		return "WHAM!!\n+6 attack.";
+		return "WHAM!! +6 attack.";
 	}
 
 	public int attackIncrease() {
