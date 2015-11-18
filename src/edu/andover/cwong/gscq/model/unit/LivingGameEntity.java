@@ -240,9 +240,19 @@ public class LivingGameEntity extends GameEntity {
 	public void setRoom(Room room) {
 		this.room = room;
 	}
+<<<<<<< HEAD
+
+	@Override
+	public Item getItem() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+=======
 	
 	// This is here to make the abstract method stop complaining.
 	public Item getItem() {
 	    return null;
 	}
+>>>>>>> 6e8f9a5d11a0c3c3c548cabdd086d2e239023716
 }

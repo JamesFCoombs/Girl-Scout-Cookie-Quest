@@ -46,6 +46,18 @@ public class Game {
         this.updated = true;
     }
     
+<<<<<<< HEAD
+    public boolean isGameOver() {
+    	return gameOver;
+    }
+    
+    @Deprecated
+    public void seeInventory(int input) {
+        pc.openInventory(input);
+    }
+    
+=======
+>>>>>>> 6e8f9a5d11a0c3c3c548cabdd086d2e239023716
     // This returns which tile a game entity (an item is on.
     // getters and setters
     public Tile getTile(int x, int y){
@@ -177,15 +189,19 @@ public class Game {
     public void addAttack(int i) {
         pc.incBaseAttack(i);
     }
+    
     public void addDefense(int i){
         pc.incBaseDefense(i);
     }
+    
     public void addHealth(int i){
         pc.incHealthStat(i);
     }
+    
     public void spendCookies(int i){
         pc.decreaseCookieCount(i);
     }
+    
     public boolean canBuy(int i){
         if (pc.getCookieCount()>i){ return true; }
         return false;
