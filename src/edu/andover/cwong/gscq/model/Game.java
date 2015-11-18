@@ -141,7 +141,7 @@ public class Game {
     }
     
     private ItemEntity randomGenerateItem(int spawnX, int spawnY) {
-    	return new ItemEntity(spawnX, spawnY, (int) (Math.random() * 11));
+    	return new ItemEntity(spawnX, spawnY, (int) (Math.random() * 86));
     }
     
     // Initialize the first floor

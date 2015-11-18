@@ -83,27 +83,27 @@ public class ItemEntity extends GameEntity {
     	
     }
     private String randomItem(int id) {
-    	if (id == 1) {
+    	if (id <= 10) {
     		return "Badge";
-    	} else if (id == 2) {
+    	} else if (id <= 12) {
     		return "Baton";
-    	}else if (id == 3) {
+    	}else if (id <= 16) {
     		return "CookiePan";
-    	}else if (id == 4) {
+    	}else if (id <= 18) {
     		return "Doll";
-    	}else if (id == 5) {
+    	}else if (id <= 28) {
     		return "Hairbrush";
-    	}else if (id == 6) {
+    	}else if (id <= 34) {
     		return "Heel";
-    	}else if (id == 7) {
+    	}else if (id <= 38) {
     		return "Lipstick";
-    	}else if (id == 8) {
+    	}else if (id <= 46) {
     		return "Mascara";
-    	}else if (id == 9) {
+    	}else if (id <= 60) {
     		return "Purse";
-    	}else if (id == 10) {
+    	}else if (id <= 75) {
     		return "Sash";
-    	} else if (id == 0) {
+    	} else if (id <= 85) {
     		return "PlainCookie";
     	} else {
     		return "";
