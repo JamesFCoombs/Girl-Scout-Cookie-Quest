@@ -85,10 +85,9 @@ public class LivingGameEntity extends GameEntity {
 
     // Takes a certain amount away from the LivingGameEntity's current health.
     public void takeDamage(int dmg) {
+        if (dmg <= 0) { return; }
         curHealth -= dmg;
-        if (curHealth <= 0) {
-            remove();
-        }
+        if (curHealth <= 0) { remove(); }
     }
 
     // Returns true if this LivingGameEntity is in range to attack
