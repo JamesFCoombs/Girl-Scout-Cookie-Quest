@@ -20,6 +20,10 @@ public class ItemEntity extends GameEntity {
         setThisItem();
     }
     
+    public Item getItem(){
+        return thisItem;
+    }
+    
     public ItemEntity(int xLoc, int yLoc, int id) {
     	xLocation = xLoc;
     	yLocation = yLoc;

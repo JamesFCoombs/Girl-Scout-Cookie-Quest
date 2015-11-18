@@ -10,7 +10,7 @@ public class ShopViewer {
     //holds reference to the runner and the Game
     private GSCQRunner runner;
     private Game owner;
-    private final int PRICE=50;
+    private static final int PRICE=50;
     
     @FXML
     private Label price;

@@ -42,6 +42,7 @@ public class Game {
             currFloor.step();
             if (pc.getCurHealth() <= 0) { gameOver = true; }
         }
+        pc.update();
         this.updated = true;
     }
     
