@@ -4,6 +4,8 @@ import edu.andover.cwong.gscq.model.items.Item;
 import edu.andover.cwong.gscq.model.nav.Floor;
 import edu.andover.cwong.gscq.model.nav.Tile;
 
+// GameEntity is anything that appears on the map, with a coordinate location
+// and actions specific to each subclass.
 public abstract class GameEntity {
 	
 	// The x and y location of this GameEntity.

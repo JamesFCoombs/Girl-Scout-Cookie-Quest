@@ -46,11 +46,6 @@ public class Game {
         this.updated = true;
     }
     
-    @Deprecated
-    public void seeInventory(int input) {
-        pc.openInventory(input);
-    }
-    
     // This returns which tile a game entity (an item is on.
     // getters and setters
     public Tile getTile(int x, int y){
