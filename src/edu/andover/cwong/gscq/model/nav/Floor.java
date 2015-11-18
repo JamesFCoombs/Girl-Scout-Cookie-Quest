@@ -90,7 +90,6 @@ public class Floor {
     	// If there is a unit on the tile, have the entity 
     	// deal with the collision.
     	if (units[yLoc][xLoc] != null) {
-    		System.out.println("3");
     		units[yLoc][xLoc].dealWithCollision(lge);
     	} 
     	// If the tile is now null, move the unit to the new tile, and clear the
@@ -114,7 +113,6 @@ public class Floor {
         if (units[ge.getYLoc()][ge.getXLoc()] != ge) {
             throw new IllegalArgumentException("This unit doesn't exist!");
         }
-        System.out.println("2");
         units[ge.getYLoc()][ge.getXLoc()] = null;
         ge.setXLoc(-1);
         ge.setYLoc(-1);
