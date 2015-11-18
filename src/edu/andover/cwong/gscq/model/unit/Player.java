@@ -98,7 +98,7 @@ public class Player extends LivingGameEntity {
     	return cookieList;
     }
     
-    // Removes all cookieRecipes from cookieList
+    // Removes all cookieRecipes from cookieList.
     public void removeCookies() {super.remove();
         for (int i = 0; i < cookieList.size(); i++) {
             getCurFloor().addGameEntity(new ItemEntity(

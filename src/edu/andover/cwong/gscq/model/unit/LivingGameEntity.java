@@ -117,7 +117,7 @@ public class LivingGameEntity extends GameEntity {
     // If two LivingGameEntities try to occupy the same tile, the one who
     // has moved damages this one.
     public void dealWithCollision(LivingGameEntity other) {
-    	takeDamage(calculateDamage(this, other));
+    	takeDamage(calculateDamage(other, this));
     	if (curHealth > 0) {
     		other.revertMovement();
     	}
@@ -131,19 +131,15 @@ public class LivingGameEntity extends GameEntity {
     
     // Updates the LivingGameEntity's stats based off of its equipped items.
     public void update() {
-//        if (inventory.size() > 0) {
         	int bonusAttack = 0;
         	int bonusDefense = 0;
         	for (int i = 0; i < inventory.size(); i++) {
         	    if (inventory.get(i) == null) { continue; }
-//        		if (inventory.get(i).isEquipped()) {
         			bonusAttack += inventory.get(i).attackIncrease();
         			bonusDefense += inventory.get(i).defenseIncrease();
-//        		}
         	}
         	setAttack(bonusAttack+baseAttack);
         	setDefense(bonusDefense+baseDefense);
-//        }
     }
     
     // ------- STATIC METHODS -------
