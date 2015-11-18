@@ -49,9 +49,7 @@ public class GameViewer {
     private AnchorPane spriteView;
     
     @FXML
-    public void displayMinimap() {
-        runner.displayMinimap(this.mapView);
-    }
+    public void displayMinimap() { runner.displayMinimap(this.mapView); }
     @FXML
     public void displayControls() { runner.displayControls(); }
     @FXML
@@ -59,6 +57,9 @@ public class GameViewer {
         runner.displayInventory(owner.getInventory());
     }
     
+    // Constructs the image "floorview" of the current floor, and attaches
+    // each GameEntity to an EntitySprite so we can easily update everything at
+    // once.
     public void setupFloorView() {
         Image floorView = FloorViewBuilder.constructImage(owner.currentFloor());
         sprites = new ArrayList<EntitySprite>();
@@ -78,6 +79,7 @@ public class GameViewer {
         refreshEntities();
     }
     
+    // Change the map to display correctly relative to the player.
     public void refreshMapview() {
         int tlX = owner.getPlayerXLoc() * ViewConstants.TILE_DIMENSIONS;
         int tlY = (owner.getPlayerYLoc()-1) * ViewConstants.TILE_DIMENSIONS;
@@ -100,6 +102,7 @@ public class GameViewer {
         }
     }
     
+    // Update everything as per a game "step"
     public void updateFrame() {
         for (EntitySprite s : this.sprites) { s.refresh(); }
         if (this.displayedFloor != owner.getCurrentLevel()) {
@@ -108,6 +111,7 @@ public class GameViewer {
         }
     }
     
+    // Make sure the HUD is always current with the model state.
     public void refreshHUD() {
         hpLabel.setText(owner.formatPlayerHP());
         atkLabel.setText(owner.formatPlayerAtk());

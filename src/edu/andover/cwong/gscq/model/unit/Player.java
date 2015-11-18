@@ -6,6 +6,8 @@ import edu.andover.cwong.gscq.model.items.CookieRecipe;
 import edu.andover.cwong.gscq.model.items.Item;
 import edu.andover.cwong.gscq.model.items.PlainCookie;
 
+// The player is user's representation in the game. Main difference from LGE is
+// that the player collects cookies on movement.
 public class Player extends LivingGameEntity {
 	
 	// cookieCount keeps track of how many cookies the player has.
@@ -64,21 +66,6 @@ public class Player extends LivingGameEntity {
     	return false;
     }
     
-    // TODO FIX THIS
-    // Equips the first item in the inventory.
-    @Deprecated
-    public boolean openInventory(int input) {
-        if (input == 5) {
-        	System.out.println(inventory.get(0));
-        	inventory.get(0).toggleEquip();
-            setAttack(inventory.get(0).attackIncrease());
-            setDefense(inventory.get(0).defenseIncrease());
-        } else {
-            throw new IllegalArgumentException(
-                "Invalid direction for LGE movement");
-        }
-        return true;
-    }
 
     // Increases cookieCount by a specified amount.
     public void increaseCookiesCount(int cookies) {
@@ -93,7 +80,7 @@ public class Player extends LivingGameEntity {
     	return cookieCount;
     }
     
-    //The cookieList has all the cookies that the player currently has.
+    // The cookieList has all the cookies that the player currently has.
     public ArrayList<CookieRecipe> getCookieList() {
     	return cookieList;
     }

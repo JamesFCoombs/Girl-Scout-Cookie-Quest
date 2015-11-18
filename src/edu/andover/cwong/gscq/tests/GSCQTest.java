@@ -6,6 +6,7 @@ import org.junit.Test;
 import edu.andover.cwong.gscq.model.Game;
 import edu.andover.cwong.gscq.model.unit.Player;
 
+// unit tests
 public class GSCQTest {
 	
 	private Player pc;

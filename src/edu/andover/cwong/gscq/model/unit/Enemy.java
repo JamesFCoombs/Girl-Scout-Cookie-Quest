@@ -1,5 +1,6 @@
 package edu.andover.cwong.gscq.model.unit;
 
+// Enemy is designed to attack the player.
 public class Enemy extends LivingGameEntity{
 	
 	// All enemy's have a base attack of 3.
@@ -77,7 +78,6 @@ public class Enemy extends LivingGameEntity{
 		// player.
 		} else if (room.isInRoom(player)) {
 			// Moves towards the player.
-			System.out.println(xLocation + ", " + yLocation);
 			if (player.getXLoc() > xLocation) {
 				move(2);
 			} else if (player.getXLoc() < xLocation) {

@@ -2,6 +2,7 @@ package edu.andover.cwong.gscq.model.unit;
 
 import edu.andover.cwong.gscq.model.items.*;
 
+// ItemEntity is the representation of an item on the map.
 public class ItemEntity extends GameEntity {
 
 	// The identifier for this item.
@@ -20,6 +21,7 @@ public class ItemEntity extends GameEntity {
         setThisItem();
     }
     
+    // returns the item. used in view to check item type
     public Item getItem(){
         return thisItem;
     }
