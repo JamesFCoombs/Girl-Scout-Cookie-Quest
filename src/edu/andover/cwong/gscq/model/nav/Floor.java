@@ -130,4 +130,95 @@ public class Floor {
         ge.setFloor(this);
         return true;
     }
+  
+    // Generates a new floor.
+    public void generateFloor(int width, int height) {
+        
+        // Creates a new map for this floor.
+        units = new GameEntity[height][width];
+        floorTiles = new Tile[height][width];
+        int[][] floorTilesCreator;
+        // Make a grid of ints for the map to cast from
+        floorTilesCreator = FloorFactory.createFloor(width, height);
+        
+        // Takes the generated int grid and applies it to the map.
+        for (int i = 0; i < floorTiles.length; i++) {
+            for (int j = 0; j < floorTiles[0].length; j++) {
+                if (floorTilesCreator[i][j] == 0) {
+                    floorTiles[i][j] = WALL;
+                } else if (floorTilesCreator[i][j] == 1) {
+                    floorTiles[i][j] = PATH;
+                } else if (floorTilesCreator[i][j] == 2) {
+                    floorTiles[i][j] = ROOM;
+                } else {
+                    throw new IllegalArgumentException(
+                            "Floor Generation messed up.");
+                }
+            }
+        }
+        
+        // Determines which room the player spawns in, which
+        // room the shop spawns in, and which room the exit
+        // spawns in.
+        Room playerRoom;
+        Room shopRoom;
+        Room exitRoom;
+        
+        int spawnX;
+        int spawnY;
+        
+        // Chooses a room for the Player to spawn in.
+        playerRoom = roomsOnFloor.get((int) (Math.random() * roomsOnFloor.size()));
+        
+        // Chooses a room for the shop to spawn in.
+        do {
+            shopRoom = roomsOnFloor.get((int) (Math.random() * roomsOnFloor.size()));
+        } while (shopRoom == playerRoom);
+        
+        // Chooses a room for the exit to spawn in.
+        do {
+            exitRoom = roomsOnFloor.get((int) (Math.random() * roomsOnFloor.size()));
+        } while (exitRoom == playerRoom || exitRoom == shopRoom);
+        
+        // Spawns the player in the specified room.
+        spawnX = playerRoom.getTLTX() + 
+                ((int) (Math.random() * playerRoom.getWidth()));
+        spawnY = playerRoom.getTLTY() +
+                ((int) (Math.random() * playerRoom.getHeight()));
+        
+        // Places the player.
+        units[spawnY][spawnX] = GameEntity.player;
+        GameEntity.player.setXLoc(spawnX);
+        GameEntity.player.setYLoc(spawnY);
+        
+        // Spawns the exit in the specified room.
+        spawnX = exitRoom.getTLTX() + 
+                ((int) (Math.random() * exitRoom.getWidth()));
+        spawnY = exitRoom.getTLTY() +
+                ((int) (Math.random() * exitRoom.getHeight()));
+        
+        // Places the exit.
+        floorTiles[spawnY][spawnX] = EXIT;
+        
+        // Spawns the shop in the specified room.
+        spawnX = (shopRoom.getTLTX() + shopRoom.getTRTX()) / 2;
+        spawnY = shopRoom.getTLTY();
+        
+        // Places the shop.
+        floorTiles[spawnY][spawnX] = SHOP;
+    }
+    
+    // Determines which room the given coordinates are in. 
+    // Returns null otherwise.
+    private Room determineRoom(int x, int y) {
+        for (int i = 0; i < roomsOnFloor.size(); i++) {
+            Room room = roomsOnFloor.get(i);
+            if (x > room.getTLTX() && x < room.getTRTX() &&
+                    y > room.getTRTY() && y < room.getBRTY()) {
+                return room;
+            }
+        }
+        return null;
+    }
+
 }
